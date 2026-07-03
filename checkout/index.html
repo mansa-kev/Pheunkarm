@@ -5,178 +5,537 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Metadata -->
-  <title>Payment Portal - Pheunkarm Trading Academy</title>
+  <title>Secure Checkout - Pheunkarm Trading Academy</title>
   
   <!-- Style Link (Root Relative) -->
   <link rel="stylesheet" href="/style.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      background-color: var(--color-light);
-      color: var(--color-text-main);
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #0b0f19;
     }
+
+    /* ── Background ── */
+    .checkout-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .checkout-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      filter: brightness(0.3);
+      z-index: 0;
+    }
+
+    .checkout-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(11,15,25,0.7) 0%, rgba(23,85,117,0.4) 50%, rgba(11,15,25,0.85) 100%);
+      z-index: 1;
+    }
+
+    /* ── Top SSL Bar ── */
+    .ssl-bar {
+      position: relative;
+      z-index: 10;
+      background: rgba(23,85,117,0.95);
+      color: #fff;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+    }
+
+    .ssl-bar i {
+      margin-right: 6px;
+      color: #4ade80;
+    }
+
+    /* ── Layout ── */
     .checkout-wrapper {
-      padding: 4rem 0;
-      min-height: 80vh;
+      position: relative;
+      z-index: 10;
+      min-height: calc(100vh - 40px);
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 3rem 1.5rem;
     }
+
+    /* ── Card ── */
     .checkout-card {
-      background-color: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 3rem;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(23,85,117,0.15);
+      border-radius: 16px;
+      padding: 0;
       width: 100%;
-      max-width: 580px;
-      box-shadow: 0 15px 40px rgba(23,85,117,0.06);
+      max-width: 520px;
+      box-shadow:
+        0 25px 60px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      overflow: hidden;
     }
-    .checkout-header {
+
+    /* ── Card Header ── */
+    .checkout-card-header {
+      background: linear-gradient(135deg, #175575, #0f3d56);
+      padding: 2rem 2.5rem;
       text-align: center;
-      margin-bottom: 2rem;
+      position: relative;
     }
-    .checkout-header .logo-icon {
-      margin: 0 auto 1rem auto;
+
+    .checkout-card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ffa322, #ff6b35, #ffa322);
     }
-    .checkout-header h1 {
-      font-size: 1.75rem;
-      color: var(--color-primary);
+
+    .checkout-card-header .logo-text {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
       margin-bottom: 0.5rem;
     }
-    .order-summary {
-      background-color: var(--color-light);
-      border: 1px solid var(--color-border);
-      border-radius: 6px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+
+    .checkout-card-header h1 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 0;
+      font-weight: 800;
     }
+
+    .checkout-card-header p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.85rem;
+      margin: 0.5rem 0 0 0;
+    }
+
+    /* ── Card Body ── */
+    .checkout-card-body {
+      padding: 2rem 2.5rem 2.5rem;
+    }
+
+    /* ── Order Summary ── */
+    .order-summary {
+      background: linear-gradient(135deg, #f0f7fb, #e8f4f8);
+      border: 1px solid rgba(23,85,117,0.12);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
     .order-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+      font-size: 0.88rem;
+      color: #4a5568;
     }
+
     .order-row:last-child {
       margin-bottom: 0;
       padding-top: 0.75rem;
-      border-top: 1px solid var(--color-border);
-      font-weight: 700;
-      color: var(--color-primary);
-      font-size: 1.1rem;
+      border-top: 2px solid rgba(23,85,117,0.15);
+      font-weight: 800;
+      color: #175575;
+      font-size: 1.15rem;
     }
+
+    .order-row span:first-child {
+      font-weight: 500;
+    }
+
+    .order-row span:last-child {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .order-row:last-child span:last-child {
+      color: #175575;
+    }
+
+    /* ── Form Fields ── */
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
     }
+
     .form-group label {
       display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: var(--color-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: #2d3748;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .form-group input, .form-group select {
+
+    .form-group input,
+    .form-group select {
       width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
       font-size: 0.95rem;
-      background-color: var(--color-white);
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1a1a2e;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none;
     }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #175575;
+      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
+    }
+
+    .form-group input::placeholder {
+      color: #a0aec0;
+    }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-    .gateway-notice {
+
+    /* ── Custom Amount Field ── */
+    .custom-amount-group {
+      display: none;
+      margin-bottom: 1.15rem;
+    }
+
+    .custom-amount-group.visible {
+      display: block;
+      animation: fadeSlideDown 0.3s ease;
+    }
+
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .custom-amount-group .amount-input-wrapper {
+      position: relative;
+    }
+
+    .custom-amount-group .amount-input-wrapper::before {
+      content: '$';
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #175575;
+    }
+
+    .custom-amount-group input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      color: #175575;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .custom-amount-group input:focus {
+      outline: none;
+      border-color: #175575;
+      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
+    }
+
+    /* ── Security Badge ── */
+    .security-badge {
       display: flex;
+      align-items: center;
       gap: 0.75rem;
-      background-color: rgba(255, 163, 34, 0.05);
-      border: 1px solid rgba(255, 163, 34, 0.15);
-      border-radius: 6px;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.8rem;
+      color: #718096;
+    }
+
+    .security-badge i {
+      color: #4ade80;
+      font-size: 1.1rem;
+    }
+
+    /* ── Submit Button ── */
+    .checkout-submit-btn {
+      width: 100%;
       padding: 1rem;
-      font-size: 0.85rem;
-      margin-bottom: 2rem;
-      line-height: 1.5;
+      background: linear-gradient(135deg, #175575, #0f3d56);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.3px;
     }
-    .gateway-notice i {
-      color: var(--color-cta);
-      font-size: 1.25rem;
-      margin-top: 0.1rem;
+
+    .checkout-submit-btn:hover {
+      background: linear-gradient(135deg, #1a6a8f, #175575);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(23,85,117,0.35);
     }
-    /* Modal styles for 3DS OTP */
+
+    .checkout-submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .checkout-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .checkout-submit-btn i {
+      margin-right: 8px;
+    }
+
+    /* ── Card Brand Icons Row ── */
+    .card-brands {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+      opacity: 0.5;
+    }
+
+    .card-brands i {
+      font-size: 1.75rem;
+      color: #4a5568;
+    }
+
+    /* ── OTP Modal ── */
     .otp-modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(17, 24, 39, 0.6);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(11,15,25,0.7);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(8px);
     }
+
     .otp-content {
-      background-color: var(--color-white);
-      border-radius: 8px;
+      background: #fff;
+      border-radius: 16px;
       padding: 2.5rem;
       width: 90%;
       max-width: 400px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
     }
+
+    .otp-content h3 {
+      font-size: 1.2rem;
+      color: #175575;
+      margin: 0.75rem 0 0 0;
+    }
+
+    .otp-content p {
+      font-size: 0.85rem;
+      color: #718096;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+
     .otp-input-field {
-      width: 150px;
-      padding: 0.75rem;
+      width: 160px;
+      padding: 0.85rem;
       font-size: 1.5rem;
       text-align: center;
-      letter-spacing: 5px;
-      margin: 1.5rem 0;
-      border: 2px solid var(--color-border);
-      border-radius: 4px;
+      letter-spacing: 6px;
+      margin: 1.5rem auto;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-family: 'Inter', monospace;
+      font-weight: 700;
+      display: block;
+      transition: border-color 0.2s ease;
     }
-    /* Success card */
+
+    .otp-input-field:focus {
+      outline: none;
+      border-color: #175575;
+      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
+    }
+
+    .otp-submit-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, #175575, #0f3d56);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .otp-submit-btn:hover {
+      background: linear-gradient(135deg, #1a6a8f, #175575);
+    }
+
+    .otp-cancel {
+      margin-top: 1.25rem;
+      border: none;
+      background: none;
+      color: #a0aec0;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Success Screen ── */
     .success-container {
       text-align: center;
       display: none;
     }
+
     .success-icon {
-      font-size: 4rem;
-      color: var(--color-status-success);
-      margin-bottom: 1.5rem;
+      font-size: 3.5rem;
+      color: #4ade80;
+      margin-bottom: 1rem;
     }
+
+    .success-container h2 {
+      font-size: 1.35rem;
+      color: #175575;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .success-container > p {
+      font-size: 0.9rem;
+      color: #718096;
+    }
+
     .tx-details {
-      background-color: var(--color-light);
-      border: 1px solid var(--color-border);
-      border-radius: 6px;
-      padding: 1.25rem;
+      background: linear-gradient(135deg, #f0f7fb, #e8f4f8);
+      border: 1px solid rgba(23,85,117,0.12);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
       text-align: left;
       font-size: 0.85rem;
       margin: 1.5rem 0;
     }
+
     .tx-row {
       display: flex;
       justify-content: space-between;
       margin-bottom: 0.5rem;
+      color: #4a5568;
     }
-    .tx-row:last-child {
-      margin-bottom: 0;
+
+    .tx-row:last-child { margin-bottom: 0; }
+
+    .tx-row strong { color: #2d3748; }
+
+    .return-btn {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.75rem 2rem;
+      background: linear-gradient(135deg, #175575, #0f3d56);
+      color: #fff;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .return-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(23,85,117,0.35);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .checkout-card-header {
+        padding: 1.5rem 1.5rem;
+      }
+      .checkout-card-body {
+        padding: 1.5rem 1.5rem 2rem;
+      }
+      .checkout-card-header h1 {
+        font-size: 1.3rem;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .checkout-wrapper {
+        padding: 1.5rem 1rem;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- ==========================================
-       TOP BAR
+       TRADING BACKGROUND
        ========================================== -->
-  <div class="top-bar">
-    <div class="container" style="justify-content: center;">
-      <span><i class="fa-solid fa-lock"></i> SSL Secured 256-bit Encrypted Checkout</span>
-    </div>
+  <div class="checkout-bg"></div>
+
+  <!-- ==========================================
+       SSL BAR
+       ========================================== -->
+  <div class="ssl-bar">
+    <i class="fa-solid fa-lock"></i> SSL Secured 256-bit Encrypted Checkout
   </div>
 
   <!-- ==========================================
@@ -184,134 +543,147 @@
        ========================================== -->
   <section class="checkout-wrapper">
     <div class="checkout-card">
-      
+
       <!-- Primary Payment Flow -->
       <div id="payment-flow">
-        <div class="checkout-header">
-                    <h1 id="checkout-title">Course Authorization</h1>
-          <p id="checkout-subtitle">Secure payment gateway integrated with NOWPayments merchant payout</p>
+        <div class="checkout-card-header">
+          <div class="logo-text">Pheunkarm Academy</div>
+          <h1 id="checkout-title"><i class="fa-solid fa-shield-halved" style="margin-right: 8px;"></i>Secure Checkout</h1>
+          <p id="checkout-subtitle">Complete your enrollment with a secure card payment</p>
         </div>
 
-        <!-- Order Summary -->
-        <div class="order-summary">
-          <div class="order-row">
-            <span>Course Selected</span>
-            <span id="summary-course">Select Course Below</span>
+        <div class="checkout-card-body">
+          <!-- Order Summary -->
+          <div class="order-summary">
+            <div class="order-row">
+              <span>Course Selected</span>
+              <span id="summary-course">Select Course Below</span>
+            </div>
+            <div class="order-row">
+              <span>Payment Method</span>
+              <span><i class="fa-solid fa-credit-card" style="margin-right: 4px;"></i> Credit / Debit Card</span>
+            </div>
+            <div class="order-row">
+              <span>Total Charge</span>
+              <span id="summary-total">$0.00</span>
+            </div>
           </div>
-          <div class="order-row">
-            <span>Payment Method</span>
-            <span>Credit / Debit Card</span>
-          </div>
-          <div class="order-row">
-            <span>Merchant Payout Target</span>
-            <span id="summary-crypto">USDT Settlement</span>
-          </div>
-          <div class="order-row">
-            <span>Total Charge</span>
-            <span id="summary-total">$0.00</span>
-          </div>
+
+          <!-- User Form -->
+          <form id="checkout-form">
+            <div class="form-group">
+              <label for="client-name">Cardholder Name</label>
+              <input type="text" id="client-name" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group" id="course-select-group">
+              <label for="course-select">Academy Course & Price (USD)</label>
+              <select id="course-select" required>
+                <option value="" disabled selected>Select course...</option>
+                <option value="intro-299">Intro to Financial Markets ($299)</option>
+                <option value="skills-999">Trading Skills Course ($999)</option>
+                <option value="advanced-2499">Advanced Trading Course ($2,499)</option>
+                <option value="options-499">Options Trading Course ($499)</option>
+                <option value="futures-499">Futures Trading Techniques ($499)</option>
+                <option value="equity-499">Equity Investing & Wealth ($499)</option>
+                <option value="psychology-299">Trading Psychology Workshop ($299)</option>
+                <option value="custom-0">Custom Amount</option>
+              </select>
+            </div>
+
+            <!-- Custom Amount Field (shown when "Custom Amount" is selected) -->
+            <div class="custom-amount-group" id="custom-amount-group">
+              <label for="custom-amount" style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem; color: #2d3748; text-transform: uppercase; letter-spacing: 0.5px;">Amount (USD)</label>
+              <div class="amount-input-wrapper">
+                <input type="number" id="custom-amount" placeholder="0.00" min="1" step="0.01">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="card-exp">Expiration Date</label>
+                <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
+              </div>
+              <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
+              </div>
+            </div>
+
+            <div class="security-badge">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Your payment information is encrypted and processed securely. No card details are stored on our servers.</span>
+            </div>
+
+            <button type="submit" class="checkout-submit-btn" id="submit-btn">
+              <i class="fa-solid fa-lock"></i> Authorize Payment
+            </button>
+
+            <div class="card-brands">
+              <i class="fa-brands fa-cc-visa"></i>
+              <i class="fa-brands fa-cc-mastercard"></i>
+              <i class="fa-brands fa-cc-amex"></i>
+              <i class="fa-brands fa-cc-discover"></i>
+            </div>
+          </form>
         </div>
-
-        <!-- User Form (Fields are disabled if pre-populated by admin link) -->
-        <form id="checkout-form">
-          <div class="form-group">
-            <label for="client-name">Cardholder Name</label>
-            <input type="text" id="client-name" required placeholder="John Doe">
-          </div>
-
-          <div class="form-group" id="course-select-group">
-            <label for="course-select">Academy Course & Price (USD)</label>
-            <select id="course-select" required>
-              <option value="" disabled selected>Select course...</option>
-              <option value="intro-299">Intro to Financial Markets ($299)</option>
-              <option value="skills-999">Trading Skills Course ($999)</option>
-              <option value="advanced-2499">Advanced Trading Course ($2499)</option>
-              <option value="options-499">Options Trading Course ($499)</option>
-              <option value="futures-499">Futures Trading Techniques ($499)</option>
-              <option value="equity-499">Equity Investing & Wealth ($499)</option>
-              <option value="psychology-299">Trading Psychology Workshop ($299)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="card-exp">Expiration Date</label>
-              <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
-            </div>
-            <div class="form-group">
-              <label for="card-cvv">CVV</label>
-              <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
-            </div>
-          </div>
-
-          <div class="gateway-notice">
-            <i class="fa-solid fa-circle-info"></i>
-            <div>
-              <strong>NOWPayments Gateway Information</strong><br>
-              Your card is processed securely. The fiat equivalent is instantly settled to our corporate crypto wallet. No banking credentials are saved on our servers.
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 1rem; font-size: 1.1rem;" id="submit-btn">Authorize Payment</button>
-        </form>
       </div>
 
       <!-- Success Screen -->
       <div id="success-flow" class="success-container">
-        <i class="fa-solid fa-circle-check success-icon"></i>
-        <h2>Payment Authorized Successfully!</h2>
-        <p>Your enrollment has been successfully recorded in the student registry.</p>
-        
-        <div class="tx-details">
-          <div class="tx-row">
-            <strong>Client Name:</strong>
-            <span id="success-name">-</span>
-          </div>
-          <div class="tx-row">
-            <strong>Course Enrolled:</strong>
-            <span id="success-course">-</span>
-          </div>
-          <div class="tx-row">
-            <strong>Amount Processed:</strong>
-            <span id="success-amount">-</span>
-          </div>
-          <div class="tx-row">
-            <strong>NOWPayments Tx Hash:</strong>
-            <span id="success-hash" style="font-family: monospace; font-size: 0.75rem;">-</span>
-          </div>
-          <div class="tx-row">
-            <strong>Crypto Wallet Settle:</strong>
-            <span id="success-crypto">-</span>
-          </div>
+        <div class="checkout-card-header" style="background: linear-gradient(135deg, #065f46, #047857);">
+          <div class="logo-text">Pheunkarm Academy</div>
+          <h1 style="font-size: 1.3rem;"><i class="fa-solid fa-circle-check" style="margin-right: 8px;"></i>Payment Successful</h1>
+          <p>Your enrollment has been confirmed</p>
         </div>
+        <div class="checkout-card-body">
+          <div class="tx-details">
+            <div class="tx-row">
+              <strong>Client Name:</strong>
+              <span id="success-name">-</span>
+            </div>
+            <div class="tx-row">
+              <strong>Course Enrolled:</strong>
+              <span id="success-course">-</span>
+            </div>
+            <div class="tx-row">
+              <strong>Amount Processed:</strong>
+              <span id="success-amount">-</span>
+            </div>
+            <div class="tx-row">
+              <strong>Reference ID:</strong>
+              <span id="success-hash" style="font-family: monospace; font-size: 0.75rem;">-</span>
+            </div>
+          </div>
 
-        <p style="font-size: 0.9rem; color: var(--color-text-muted);">An email with login details for the simulated platforms and virtual trading rooms has been sent to your inbox.</p>
-        <a href="/" class="btn btn-primary" style="margin-top: 1.5rem; display: inline-block;">Return to Home</a>
+          <p style="font-size: 0.88rem; color: #718096;">A confirmation email with your course access details and login credentials has been sent to your registered email address.</p>
+          <a href="/" class="return-btn">Return to Home</a>
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- ==========================================
-       3DS OTP MODAL SIMULATOR
+       3DS OTP MODAL
        ========================================== -->
   <div class="otp-modal" id="otp-modal">
     <div class="otp-content">
-      <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+      <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #175575;"></i>
       <h3>3D-Secure Authorization</h3>
-      <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5rem;">We have sent a verification code to your registered mobile number ending in ****. Please enter it below to complete the authorization.</p>
+      <p>We have sent a verification code to your registered mobile number. Please enter it below to complete the authorization.</p>
       
       <form id="otp-form">
         <input type="text" id="otp-code" required placeholder="123456" class="otp-input-field" maxlength="6">
-        <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.75rem;">Verify & Approve</button>
+        <button type="submit" class="otp-submit-btn">Verify & Approve</button>
       </form>
       
-      <button onclick="closeModal()" style="margin-top: 1.25rem; border: none; background: none; color: var(--color-text-muted); font-size: 0.8rem; cursor: pointer; text-decoration: underline;">Cancel Transaction</button>
+      <button onclick="closeModal()" class="otp-cancel">Cancel Transaction</button>
     </div>
   </div>
 
@@ -319,7 +691,7 @@
        SCRIPTS
        ========================================== -->
   <script>
-    // Format credit card and exp
+    // Format credit card number
     document.getElementById('card-number').addEventListener('input', function (e) {
       let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
       let matches = v.match(/\d{4,16}/g);
@@ -335,12 +707,40 @@
       }
     });
 
+    // Format expiration date
     document.getElementById('card-exp').addEventListener('input', function (e) {
       let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
       if (v.length >= 2) {
         e.target.value = v.substring(0,2) + '/' + v.substring(2,4);
       } else {
         e.target.value = v;
+      }
+    });
+
+    // Custom amount field toggle
+    document.getElementById('course-select').addEventListener('change', function(e) {
+      const customGroup = document.getElementById('custom-amount-group');
+      const customInput = document.getElementById('custom-amount');
+      
+      if (e.target.value === 'custom-0') {
+        customGroup.classList.add('visible');
+        customInput.required = true;
+        customInput.focus();
+      } else {
+        customGroup.classList.remove('visible');
+        customInput.required = false;
+        customInput.value = '';
+      }
+    });
+
+    // Update custom amount in summary
+    document.getElementById('custom-amount').addEventListener('input', function(e) {
+      const val = parseFloat(e.target.value);
+      if (!isNaN(val) && val > 0) {
+        document.getElementById('summary-total').innerText = '$' + val.toFixed(2);
+        document.getElementById('summary-course').innerText = 'Custom Arrangement';
+      } else {
+        document.getElementById('summary-total').innerText = '$0.00';
       }
     });
 
@@ -365,7 +765,6 @@
         currentInvoice = payments.find(x => x.id === id);
         
         if (currentInvoice) {
-          // Pre-populate fields and disable modification to secure it
           document.getElementById('client-name').value = currentInvoice.cardHolder;
           document.getElementById('client-name').disabled = true;
           
@@ -378,20 +777,16 @@
           document.getElementById('card-cvv').value = '***';
           document.getElementById('card-cvv').disabled = true;
 
-          // Hide course select dropdown and display static label
           document.getElementById('course-select-group').style.display = 'none';
 
-          // Update summaries
           document.getElementById('summary-course').innerText = currentInvoice.courseName;
           document.getElementById('summary-total').innerText = '$' + currentInvoice.price;
-          document.getElementById('summary-crypto').innerText = currentInvoice.cryptoCurrency + ' Wallet Payout';
 
-          document.getElementById('checkout-title').innerText = "Authorize Academy Invoice";
-          document.getElementById('checkout-subtitle').innerText = "Verify pre-populated card and authorize enrollment";
-          document.getElementById('submit-btn').innerText = "Approve & Pay Invoice";
+          document.getElementById('checkout-title').innerHTML = '<i class="fa-solid fa-file-invoice" style="margin-right: 8px;"></i>Authorize Invoice';
+          document.getElementById('checkout-subtitle').innerText = 'Verify pre-populated details and authorize enrollment';
+          document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-check-circle"></i> Approve & Pay Invoice';
         }
       } else if (courseParam) {
-        // Pre-select course based on parameter
         const select = document.getElementById('course-select');
         for (let i = 0; i < select.options.length; i++) {
           if (select.options[i].value.startsWith(courseParam)) {
@@ -405,7 +800,7 @@
 
     // Handle manual course selection updates on summaries
     document.getElementById('course-select').addEventListener('change', function(e) {
-      if (!currentInvoice) {
+      if (!currentInvoice && e.target.value !== 'custom-0') {
         const text = e.target.options[e.target.selectedIndex].text;
         const val = e.target.value;
         const price = val.split('-')[1];
@@ -425,24 +820,21 @@
       document.getElementById('otp-modal').style.display = 'none';
     }
 
-    // OTP confirmation triggers settlement simulation
+    // OTP confirmation triggers settlement
     document.getElementById('otp-form').addEventListener('submit', function(e) {
       e.preventDefault();
       closeModal();
 
       const submitBtn = document.getElementById('submit-btn');
       submitBtn.disabled = true;
-      submitBtn.innerText = "Processing via NOWPayments APIs...";
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...';
 
-      // Simulate network wait
       setTimeout(() => {
         let name = "";
         let course = "";
         let total = "";
-        let crypto = "USDT";
 
         if (currentInvoice) {
-          // Update localStorage item status
           let payments = [];
           try {
             payments = JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]');
@@ -457,28 +849,31 @@
           name = currentInvoice.clientName;
           course = currentInvoice.courseName;
           total = '$' + currentInvoice.price;
-          crypto = currentInvoice.cryptoCurrency;
         } else {
-          // Direct checkout
           const selectEl = document.getElementById('course-select');
-          const selectedOption = selectEl.options[selectEl.selectedIndex].text;
-          const courseVal = selectEl.value; // e.g. "intro-299"
-          course = selectedOption.split(' (')[0];
-          total = '$' + courseVal.split('-')[1];
+          
+          if (selectEl.value === 'custom-0') {
+            const customVal = parseFloat(document.getElementById('custom-amount').value);
+            course = 'Custom Arrangement';
+            total = '$' + customVal.toFixed(2);
+          } else {
+            const selectedOption = selectEl.options[selectEl.selectedIndex].text;
+            const courseVal = selectEl.value;
+            course = selectedOption.split(' (')[0];
+            total = '$' + courseVal.split('-')[1];
+          }
           name = document.getElementById('client-name').value;
         }
 
-        // populate success details
+        // Populate success details
         document.getElementById('success-name').innerText = name;
         document.getElementById('success-course').innerText = course;
         document.getElementById('success-amount').innerText = total;
-        document.getElementById('success-crypto').innerText = `Settled in ${crypto} to Academy Wallet`;
         
-        // Generate random Tx Hash
-        const randomHash = 'np_' + Math.floor(Math.random() * 1000000000).toString(16) + 'fd32bc' + Math.floor(Math.random() * 100000).toString(16);
+        const randomHash = 'PAY-' + Math.floor(Math.random() * 1000000000).toString(16).toUpperCase() + '-' + Math.floor(Math.random() * 100000).toString(16).toUpperCase();
         document.getElementById('success-hash').innerText = randomHash;
 
-        // Hide payment and show success
+        // Show success
         document.getElementById('payment-flow').style.display = 'none';
         document.getElementById('success-flow').style.display = 'block';
 
