@@ -3,8 +3,10 @@
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  initFavicon();
   initStickyHeader();
   initMobileMenu();
+  initLiveTicker();
   initCourseFiltering();
   initTestimonialSlider();
   initAccordion();
@@ -223,6 +225,171 @@ function initFormSubmit() {
       contactForm.reset();
     });
   }
+}
+
+/**
+ * 7. Live Market Data Ticker (Streaming below header)
+ */
+function initLiveTicker() {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+
+  // Insert custom CSS for the ticker
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes ticker-scroll-lr {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .market-ticker-container {
+      background-color: #0b0f19;
+      border-bottom: 1px solid var(--color-border);
+      color: rgba(255, 255, 255, 0.85);
+      padding: 0.5rem 0;
+      overflow: hidden;
+      font-size: 0.78rem;
+      font-family: 'Courier New', Courier, monospace;
+      width: 100%;
+      box-shadow: inset 0 -5px 15px rgba(0,0,0,0.2);
+    }
+    .ticker-wrapper {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3.5rem;
+      animation: ticker-scroll-lr 45s linear infinite;
+      width: max-content;
+      white-space: nowrap;
+      align-items: center;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ticker-up {
+      color: #10b981;
+    }
+    .ticker-down {
+      color: #ef4444;
+    }
+    .ticker-lbl {
+      color: #9ca3af;
+      font-weight: bold;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Asset configurations
+  const assets = [
+    { name: 'S&P 500', value: 5473.17, change: 0.42, decimal: 2 },
+    { name: 'NASDAQ', value: 17688.88, change: 0.88, decimal: 2 },
+    { name: 'DOW JONES', value: 38647.10, change: -0.15, decimal: 2 },
+    { name: 'FTSE 100', value: 8146.86, change: 0.25, decimal: 2 },
+    { name: 'BTC/USD', value: 68245.10, change: 1.20, decimal: 2 },
+    { name: 'ETH/USD', value: 3480.55, change: -0.40, decimal: 2 },
+    { name: 'SOL/USD', value: 143.62, change: 3.10, decimal: 2 },
+    { name: 'GBP/USD', value: 1.2745, change: 0.08, decimal: 4 },
+    { name: 'USD/JPY', value: 158.90, change: -0.12, decimal: 2 },
+    { name: 'AAPL', value: 214.38, change: 1.50, decimal: 2 },
+    { name: 'MSFT', value: 442.20, change: -0.30, decimal: 2 },
+    { name: 'NVDA', value: 127.40, change: 4.80, decimal: 2 },
+    { name: 'GOOGL', value: 176.45, change: 0.70, decimal: 2 }
+  ];
+
+  // Helper to build items HTML
+  function buildTrackHTML() {
+    return assets.map((asset, index) => {
+      const sign = asset.change >= 0 ? '+' : '';
+      const colorClass = asset.change >= 0 ? 'ticker-up' : 'ticker-down';
+      const arrow = asset.change >= 0 ? '▲' : '▼';
+      const isForex = asset.name.includes('/');
+      const symbol = isForex ? '' : '$';
+      const formattedVal = asset.value.toFixed(asset.decimal);
+      return `
+        <span class="ticker-item">
+          <span class="ticker-lbl">${asset.name}</span>
+          <span class="${colorClass}" id="t-val-${index}">${symbol}${formattedVal}</span>
+          <span class="${colorClass}" id="t-chg-${index}" style="font-size: 0.7rem;">(${arrow} ${sign}${asset.change.toFixed(2)}%)</span>
+        </span>
+      `;
+    }).join('');
+  }
+
+  // Create markup structure
+  const container = document.createElement('div');
+  container.className = 'market-ticker-container';
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'ticker-wrapper';
+
+  const track = document.createElement('div');
+  track.className = 'ticker-track';
+
+  const itemsHTML = buildTrackHTML();
+  track.innerHTML = itemsHTML + itemsHTML; // duplicate for seamless scrolling
+
+  wrapper.appendChild(track);
+  container.appendChild(wrapper);
+
+  // Inject below header
+  header.insertAdjacentElement('afterend', container);
+
+  // Interval updates
+  setInterval(() => {
+    // Randomly update 2 assets
+    for (let i = 0; i < 2; i++) {
+      const idx = Math.floor(Math.random() * assets.length);
+      const asset = assets[idx];
+
+      const pct = (Math.random() * 0.12 - 0.06); // -0.06% to +0.06%
+      const tick = asset.value * (pct / 100);
+
+      asset.value += tick;
+      asset.change += pct;
+
+      const valEls = document.querySelectorAll(`#t-val-${idx}`);
+      const chgEls = document.querySelectorAll(`#t-chg-${idx}`);
+
+      const sign = asset.change >= 0 ? '+' : '';
+      const colorClass = asset.change >= 0 ? 'ticker-up' : 'ticker-down';
+      const removeClass = asset.change >= 0 ? 'ticker-down' : 'ticker-up';
+      const arrow = asset.change >= 0 ? '▲' : '▼';
+      const isForex = asset.name.includes('/');
+      const symbol = isForex ? '' : '$';
+      const formattedVal = asset.value.toFixed(asset.decimal);
+
+      valEls.forEach(el => {
+        el.innerText = `${symbol}${formattedVal}`;
+        el.classList.remove(removeClass);
+        el.classList.add(colorClass);
+      });
+
+      chgEls.forEach(el => {
+        el.innerText = `(${arrow} ${sign}${asset.change.toFixed(2)}%)`;
+        el.classList.remove(removeClass);
+        el.classList.add(colorClass);
+      });
+    }
+  }, 1200);
+}
+
+/**
+ * 8. Dynamic Favicon Injector
+ */
+function initFavicon() {
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/svg+xml';
+  link.href = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23175575'/><path d='M16 8 L26 13 L16 18 L6 13 Z' fill='%230b9bd9'/><path d='M10 16.5 L10 22 C10 23.5 12.5 25 16 25 C19.5 25 22 23.5 22 22 L22 16.5 L16 19.5 Z' fill='%230b9bd9'/><circle cx='16' cy='13' r='1.5' fill='%23fff'/></svg>";
+  document.head.appendChild(link);
 }
 
 
