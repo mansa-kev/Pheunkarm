@@ -155,6 +155,45 @@
   <!-- ==========================================
        CORE VALUES / PROPOSITIONS
        ========================================== -->
+  <!-- ==========================================
+       CORE VALUES / PROPOSITIONS
+       ========================================== -->
+  <style>
+    @keyframes live-pulse {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes live-pulse-blue {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+    @keyframes live-pulse-orange {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .live-dot.green {
+      background-color: #10b981;
+      animation: live-pulse 2s infinite;
+    }
+    .live-dot.blue {
+      background-color: #3b82f6;
+      animation: live-pulse-blue 2s infinite;
+    }
+    .live-dot.orange {
+      background-color: #f59e0b;
+      animation: live-pulse-orange 2s infinite;
+    }
+  </style>
+
   <section class="values" id="academy-values">
     <div class="container">
       <div class="section-header">
@@ -164,34 +203,93 @@
       
       <div class="values-grid">
         <!-- Card 1 -->
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fa-solid fa-graduation-cap"></i>
+        <div class="value-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+              <div class="value-icon" style="margin-bottom: 0;">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <span style="background-color: rgba(16,185,129,0.08); color: #10b981; border: 1px solid rgba(16,185,129,0.15); border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">
+                <span class="live-dot green"></span> 4 MENTORS ACTIVE NOW
+              </span>
+            </div>
+            <h3>Professional Mentorship</h3>
+            <p>Gain direct daily support from experienced financial traders and portfolio managers. Ask questions, review trades, and refine your mindset.</p>
           </div>
-          <h3>Professional Mentorship</h3>
-          <p>Gain direct daily support from experienced financial traders and portfolio managers. Ask questions, review trades, and refine your mindset.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-main); display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Avg Response Time:</span>
+            <span style="font-weight: 700; color: #10b981;"><i class="fa-solid fa-bolt"></i> &lt; 9 Mins</span>
+          </div>
         </div>
         
         <!-- Card 2 -->
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fa-solid fa-clock"></i>
+        <div class="value-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+              <div class="value-icon" style="margin-bottom: 0;">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <span style="background-color: rgba(59,130,246,0.08); color: #3b82f6; border: 1px solid rgba(59,130,246,0.15); border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">
+                <span class="live-dot blue"></span> SYSTEMS OPERATIONAL
+              </span>
+            </div>
+            <h3>Unrivalled Flexibility</h3>
+            <p>Study around your existing job or university commitments. Access interactive webinars, recorded modules, and flexible platform hours at your convenience.</p>
           </div>
-          <h3>Unrivalled Flexibility</h3>
-          <p>Study around your existing job or university commitments. Access interactive webinars, recorded modules, and flexible platform hours at your convenience.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-main); display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Virtual Rooms:</span>
+            <span style="font-weight: 700; color: var(--color-primary);" id="live-connections-counter"><i class="fa-solid fa-users"></i> 142 Connected</span>
+          </div>
         </div>
         
         <!-- Card 3 -->
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fa-solid fa-chart-line"></i>
+        <div class="value-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+              <div class="value-icon" style="margin-bottom: 0;">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <span style="background-color: rgba(245,158,11,0.08); color: #f59e0b; border: 1px solid rgba(245,158,11,0.15); border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">
+                <span class="live-dot orange"></span> FEED ACTIVE (5ms)
+              </span>
+            </div>
+            <h3>Practical Market Training</h3>
+            <p>We combine theoretical knowledge with real-time practical trading. Develop, backtest, and execute your trading plan on real-world simulated platforms.</p>
           </div>
-          <h3>Practical Market Training</h3>
-          <p>We combine theoretical knowledge with real-time practical trading. Develop, backtest, and execute your trading plan on real-world simulated platforms.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-main); display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Simulated Volume:</span>
+            <span style="font-weight: 700; color: #f59e0b; font-family: monospace;" id="live-vol-counter">$52,149,820</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const connCounter = document.getElementById('live-connections-counter');
+      if (connCounter) {
+        let currentConn = 142;
+        setInterval(() => {
+          const delta = Math.floor(Math.random() * 7) - 3;
+          currentConn += delta;
+          if (currentConn < 110) currentConn = 110;
+          if (currentConn > 180) currentConn = 180;
+          connCounter.innerHTML = `<i class="fa-solid fa-users"></i> ${currentConn} Connected`;
+        }, 4000);
+      }
+
+      const volCounter = document.getElementById('live-vol-counter');
+      if (volCounter) {
+        let currentVol = 52149820;
+        setInterval(() => {
+          const increment = Math.floor(Math.random() * 2800) + 200;
+          currentVol += increment;
+          volCounter.innerText = '$' + currentVol.toLocaleString('en-US');
+        }, 2500);
+      }
+    });
+  </script>
 
   <!-- ==========================================
        COURSES SHOWCASE
