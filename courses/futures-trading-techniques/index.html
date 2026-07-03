@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>Futures Trading Techniques - Pheunkarm Trading & Investment Academy</title>
+  <meta name="description" content="Master futures contracts, index futures (S&P 500, Nasdaq), leverage structures, margin limits, and order flow trading in our 2-week course.">
+  
+  <!-- Style Link (Root Relative) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP BAR
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <a href="mailto:office@pheunkarm.online">
+        <i class="fa-solid fa-envelope"></i> office@pheunkarm.online
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header" id="site-header">
+    <div class="container">
+      <!-- Rebranded Logo -->
+      <a href="/" class="logo">
+                <div>Pheunkarm<span>Academy</span></div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="nav-menu">
+        <div class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </div>
+        
+        <!-- Courses Dropdown -->
+        <div class="nav-item active" id="courses-dropdown">
+          <a href="/courses/" class="nav-link">Courses <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <a href="/courses/"><strong>Learn How to Trade</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-skills-course/">Trading Skills Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/advanced-trading-course/">Advanced Trading Course</a>
+            </li>
+            <li class="dropdown-item" style="margin-top: 0.5rem; border-top: 1px solid var(--color-border);">
+              <a href="/courses/"><strong>Specialist Financial Courses</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/options-trading-course/">Options Trading Course</a>
+            </li>
+            <li class="dropdown-item style-active" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/futures-trading-techniques/">Futures Trading Techniques</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/equity-investing-and-wealth/">Equity Investing & Wealth</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-psychology-workshop/">Trading Psychology Workshop</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/about-us/" class="nav-link">About Us</a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/contact-us/" class="nav-link">Contact Us</a>
+        </div>
+        
+        <!-- Header CTA Button -->
+        <div class="nav-item mobile-cta-container" style="margin-left: 1rem;">
+          <a href="/contact-us/" class="btn btn-cta">Learn to Trade</a>
+        </div>
+      </nav>
+
+      <!-- Hamburger toggle button -->
+      <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       BREADCRUMB NAVIGATION
+       ========================================== -->
+  <div style="background-color: var(--color-white); border-bottom: 1px solid var(--color-border); padding: 0.75rem 0; font-size: 0.9rem; color: var(--color-text-muted);">
+    <div class="container">
+      <a href="/" style="color: var(--color-primary); font-weight: 500;"><i class="fa-solid fa-house"></i> Home</a> 
+      <span style="margin: 0 0.5rem; opacity: 0.5;">/</span> 
+      <a href="/courses/" style="color: var(--color-primary); font-weight: 500;">Courses</a> 
+      <span style="margin: 0 0.5rem; opacity: 0.5;">/</span> 
+      <span style="font-weight: 600;">Futures Trading Techniques</span>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HERO BANNER
+       ========================================== -->
+  <section class="hero" style="min-height: 45vh; padding: 5rem 0; background: linear-gradient(135deg, rgba(23, 85, 117, 0.95), rgba(17, 24, 39, 0.95)), url('https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=1920&q=80');">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Specialist Program</span>
+        <h1 style="font-size: 3rem;">Futures Trading Techniques</h1>
+        <p>Master futures contract parameters, index futures (S&P 500, Nasdaq), leverage constraints, margin bounds, and order flow metrics in our 2-week course.</p>
+        <div class="hero-actions">
+          <a href="#syllabus" class="btn btn-cta">View Curriculum</a>
+          <a href="#advisor-form" class="btn btn-outline">Ask an Advisor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       COURSE MAIN CONTENT & SIDEBAR
+       ========================================== -->
+  <section class="courses-section" style="background-color: var(--color-white);">
+    <div class="container" style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 4rem; align-items: start;">
+      
+      <!-- Left Column: Details -->
+      <div>
+        <h2 style="font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Course Overview</h2>
+        <p style="color: var(--color-text-main); font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.7;">
+          Futures markets offer deep liquidity and unique tax/margin efficiencies for active day traders. Our 2-week Futures Trading Techniques course explores the operational structure of major exchanges (CME, ICE) and equips you to speculate safely on stock index futures, currencies, and energy commodities.
+        </p>
+        <p style="color: var(--color-text-main); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.7;">
+          Designed for intermediate and active traders, this course places major emphasis on position sizing limits, margin mitigation, and interpreting market depth. Under the support of our mentors, you will practice drawing support zones and reading order flow grids inside simulated platforms.
+        </p>
+
+        <h3 style="font-size: 1.5rem; color: var(--color-primary); margin-bottom: 1.25rem; border-bottom: 2px solid var(--color-cta); display: inline-block; padding-bottom: 0.25rem;">Key Learning Objectives</h3>
+        <ul style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1rem;">
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.6;">
+            <i class="fa-solid fa-circle-check" style="color: var(--color-cta-hover); margin-top: 0.25rem;"></i>
+            <span><strong>Futures Contract Specs:</strong> Differentiate between initial and maintenance margins, and calculate tick valuations across indexes.</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.6;">
+            <i class="fa-solid fa-circle-check" style="color: var(--color-cta-hover); margin-top: 0.25rem;"></i>
+            <span><strong>Index & Commodity speculation:</strong> Manage strategies for S&P E-mini, Nasdaq Micro, Crude Oil, and Gold contracts.</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.6;">
+            <i class="fa-solid fa-circle-check" style="color: var(--color-cta-hover); margin-top: 0.25rem;"></i>
+            <span><strong>Leverage Preservation:</strong> Maintain strict risk protocols to prevent margin calls and manage capital drawdown bounds.</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.6;">
+            <i class="fa-solid fa-circle-check" style="color: var(--color-cta-hover); margin-top: 0.25rem;"></i>
+            <span><strong>Order Flow Charting:</strong> Interpret market depth (Level 2), the Depth of Market (DOM) ladder, and volume delta indicators.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Column: Sidebar -->
+      <div style="position: sticky; top: 100px; display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Fast Facts -->
+        <div style="background-color: var(--color-light); border: 1px solid var(--color-border); border-radius: 8px; padding: 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.01);">
+          <h3 style="font-size: 1.3rem; color: var(--color-primary); margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">Fast Facts</h3>
+          <ul style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.95rem;">
+            <li style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-text-muted);"><i class="fa-solid fa-hourglass-half"></i> Duration</span>
+              <span style="font-weight: 700; color: var(--color-primary);">2 Weeks</span>
+            </li>
+            <li style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-text-muted);"><i class="fa-solid fa-signal"></i> Level</span>
+              <span style="font-weight: 700; color: var(--color-primary);">Intermediate to Advanced</span>
+            </li>
+            <li style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-text-muted);"><i class="fa-solid fa-display"></i> Format</span>
+              <span style="font-weight: 700; color: var(--color-primary);">100% Online</span>
+            </li>
+            <li style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-text-muted);"><i class="fa-solid fa-award"></i> Certificate</span>
+              <span style="font-weight: 700; color: var(--color-primary);">Certificate in Futures Trading</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Enroll Now Card -->
+        <div style="background-color: var(--color-primary); border-radius: 8px; padding: 2.25rem 2rem; text-align: center; color: var(--color-white); box-shadow: 0 10px 30px rgba(23,85,117,0.15); margin-bottom: 2rem; border: 1px solid var(--color-primary-dark);">
+          <h3 style="color: var(--color-white); font-size: 1.35rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-graduation-cap"></i> Ready to Enroll?</h3>
+          <p style="font-size: 0.85rem; opacity: 0.85; margin-bottom: 1.5rem; line-height: 1.5;">Authorize your card payment securely and gain instant virtual room activation.</p>
+          <a href="/checkout/?course=futures" class="btn btn-cta" style="width: 100%; display: block; text-align: center; border: none; padding: 0.85rem; font-size: 1rem; font-weight: 700;">Enroll & Pay Now</a>
+        </div>
+
+        <!-- Quick Form -->
+        <div style="background-color: var(--color-white); border: 1px solid var(--color-border); border-radius: 8px; padding: 2rem; box-shadow: 0 10px 30px rgba(23,85,117,0.06);">
+          <h3 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 1rem;">Inquire About This Course</h3>
+          <form id="advisor-form">
+            <div style="margin-bottom: 1rem;">
+              <label for="form-name" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Name</label>
+              <input type="text" id="form-name" required placeholder="John Doe" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.95rem;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label for="form-email" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Email</label>
+              <input type="email" id="form-email" required placeholder="john@example.com" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.95rem;">
+            </div>
+            <!-- Hidden field for context -->
+            <input type="hidden" id="form-course" value="futures">
+            <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.75rem;">Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SYLLABUS / CURRICULUM SECTION
+       ========================================== -->
+  <section class="values" id="syllabus" style="background-color: var(--color-light); border-top: 1px solid var(--color-border);">
+    <div class="container" style="max-width: 900px;">
+      <div class="section-header">
+        <h2>Course Syllabus</h2>
+        <p>Explore the four specialized modules covering futures contracts specs, margin rules, and order flow metrics.</p>
+      </div>
+
+      <div class="accordion">
+        <!-- Module 1 -->
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Module 1: Futures Specifications & Exchange Mechanics
+            <i class="fa-solid fa-plus icon"></i>
+          </button>
+          <div class="accordion-body">
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; list-style-type: disc; padding-left: 1rem;">
+              <li>Understanding futures contracts: Underlyings, size, and settlement.</li>
+              <li>Operational mechanics: Clearinghouses, convergence, and contango/backwardation.</li>
+              <li>Calculating contract value, tick size, and tick values.</li>
+              <li>Exchange platforms and order submission codes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Module 2: Speculating on Index & Commodity Markets
+            <i class="fa-solid fa-plus icon"></i>
+          </button>
+          <div class="accordion-body">
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; list-style-type: disc; padding-left: 1rem;">
+              <li>Trading equity index futures: S&P 500 E-mini and Nasdaq Micro contracts.</li>
+              <li>Trading energy and commodity products: Crude Oil (WTI) and Gold.</li>
+              <li>Understanding correlations between bonds, equities, and interest rates.</li>
+              <li>Roll dates and contract rollover procedures.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Module 3: Margin Mitigation & Sizing Bounds
+            <i class="fa-solid fa-plus icon"></i>
+          </button>
+          <div class="accordion-body">
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; list-style-type: disc; padding-left: 1rem;">
+              <li>Initial margins vs. Maintenance margins.</li>
+              <li>How leverage increases both return rates and drawdown speeds.</li>
+              <li>Setting capital risk rules to prevent margin calls.</li>
+              <li>Rules-based risk management layout parameters.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="accordion-item">
+          <button class="accordion-header">
+            Module 4: Order Flow, DOM, & Market Depth
+            <i class="fa-solid fa-plus icon"></i>
+          </button>
+          <div class="accordion-body">
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; list-style-type: disc; padding-left: 1rem;">
+              <li>Introduction to the Depth of Market (DOM) ladder.</li>
+              <li>Reading the Time & Sales print stream to track institutional block trades.</li>
+              <li>Using Volume Profile and Volume Delta chart overlays.</li>
+              <li>Constructing a rules-based intraday futures trading checklist.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1 -->
+        <div class="footer-col">
+          <a href="/" class="logo" style="margin-bottom: 1.5rem; color: var(--color-white);">
+                        <div>Pheunkarm<span>Academy</span></div>
+          </a>
+          <p>Pheunkarm Trading & Investment Academy provides practical financial training. We prepare individuals to understand markets, execute strategies, and trade professionally.</p>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="footer-col">
+          <h4>Popular Courses</h4>
+          <ul class="footer-links">
+            <li><a href="/courses/advanced-trading-course/">Advanced Trading Course</a></li>
+            <li><a href="/courses/trading-skills-course/">Trading Skills Course</a></li>
+            <li><a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a></li>
+            <li><a href="/courses/options-trading-course/">Options Trading Course</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-us/">About Us</a></li>
+            <li><a href="/contact-us/">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div class="footer-col">
+          <h4>Support & Inquiries</h4>
+          <ul class="footer-contact">
+            <li>
+              <i class="fa-solid fa-envelope" style="color: var(--color-cta);"></i>
+              <a href="mailto:office@pheunkarm.online">office@pheunkarm.online</a>
+            </li>
+          </ul>
+          <p style="font-size: 0.8rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.4);">
+            For student support, billing inquiries, or advising, please contact our support desk.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pheunkarm Trading & Investment Academy. All rights reserved.</p>
+        <p>Built with Premium Academy Layout styling.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Link (Root Relative) -->
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

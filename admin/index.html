@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>Admin Gateway Terminal - Pheunkarm Trading Academy</title>
+  
+  <!-- Style Link (Root Relative) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --color-dashboard-bg: #f3f7fa;
+      --color-status-pending: #ffc107;
+      --color-status-approved: #0dcaf0;
+      --color-status-success: #198754;
+    }
+    body {
+      background-color: var(--color-dashboard-bg);
+      color: var(--color-text-main);
+    }
+    .admin-wrapper {
+      padding: 3rem 0;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.9fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .admin-card {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(23, 85, 117, 0.03);
+    }
+    .admin-card h2 {
+      font-size: 1.3rem;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-box {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    }
+    .stat-box h4 {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .stat-box p {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--color-primary);
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      background-color: var(--color-white);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+      text-align: left;
+    }
+    .admin-table th {
+      background-color: var(--color-light);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-pending {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: #b58100;
+    }
+    .badge-approved {
+      background-color: rgba(13, 202, 240, 0.1);
+      color: #087990;
+    }
+    .badge-success {
+      background-color: rgba(25, 135, 84, 0.1);
+      color: var(--color-status-success);
+    }
+    .btn-action {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP BAR
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <div>
+        <i class="fa-solid fa-user-shield"></i> SECURED ADMIN TERMINAL
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">
+                <div>Pheunkarm<span>Admin</span></div>
+      </a>
+      <div style="font-weight: 600; color: var(--color-secondary);">
+        <i class="fa-solid fa-wallet"></i> Wallet Payout: NOWPayments Gateway
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       DASHBOARD WRAPPER
+       ========================================== -->
+  <section class="admin-wrapper">
+    <div class="container">
+      
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <h4>Total Processed Volume</h4>
+          <p id="stat-total-volume">$0.00</p>
+        </div>
+        <div class="stat-box">
+          <h4>Active Requests</h4>
+          <p id="stat-active-req">0</p>
+        </div>
+        <div class="stat-box">
+          <h4>Settled Crypto Transactions</h4>
+          <p id="stat-settled-tx">0</p>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        
+        <!-- Left Column: Generate request -->
+        <div class="admin-card">
+          <h2>
+            <span><i class="fa-solid fa-file-invoice-dollar"></i> Create Payment</span>
+            <span style="font-size: 0.75rem; font-weight: 400; color: var(--color-text-muted);">Step 1: Admin Card Capture</span>
+          </h2>
+          
+          <form id="payment-request-form">
+            <!-- Client Info -->
+            <div class="form-group">
+              <label for="client-name">Client Full Name</label>
+              <input type="text" id="client-name" required placeholder="John Doe">
+            </div>
+            
+            <div class="form-group">
+              <label for="client-email">Client Email Address</label>
+              <input type="email" id="client-email" required placeholder="john@example.com">
+            </div>
+
+            <!-- Course Selection -->
+            <div class="form-group">
+              <label for="course-select">Academy Course & Price (USD)</label>
+              <select id="course-select" required>
+                <option value="" disabled selected>Select course...</option>
+                <option value="intro-299">Intro to Financial Markets ($299)</option>
+                <option value="skills-999">Trading Skills Course ($999)</option>
+                <option value="advanced-2499">Advanced Trading Course ($2499)</option>
+                <option value="options-499">Options Trading Course ($499)</option>
+                <option value="futures-499">Futures Trading Techniques ($499)</option>
+                <option value="equity-499">Equity Investing & Wealth ($499)</option>
+                <option value="psychology-299">Trading Psychology Workshop ($299)</option>
+              </select>
+            </div>
+
+            <!-- Card Inputs (Authorized by Admin) -->
+            <div style="background-color: var(--color-light); border: 1px solid var(--color-border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.25rem;">
+              <h4 style="font-size: 0.85rem; color: var(--color-primary); margin-bottom: 0.75rem;"><i class="fa-solid fa-credit-card"></i> Card Processing Credentials</h4>
+              
+              <div class="form-group">
+                <label for="card-holder">Cardholder Name</label>
+                <input type="text" id="card-holder" required placeholder="John Doe">
+              </div>
+
+              <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="card-exp">Expiration Date</label>
+                  <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                  <label for="card-cvv">CVV</label>
+                  <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Crypto Settlement details -->
+            <div style="background-color: rgba(255, 163, 34, 0.05); border: 1px solid rgba(255, 163, 34, 0.2); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
+              <h4 style="font-size: 0.85rem; color: var(--color-cta); margin-bottom: 0.75rem;"><i class="fa-brands fa-ethereum"></i> NOWPayments Crypto Settlement</h4>
+              
+              <div class="form-group">
+                <label for="crypto-currency">Payout Settlement Asset</label>
+                <select id="crypto-currency" required>
+                  <option value="USDT">USDT (Tether TRC-20)</option>
+                  <option value="BTC">BTC (Bitcoin)</option>
+                  <option value="ETH">ETH (Ethereum)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="wallet-address">Academy Payout Wallet Address</label>
+                <input type="text" id="wallet-address" required placeholder="T9yD14Nj9yD14Nj9yD14Nj9yD14Nj..." value="TYuB18Nj9yD24Nj7yD12Nj9yD24Nj71X">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.85rem;">Generate Payment Invoice</button>
+          </form>
+        </div>
+
+        <!-- Right Column: Requests list -->
+        <div class="admin-card">
+          <h2>
+            <span><i class="fa-solid fa-list-check"></i> Invoice Monitoring Panel</span>
+            <button onclick="clearPayments()" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-color: rgba(0,0,0,0.1);">Clear Database</button>
+          </h2>
+          
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Course / Price</th>
+                  <th>Crypto / Status</th>
+                  <th>Link / Action</th>
+                </tr>
+              </thead>
+              <tbody id="payments-tbody">
+                <!-- Javascript will populate this -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCRIPTS
+       ========================================== -->
+  <script>
+    // Format card input automatically
+    document.getElementById('card-number').addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let matches = v.match(/\d{4,16}/g);
+      let match = matches && matches[0] || '';
+      let parts = [];
+      for (let i=0, len=match.length; i<len; i+=4) {
+        parts.push(match.substring(i, i+4));
+      }
+      if (parts.length > 0) {
+        e.target.value = parts.join(' ');
+      } else {
+        e.target.value = v;
+      }
+    });
+
+    document.getElementById('card-exp').addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      if (v.length >= 2) {
+        e.target.value = v.substring(0,2) + '/' + v.substring(2,4);
+      } else {
+        e.target.value = v;
+      }
+    });
+
+    // Handle LocalStorage state
+    function getPayments() {
+      let data = localStorage.getItem('pheunkarm_payments');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function savePayments(arr) {
+      localStorage.setItem('pheunkarm_payments', JSON.stringify(arr));
+      renderPayments();
+    }
+
+    function clearPayments() {
+      if (confirm("Are you sure you want to clear the payment request log?")) {
+        savePayments([]);
+      }
+    }
+
+    function renderPayments() {
+      const arr = getPayments();
+      const tbody = document.getElementById('payments-tbody');
+      tbody.innerHTML = '';
+
+      let totalVolume = 0;
+      let activeRequests = 0;
+      let settledTx = 0;
+
+      if (arr.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--color-text-muted);">No payment invoices created yet. Fill out the form to generate one.</td></tr>`;
+      } else {
+        arr.forEach((item, index) => {
+          // stats calculations
+          if (item.status === 'paid') {
+            totalVolume += parseFloat(item.price);
+            settledTx++;
+          } else {
+            activeRequests++;
+          }
+
+          // render table row
+          const tr = document.createElement('tr');
+          
+          let statusBadgeClass = 'badge-pending';
+          let statusText = 'Pending Approval';
+          if (item.status === 'approved') {
+            statusBadgeClass = 'badge-approved';
+            statusText = 'Approved';
+          } else if (item.status === 'paid') {
+            statusBadgeClass = 'badge-success';
+            statusText = 'Paid (Settled)';
+          }
+
+          const maskedCard = '**** ' + item.cardNumber.slice(-4);
+          const checkoutLink = `/checkout/?id=${item.id}`;
+
+          tr.innerHTML = `
+            <td>
+              <strong>${item.clientName}</strong><br>
+              <span style="font-size: 0.75rem; color: var(--color-text-muted);">${item.clientEmail}</span>
+            </td>
+            <td>
+              <strong>${item.courseName}</strong><br>
+              <span style="font-weight: 600; color: var(--color-secondary);">$${item.price}</span>
+            </td>
+            <td>
+              <strong>${item.cryptoCurrency}</strong> (${maskedCard})<br>
+              <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+            </td>
+            <td>
+              ${item.status !== 'paid' ? `
+                <a href="${checkoutLink}" class="btn-action" style="background-color: var(--color-primary); color: white; margin-bottom: 0.25rem;">Open Link</a>
+                <button onclick="simulateApproval('${item.id}')" class="btn-action" style="background-color: var(--color-cta); color: white; border: none; cursor: pointer;">Simulate Approval</button>
+              ` : `
+                <span style="color: var(--color-status-success); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Complete</span>
+              `}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // update stats boxes
+      document.getElementById('stat-total-volume').innerText = '$' + totalVolume.toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById('stat-active-req').innerText = activeRequests;
+      document.getElementById('stat-settled-tx').innerText = settledTx;
+    }
+
+    // Form submit
+    document.getElementById('payment-request-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const selectEl = document.getElementById('course-select');
+      const selectedOption = selectEl.options[selectEl.selectedIndex].text;
+      const courseVal = selectEl.value; // e.g. "intro-299"
+      const courseName = selectedOption.split(' (')[0];
+      const price = courseVal.split('-')[1];
+
+      const newItem = {
+        id: 'tx_' + Math.floor(Math.random() * 10000000),
+        clientName: document.getElementById('client-name').value,
+        clientEmail: document.getElementById('client-email').value,
+        courseName: courseName,
+        price: price,
+        cardHolder: document.getElementById('card-holder').value,
+        cardNumber: document.getElementById('card-number').value,
+        cardExp: document.getElementById('card-exp').value,
+        cryptoCurrency: document.getElementById('crypto-currency').value,
+        walletAddress: document.getElementById('wallet-address').value,
+        status: 'pending', // pending -> approved -> paid
+        date: new Date().toLocaleDateString()
+      };
+
+      const payments = getPayments();
+      payments.unshift(newItem);
+      savePayments(payments);
+
+      // Reset form fields except wallet address
+      document.getElementById('client-name').value = '';
+      document.getElementById('client-email').value = '';
+      document.getElementById('course-select').value = '';
+      document.getElementById('card-holder').value = '';
+      document.getElementById('card-number').value = '';
+      document.getElementById('card-exp').value = '';
+      document.getElementById('card-cvv').value = '';
+
+      alert("Invoice request successfully generated! Pushed authorization link to monitoring list.");
+    });
+
+    function simulateApproval(id) {
+      const arr = getPayments();
+      const item = arr.find(x => x.id === id);
+      if (item) {
+        item.status = 'paid';
+        savePayments(arr);
+        alert("Simulated transaction approval. Payment routed to NOWPayments payout crypto account successfully!");
+      }
+    }
+
+    // Initial render
+    renderPayments();
+  </script>
+</body>
+</html>

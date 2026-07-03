@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>Payment Portal - Pheunkarm Trading Academy</title>
+  
+  <!-- Style Link (Root Relative) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    body {
+      background-color: var(--color-light);
+      color: var(--color-text-main);
+    }
+    .checkout-wrapper {
+      padding: 4rem 0;
+      min-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .checkout-card {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 3rem;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 15px 40px rgba(23,85,117,0.06);
+    }
+    .checkout-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .checkout-header .logo-icon {
+      margin: 0 auto 1rem auto;
+    }
+    .checkout-header h1 {
+      font-size: 1.75rem;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .order-summary {
+      background-color: var(--color-light);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .order-row:last-child {
+      margin-bottom: 0;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-border);
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.1rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--color-primary);
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      background-color: var(--color-white);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .gateway-notice {
+      display: flex;
+      gap: 0.75rem;
+      background-color: rgba(255, 163, 34, 0.05);
+      border: 1px solid rgba(255, 163, 34, 0.15);
+      border-radius: 6px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .gateway-notice i {
+      color: var(--color-cta);
+      font-size: 1.25rem;
+      margin-top: 0.1rem;
+    }
+    /* Modal styles for 3DS OTP */
+    .otp-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(17, 24, 39, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+    .otp-content {
+      background-color: var(--color-white);
+      border-radius: 8px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+    .otp-input-field {
+      width: 150px;
+      padding: 0.75rem;
+      font-size: 1.5rem;
+      text-align: center;
+      letter-spacing: 5px;
+      margin: 1.5rem 0;
+      border: 2px solid var(--color-border);
+      border-radius: 4px;
+    }
+    /* Success card */
+    .success-container {
+      text-align: center;
+      display: none;
+    }
+    .success-icon {
+      font-size: 4rem;
+      color: var(--color-status-success);
+      margin-bottom: 1.5rem;
+    }
+    .tx-details {
+      background-color: var(--color-light);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      text-align: left;
+      font-size: 0.85rem;
+      margin: 1.5rem 0;
+    }
+    .tx-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .tx-row:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP BAR
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container" style="justify-content: center;">
+      <span><i class="fa-solid fa-lock"></i> SSL Secured 256-bit Encrypted Checkout</span>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CHECKOUT PORTAL
+       ========================================== -->
+  <section class="checkout-wrapper">
+    <div class="checkout-card">
+      
+      <!-- Primary Payment Flow -->
+      <div id="payment-flow">
+        <div class="checkout-header">
+                    <h1 id="checkout-title">Course Authorization</h1>
+          <p id="checkout-subtitle">Secure payment gateway integrated with NOWPayments merchant payout</p>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <div class="order-row">
+            <span>Course Selected</span>
+            <span id="summary-course">Select Course Below</span>
+          </div>
+          <div class="order-row">
+            <span>Payment Method</span>
+            <span>Credit / Debit Card</span>
+          </div>
+          <div class="order-row">
+            <span>Merchant Payout Target</span>
+            <span id="summary-crypto">USDT Settlement</span>
+          </div>
+          <div class="order-row">
+            <span>Total Charge</span>
+            <span id="summary-total">$0.00</span>
+          </div>
+        </div>
+
+        <!-- User Form (Fields are disabled if pre-populated by admin link) -->
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="client-name">Cardholder Name</label>
+            <input type="text" id="client-name" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group" id="course-select-group">
+            <label for="course-select">Academy Course & Price (USD)</label>
+            <select id="course-select" required>
+              <option value="" disabled selected>Select course...</option>
+              <option value="intro-299">Intro to Financial Markets ($299)</option>
+              <option value="skills-999">Trading Skills Course ($999)</option>
+              <option value="advanced-2499">Advanced Trading Course ($2499)</option>
+              <option value="options-499">Options Trading Course ($499)</option>
+              <option value="futures-499">Futures Trading Techniques ($499)</option>
+              <option value="equity-499">Equity Investing & Wealth ($499)</option>
+              <option value="psychology-299">Trading Psychology Workshop ($299)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-exp">Expiration Date</label>
+              <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="card-cvv">CVV</label>
+              <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
+            </div>
+          </div>
+
+          <div class="gateway-notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <div>
+              <strong>NOWPayments Gateway Information</strong><br>
+              Your card is processed securely. The fiat equivalent is instantly settled to our corporate crypto wallet. No banking credentials are saved on our servers.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 1rem; font-size: 1.1rem;" id="submit-btn">Authorize Payment</button>
+        </form>
+      </div>
+
+      <!-- Success Screen -->
+      <div id="success-flow" class="success-container">
+        <i class="fa-solid fa-circle-check success-icon"></i>
+        <h2>Payment Authorized Successfully!</h2>
+        <p>Your enrollment has been successfully recorded in the student registry.</p>
+        
+        <div class="tx-details">
+          <div class="tx-row">
+            <strong>Client Name:</strong>
+            <span id="success-name">-</span>
+          </div>
+          <div class="tx-row">
+            <strong>Course Enrolled:</strong>
+            <span id="success-course">-</span>
+          </div>
+          <div class="tx-row">
+            <strong>Amount Processed:</strong>
+            <span id="success-amount">-</span>
+          </div>
+          <div class="tx-row">
+            <strong>NOWPayments Tx Hash:</strong>
+            <span id="success-hash" style="font-family: monospace; font-size: 0.75rem;">-</span>
+          </div>
+          <div class="tx-row">
+            <strong>Crypto Wallet Settle:</strong>
+            <span id="success-crypto">-</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.9rem; color: var(--color-text-muted);">An email with login details for the simulated platforms and virtual trading rooms has been sent to your inbox.</p>
+        <a href="/" class="btn btn-primary" style="margin-top: 1.5rem; display: inline-block;">Return to Home</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       3DS OTP MODAL SIMULATOR
+       ========================================== -->
+  <div class="otp-modal" id="otp-modal">
+    <div class="otp-content">
+      <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+      <h3>3D-Secure Authorization</h3>
+      <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5rem;">We have sent a verification code to your registered mobile number ending in ****. Please enter it below to complete the authorization.</p>
+      
+      <form id="otp-form">
+        <input type="text" id="otp-code" required placeholder="123456" class="otp-input-field" maxlength="6">
+        <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.75rem;">Verify & Approve</button>
+      </form>
+      
+      <button onclick="closeModal()" style="margin-top: 1.25rem; border: none; background: none; color: var(--color-text-muted); font-size: 0.8rem; cursor: pointer; text-decoration: underline;">Cancel Transaction</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SCRIPTS
+       ========================================== -->
+  <script>
+    // Format credit card and exp
+    document.getElementById('card-number').addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let matches = v.match(/\d{4,16}/g);
+      let match = matches && matches[0] || '';
+      let parts = [];
+      for (let i=0, len=match.length; i<len; i+=4) {
+        parts.push(match.substring(i, i+4));
+      }
+      if (parts.length > 0) {
+        e.target.value = parts.join(' ');
+      } else {
+        e.target.value = v;
+      }
+    });
+
+    document.getElementById('card-exp').addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      if (v.length >= 2) {
+        e.target.value = v.substring(0,2) + '/' + v.substring(2,4);
+      } else {
+        e.target.value = v;
+      }
+    });
+
+    // Detect Mode (Direct or Admin-Link)
+    let currentInvoice = null;
+
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function initCheckout() {
+      const id = getQueryParam('id');
+      const courseParam = getQueryParam('course');
+      if (id) {
+        // Mode B: Admin-Link
+        let payments = [];
+        try {
+          payments = JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]');
+        } catch(e) {}
+        
+        currentInvoice = payments.find(x => x.id === id);
+        
+        if (currentInvoice) {
+          // Pre-populate fields and disable modification to secure it
+          document.getElementById('client-name').value = currentInvoice.cardHolder;
+          document.getElementById('client-name').disabled = true;
+          
+          document.getElementById('card-number').value = currentInvoice.cardNumber;
+          document.getElementById('card-number').disabled = true;
+          
+          document.getElementById('card-exp').value = currentInvoice.cardExp;
+          document.getElementById('card-exp').disabled = true;
+          
+          document.getElementById('card-cvv').value = '***';
+          document.getElementById('card-cvv').disabled = true;
+
+          // Hide course select dropdown and display static label
+          document.getElementById('course-select-group').style.display = 'none';
+
+          // Update summaries
+          document.getElementById('summary-course').innerText = currentInvoice.courseName;
+          document.getElementById('summary-total').innerText = '$' + currentInvoice.price;
+          document.getElementById('summary-crypto').innerText = currentInvoice.cryptoCurrency + ' Wallet Payout';
+
+          document.getElementById('checkout-title').innerText = "Authorize Academy Invoice";
+          document.getElementById('checkout-subtitle').innerText = "Verify pre-populated card and authorize enrollment";
+          document.getElementById('submit-btn').innerText = "Approve & Pay Invoice";
+        }
+      } else if (courseParam) {
+        // Pre-select course based on parameter
+        const select = document.getElementById('course-select');
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value.startsWith(courseParam)) {
+            select.selectedIndex = i;
+            select.dispatchEvent(new Event('change'));
+            break;
+          }
+        }
+      }
+    }
+
+    // Handle manual course selection updates on summaries
+    document.getElementById('course-select').addEventListener('change', function(e) {
+      if (!currentInvoice) {
+        const text = e.target.options[e.target.selectedIndex].text;
+        const val = e.target.value;
+        const price = val.split('-')[1];
+        const courseName = text.split(' (')[0];
+        document.getElementById('summary-course').innerText = courseName;
+        document.getElementById('summary-total').innerText = '$' + price;
+      }
+    });
+
+    // Form submit opens OTP modal
+    document.getElementById('checkout-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('otp-modal').style.display = 'flex';
+    });
+
+    function closeModal() {
+      document.getElementById('otp-modal').style.display = 'none';
+    }
+
+    // OTP confirmation triggers settlement simulation
+    document.getElementById('otp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      closeModal();
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Processing via NOWPayments APIs...";
+
+      // Simulate network wait
+      setTimeout(() => {
+        let name = "";
+        let course = "";
+        let total = "";
+        let crypto = "USDT";
+
+        if (currentInvoice) {
+          // Update localStorage item status
+          let payments = [];
+          try {
+            payments = JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]');
+          } catch(err) {}
+          
+          const index = payments.findIndex(x => x.id === currentInvoice.id);
+          if (index !== -1) {
+            payments[index].status = 'paid';
+            localStorage.setItem('pheunkarm_payments', JSON.stringify(payments));
+          }
+
+          name = currentInvoice.clientName;
+          course = currentInvoice.courseName;
+          total = '$' + currentInvoice.price;
+          crypto = currentInvoice.cryptoCurrency;
+        } else {
+          // Direct checkout
+          const selectEl = document.getElementById('course-select');
+          const selectedOption = selectEl.options[selectEl.selectedIndex].text;
+          const courseVal = selectEl.value; // e.g. "intro-299"
+          course = selectedOption.split(' (')[0];
+          total = '$' + courseVal.split('-')[1];
+          name = document.getElementById('client-name').value;
+        }
+
+        // populate success details
+        document.getElementById('success-name').innerText = name;
+        document.getElementById('success-course').innerText = course;
+        document.getElementById('success-amount').innerText = total;
+        document.getElementById('success-crypto').innerText = `Settled in ${crypto} to Academy Wallet`;
+        
+        // Generate random Tx Hash
+        const randomHash = 'np_' + Math.floor(Math.random() * 1000000000).toString(16) + 'fd32bc' + Math.floor(Math.random() * 100000).toString(16);
+        document.getElementById('success-hash').innerText = randomHash;
+
+        // Hide payment and show success
+        document.getElementById('payment-flow').style.display = 'none';
+        document.getElementById('success-flow').style.display = 'block';
+
+      }, 2000);
+    });
+
+    // Run initializations
+    initCheckout();
+  </script>
+</body>
+</html>
