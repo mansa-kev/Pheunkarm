@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFavicon();
   initStickyHeader();
   initMobileMenu();
+  initPrePurchaseQuestionnaire();
   initLiveTicker();
   initCourseFiltering();
   initTestimonialSlider();
@@ -42,12 +43,30 @@ function initMobileMenu() {
 
   if (!toggleBtn || !navMenu) return;
 
+  // Add body overlay element if not exists
+  let overlay = document.getElementById('body-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'body-overlay';
+    overlay.id = 'body-overlay';
+    document.body.appendChild(overlay);
+  }
+
   // Toggle Drawer
   toggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleBtn.classList.toggle('open');
     navMenu.classList.toggle('open');
     body.classList.toggle('menu-open');
+    overlay.classList.toggle('active');
+  });
+
+  // Close Drawer when clicking overlay
+  overlay.addEventListener('click', () => {
+    toggleBtn.classList.remove('open');
+    navMenu.classList.remove('open');
+    body.classList.remove('menu-open');
+    overlay.classList.remove('active');
   });
 
   // Close Drawer when clicking outside
@@ -56,6 +75,7 @@ function initMobileMenu() {
       toggleBtn.classList.remove('open');
       navMenu.classList.remove('open');
       body.classList.remove('menu-open');
+      overlay.classList.remove('active');
     }
   });
 
@@ -68,6 +88,116 @@ function initMobileMenu() {
         e.stopPropagation();
         coursesDropdown.classList.toggle('active-mobile');
       }
+    });
+  }
+}
+
+/**
+ * 2.5. Diagnostic Pre-Purchase Questionnaire
+ */
+function initPrePurchaseQuestionnaire() {
+  // Inject modal markup if not present
+  if (!document.getElementById('questionnaire-modal')) {
+    const modalDiv = document.createElement('div');
+    modalDiv.className = 'modal-overlay';
+    modalDiv.id = 'questionnaire-modal';
+    modalDiv.innerHTML = `
+      <div class="modal-content">
+        <button class="modal-close" id="close-questionnaire">&times;</button>
+        <div class="modal-header">
+          <h3 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">Intake Assessment</h3>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0; line-height: 1.4;">Answer these 3 questions to configure your custom workspace parameters and finalize enrollment.</p>
+        </div>
+        <div class="modal-body">
+          <form id="questionnaire-form">
+            <input type="hidden" id="q-target-url" value="">
+            <div class="form-group">
+              <label for="q-experience">Trading Experience Level</label>
+              <select id="q-experience" required>
+                <option value="" disabled selected>Select level...</option>
+                <option value="beginner">Beginner (Under 1 Year)</option>
+                <option value="intermediate">Intermediate (1-3 Years)</option>
+                <option value="advanced">Advanced (3+ Years)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="q-objective">Primary Trading Objective</label>
+              <select id="q-objective" required>
+                <option value="" disabled selected>Select goal...</option>
+                <option value="income">Short-term Cash Flow & Income</option>
+                <option value="career">Institutional Career / Prop Desk Placement</option>
+                <option value="wealth">Long-term Asset & Wealth Preservation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="q-capital">Planned Risk Capital Sizing</label>
+              <select id="q-capital" required>
+                <option value="" disabled selected>Select size...</option>
+                <option value="micro">Micro Account (Under $1,000)</option>
+                <option value="standard">Standard Account ($1,000 - $10,000)</option>
+                <option value="premium">Premium Account (Above $10,000)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.85rem; cursor: pointer; border-radius: 4px; font-weight: 600;">Proceed to Payment</button>
+          </form>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalDiv);
+  }
+
+  const modal = document.getElementById('questionnaire-modal');
+  const closeBtn = document.getElementById('close-questionnaire');
+  const form = document.getElementById('questionnaire-form');
+  const targetInput = document.getElementById('q-target-url');
+
+  if (!modal) return;
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('open');
+    });
+  }
+
+  // Intercept all clicks on checkout links
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('a[href*="/checkout/"]');
+    if (btn) {
+      // If it is the Advanced / Mentorship course, we do NOT show checkout modal,
+      // instead it should go to the application form. We will handle that separately.
+      const isMentorship = btn.getAttribute('data-is-mentorship') === 'true' || btn.closest('.mentorship-only');
+      if (isMentorship) {
+        // Go straight to application form instead of checkout
+        e.preventDefault();
+        window.location.href = '/contact-us/?subject=Admissions%20Mentorship%20Application';
+        return;
+      }
+
+      e.preventDefault();
+      const targetUrl = btn.getAttribute('href');
+      targetInput.value = targetUrl;
+      modal.classList.add('open');
+    }
+  });
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const experience = document.getElementById('q-experience').value;
+      const objective = document.getElementById('q-objective').value;
+      const capital = document.getElementById('q-capital').value;
+
+      // Save to localStorage
+      localStorage.setItem('intake_experience', experience);
+      localStorage.setItem('intake_objective', objective);
+      localStorage.setItem('intake_capital', capital);
+
+      const baseUrl = targetInput.value;
+      const separator = baseUrl.includes('?') ? '&' : '?';
+      const finalUrl = `${baseUrl}${separator}exp=${experience}&obj=${objective}&cap=${capital}`;
+
+      modal.classList.remove('open');
+      window.location.href = finalUrl;
     });
   }
 }

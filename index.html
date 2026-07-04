@@ -43,12 +43,12 @@
       <!-- Navigation Links -->
       <nav class="nav-menu" id="nav-menu">
         <div class="nav-item active">
-          <a href="#" class="nav-link">Home</a>
+          <a href="/" class="nav-link">Home</a>
         </div>
         
         <!-- Courses Dropdown -->
         <div class="nav-item" id="courses-dropdown">
-          <a href="#" class="nav-link">Courses <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <a href="#" class="nav-link">Programs <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
           <ul class="dropdown-menu">
             <li class="dropdown-item">
               <a href="#" class="courses-sub-trigger"><strong>Learn How to Trade</strong></a>
@@ -62,8 +62,11 @@
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/advanced-trading-course/">Advanced Trading Course</a>
             </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/quantitative-trading-and-algorithmic-strategy/">Quantitative Trading & Algorithmic Strategy</a>
+            </li>
             <li class="dropdown-item" style="margin-top: 0.5rem; border-top: 1px solid var(--color-border);">
-              <a href="/courses/"><strong>Specialist Financial Courses</strong></a>
+              <a href="/courses/"><strong>Specialist & Advanced Programs</strong></a>
             </li>
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/options-trading-course/">Options Trading Course</a>
@@ -77,7 +80,21 @@
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/trading-psychology-workshop/">Trading Psychology Workshop</a>
             </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/crypto-asset-class-portfolio-management/">Crypto Asset Portfolio Management</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem; font-weight: bold; border-top: 1px dashed var(--color-border); margin-top: 0.5rem; padding-top: 0.5rem;">
+              <a href="/contact-us/?subject=Admissions%20Mentorship%20Application" class="mentorship-only" data-is-mentorship="true" style="color: var(--color-cta) !important;">Advanced Macro Portfolio Strategy (Mentorship)</a>
+            </li>
           </ul>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/resources/" class="nav-link">Resources</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/events/" class="nav-link">Events</a>
         </div>
         
         <div class="nav-item">
@@ -90,7 +107,7 @@
         
         <!-- Header CTA Button -->
         <div class="nav-item mobile-cta-container" style="margin-left: 1rem;">
-          <a href="#" class="btn btn-cta" id="header-cta-btn">Learn to Trade</a>
+          <a href="/contact-us/?subject=Admissions%20Inquiry" class="btn btn-cta" id="header-cta-btn">Learn to Trade</a>
         </div>
       </nav>
 
@@ -386,23 +403,39 @@
           </div>
         </div>
 
-        <!-- Course 3 -->
-        <div class="course-card" data-category="learn">
+        <!-- Course 3: Mentorship Gatekept -->
+        <div class="course-card mentorship-only" data-category="learn">
           <div class="course-image">
-            <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80" alt="Advanced Trading Course">
-            <span class="course-badge">Professional</span>
+            <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=600&q=80" alt="Advanced Trading Course & Mentorship">
+            <span class="course-badge" style="background-color: var(--color-cta);">Elite Mentorship</span>
           </div>
           <div class="course-body">
-            <h3><a href="/courses/advanced-trading-course/" style="text-decoration: none; color: inherit;">Advanced Trading Course</a></h3>
-            <p>Our flag-ship program. Master deep technical charts, macroeconomic indicators, trading psychology, and advanced portfolio hedging strategies.</p>
+            <h3><a href="/courses/advanced-trading-course/" style="text-decoration: none; color: inherit;">Advanced Trading Course & Mentorship</a></h3>
+            <p>Our flagship program. Master deep technical charts, global macroeconomics, trading psychology, and trade the Institute's capital on profit-split.</p>
             <div class="course-meta">
               <span><i class="fa-solid fa-calendar-days"></i> 12 Weeks Duration</span>
-              <span><i class="fa-solid fa-globe"></i> Interactive Online</span>
+              <span><i class="fa-solid fa-user-tie"></i> Interview Intake</span>
             </div>
           </div>
         </div>
 
         <!-- Course 4 -->
+        <div class="course-card" data-category="learn">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="Quantitative Trading & Algorithmic Strategy">
+            <span class="course-badge">Quantitative</span>
+          </div>
+          <div class="course-body">
+            <h3><a href="/courses/quantitative-trading-and-algorithmic-strategy/" style="text-decoration: none; color: inherit;">Quantitative Trading & Algorithmic Strategy</a></h3>
+            <p>Bridge discretionary trading and statistics. Learn statistical arbitrage, session opening range models, backtesting setups, and risk coding.</p>
+            <div class="course-meta">
+              <span><i class="fa-solid fa-calendar-days"></i> 6 Weeks Duration</span>
+              <span><i class="fa-solid fa-globe"></i> Advanced Track</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 5 -->
         <div class="course-card" data-category="specialist">
           <div class="course-image">
             <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80" alt="Options Trading Course">
@@ -418,7 +451,7 @@
           </div>
         </div>
 
-        <!-- Course 5 -->
+        <!-- Course 6 -->
         <div class="course-card" data-category="specialist">
           <div class="course-image">
             <img src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?auto=format&fit=crop&w=600&q=80" alt="Futures Trading Techniques">
@@ -434,10 +467,26 @@
           </div>
         </div>
 
-        <!-- Course 6 -->
+        <!-- Course 7 -->
         <div class="course-card" data-category="specialist">
           <div class="course-image">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Trading Psychology Workshop">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Equity Investing & Wealth">
+            <span class="course-badge">Specialist</span>
+          </div>
+          <div class="course-body">
+            <h3><a href="/courses/equity-investing-and-wealth/" style="text-decoration: none; color: inherit;">Equity Investing & Wealth</a></h3>
+            <p>Learn value investing metrics, stock valuations, financial statements analysis, and building long-term generational wealth portfolios.</p>
+            <div class="course-meta">
+              <span><i class="fa-solid fa-calendar-days"></i> 3 Weeks Duration</span>
+              <span><i class="fa-solid fa-globe"></i> Specialist Online</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 8 -->
+        <div class="course-card" data-category="specialist">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Trading Psychology Workshop">
             <span class="course-badge">Psychology</span>
           </div>
           <div class="course-body">
@@ -450,6 +499,64 @@
           </div>
         </div>
 
+        <!-- Course 9 -->
+        <div class="course-card" data-category="specialist">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=600&q=80" alt="Crypto Asset Portfolio Management">
+            <span class="course-badge">Crypto</span>
+          </div>
+          <div class="course-body">
+            <h3><a href="/courses/crypto-asset-class-portfolio-management/" style="text-decoration: none; color: inherit;">Crypto Asset Portfolio Management</a></h3>
+            <p>Navigate token valuation, decentralized finance indices, smart contract security risks, and technical setups in highly volatile crypto assets.</p>
+            <div class="course-meta">
+              <span><i class="fa-solid fa-calendar-days"></i> 3 Weeks Duration</span>
+              <span><i class="fa-solid fa-globe"></i> Specialist Online</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       UPCOMING WEBINARS & EVENTS SECTION
+       ========================================== -->
+  <section class="section" id="upcoming-events" style="background-color: var(--color-light); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Live Webinars & Physical Seminars</h2>
+        <p>Build your foundational knowledge and network with professionals through our upcoming educational events.</p>
+      </div>
+
+      <div class="grid-2-col" style="--grid-cols: 1fr 1fr; gap: 3rem;">
+        <!-- Card 1: Next Live Webinar -->
+        <div style="background-color: var(--color-white); border: 1px solid var(--color-border); border-radius: 8px; padding: 2.5rem; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.01);">
+          <span class="event-tag" style="background-color: var(--color-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem; display: inline-block; width: max-content;">Next Live Webinar</span>
+          <h3 style="font-size: 1.35rem; color: var(--color-primary); margin-bottom: 0.75rem;">Reading Institutional Liquidity & Volatility Sweeps</h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--color-text-main); margin-bottom: 1.5rem; flex-grow: 1;">
+            Join our lead advisor for a live charting breakdown session. Learn to identify high-probability sweep levels and ignore retail traps.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+            <span><i class="fa-solid fa-calendar"></i> July 18, 2026</span>
+            <span><i class="fa-solid fa-clock"></i> 18:00 GMT</span>
+          </div>
+          <a href="/events/" class="btn btn-primary" style="text-align: center; display: block; width: 100%;">Register Free Seat</a>
+        </div>
+
+        <!-- Card 2: Physical Seminar -->
+        <div style="background-color: var(--color-white); border: 1px solid var(--color-border); border-radius: 8px; padding: 2.5rem; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.01);">
+          <span class="event-tag" style="background-color: var(--color-cta); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.25rem; display: inline-block; width: max-content;">Physical Seminar</span>
+          <h3 style="font-size: 1.35rem; color: var(--color-primary); margin-bottom: 0.75rem;">Pheunkarm Annual Trading & Wealth Conference</h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--color-text-main); margin-bottom: 1.5rem; flex-grow: 1;">
+            A full-day flagship networking and portfolio conference held at a premium venue. Connect with serious traders and access key macro projections.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+            <span><i class="fa-solid fa-calendar"></i> December 12, 2026</span>
+            <span><i class="fa-solid fa-location-dot"></i> City Center Conference Hall</span>
+          </div>
+          <a href="/events/" class="btn btn-cta" style="text-align: center; display: block; width: 100%;">Reserve Invitation Ticket</a>
+        </div>
       </div>
     </div>
   </section>

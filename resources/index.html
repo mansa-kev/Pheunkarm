@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>Trading Resources & Strategy Guides - Pheunkarm Institute</title>
+  <meta name="description" content="Access free institutional-grade trading resources, backtested price action strategies, risk management tools, and psychology checklists at Pheunkarm Institute.">
+  
+  <!-- Style Link (Root Relative) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .resource-hero {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(23, 85, 117, 0.97), rgba(11, 15, 25, 0.98)), url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+    }
+    .resources-wrapper {
+      padding: 5rem 0;
+      background-color: var(--color-light);
+    }
+    .resource-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .resource-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(23, 85, 117, 0.08);
+      border-color: rgba(255, 163, 34, 0.3);
+    }
+    .resource-icon {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(23, 85, 117, 0.05);
+      color: var(--color-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .resource-card.featured .resource-icon {
+      background-color: rgba(255, 163, 34, 0.1);
+      color: var(--color-cta);
+    }
+    .resource-card h3 {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+    .resource-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-main);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .resource-meta-details {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+    .resource-download-btn {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--color-primary);
+      background: none;
+      color: var(--color-primary);
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: var(--transition-normal);
+    }
+    .resource-card.featured .resource-download-btn {
+      background-color: var(--color-cta);
+      border-color: var(--color-cta);
+      color: var(--color-white);
+    }
+    .resource-card.featured .resource-download-btn:hover {
+      background-color: #e08b1a;
+      border-color: #e08b1a;
+      color: var(--color-white) !important;
+    }
+    .resource-download-btn:hover {
+      background-color: var(--color-primary);
+      color: var(--color-white) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP BAR
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <a href="mailto:admin@pheunkarm.online" id="top-bar-email">
+        <i class="fa-solid fa-envelope"></i> admin@pheunkarm.online
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header" id="site-header">
+    <div class="container">
+      <!-- Rebranded Logo -->
+      <a href="/" class="logo" id="header-logo">
+        <span class="logo-brand">Pheunkarm</span>
+        <span class="logo-line"></span>
+        <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="nav-menu">
+        <div class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </div>
+        
+        <!-- Courses Dropdown -->
+        <div class="nav-item" id="courses-dropdown">
+          <a href="#" class="nav-link">Programs <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <a href="#" class="courses-sub-trigger"><strong>Learn How to Trade</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-skills-course/">Trading Skills Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/advanced-trading-course/">Advanced Trading Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/quantitative-trading-and-algorithmic-strategy/">Quantitative Trading & Algorithmic Strategy</a>
+            </li>
+            <li class="dropdown-item" style="margin-top: 0.5rem; border-top: 1px solid var(--color-border);">
+              <a href="/courses/"><strong>Specialist & Advanced Programs</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/options-trading-course/">Options Trading Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/futures-trading-techniques/">Futures Trading Techniques</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/equity-investing-and-wealth/">Equity Investing & Wealth</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-psychology-workshop/">Trading Psychology Workshop</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/crypto-asset-class-portfolio-management/">Crypto Asset Portfolio Management</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem; font-weight: bold; border-top: 1px dashed var(--color-border); margin-top: 0.5rem; padding-top: 0.5rem;">
+              <a href="/contact-us/?subject=Admissions%20Mentorship%20Application" class="mentorship-only" data-is-mentorship="true" style="color: var(--color-cta) !important;">Advanced Macro Portfolio Strategy (Mentorship)</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-item active">
+          <a href="/resources/" class="nav-link">Resources</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/events/" class="nav-link">Events</a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/about-us/" class="nav-link">About Us</a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/contact-us/" class="nav-link">Contact Us</a>
+        </div>
+        
+        <!-- Header CTA Button -->
+        <div class="nav-item mobile-cta-container" style="margin-left: 1rem;">
+          <a href="/contact-us/?subject=Admissions%20Inquiry" class="btn btn-cta" id="header-cta-btn">Learn to Trade</a>
+        </div>
+      </nav>
+
+      <!-- Hamburger toggle button -->
+      <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+  <section class="resource-hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Institutional Vault</span>
+        <h1 style="font-size: 2.75rem; color: var(--color-white);">Free Strategy Manuals & Resources</h1>
+        <p style="color: rgba(255,255,255,0.85); max-width: 700px; margin: 0 auto;">
+          Access the same strategic manuals, backtest indices, candlestick sheets, and mindset checklists used by professional proprietary trading desks. No marketing gimmicks—just institutional logic.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       RESOURCES CONTAINER
+       ========================================== -->
+  <section class="resources-wrapper">
+    <div class="container">
+      
+      <!-- Category Filters -->
+      <div class="resource-categories">
+        <button class="tab-btn active" data-filter="all">All Resources</button>
+        <button class="tab-btn" data-filter="manuals">Manuals & E-Books</button>
+        <button class="tab-btn" data-filter="strategies">Trading Strategies</button>
+        <button class="tab-btn" data-filter="mindset">Psychology & Sizing</button>
+      </div>
+
+      <!-- Resource Grid -->
+      <div class="courses-grid" id="resources-grid">
+        
+        <!-- Resource 1: Featured -->
+        <div class="resource-card featured" data-category="manuals">
+          <div class="resource-icon">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-cta); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Featured Release</span>
+          <h3>Pheunkarm Candlestick & Price Action Handbook</h3>
+          <p>
+            An institutional manual on candlestick mechanics, structural breaks, liquidity sweeps, and price action mapping. Move past standard retail flags and patterns to read true market order flow.
+          </p>
+          <a href="#" onclick="alert('Downloading: Pheunkarm_Price_Action_Manual.pdf')" class="resource-download-btn">Download PDF Manual</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-pdf"></i> PDF (4.2 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 14,249 Downloads</span>
+          </div>
+        </div>
+
+        <!-- Resource 2 -->
+        <div class="resource-card" data-category="strategies">
+          <div class="resource-icon">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Backtested Strategy</span>
+          <h3>Stock Index Opening Range Breakout Strategy</h3>
+          <p>
+            A quantitative guide to trading the DAX 40 and Dow Jones opening range breakouts. Includes volatility filters, time-slice settings, target distributions, and rules for scaling.
+          </p>
+          <a href="#" onclick="alert('Downloading: Index_Opening_Breakout_Strategy.pdf')" class="resource-download-btn">Download Strategy Guide</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-pdf"></i> PDF (2.8 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 8,912 Downloads</span>
+          </div>
+        </div>
+
+        <!-- Resource 3 -->
+        <div class="resource-card" data-category="mindset">
+          <div class="resource-icon">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Sizing Sheet</span>
+          <h3>Dynamic Position Sizing & R-Multiple Log</h3>
+          <p>
+            A clean Excel/Google Sheet template to calculate position sizing based on portfolio heat, tracking dynamic drawdown thresholds, and analyzing trade performance using R-multiple distributions.
+          </p>
+          <a href="#" onclick="alert('Downloading: Sizing_Matrix_Template.xlsx')" class="resource-download-btn">Download Excel Template</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-excel"></i> XLSX (1.4 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 11,438 Downloads</span>
+          </div>
+        </div>
+
+        <!-- Resource 4 -->
+        <div class="resource-card" data-category="mindset">
+          <div class="resource-icon">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Mindset Tool</span>
+          <h3>Pre-Market Psychological Prep & Sizing Rules</h3>
+          <p>
+            A daily trading checklist to assess your mindset, hormonal state, and compliance. Learn to identify revenge trading urges and establish absolute stop-loss thresholds.
+          </p>
+          <a href="#" onclick="alert('Downloading: Pre_Market_Checklist.pdf')" class="resource-download-btn">Download Checklist</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-pdf"></i> PDF (0.9 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 7,105 Downloads</span>
+          </div>
+        </div>
+
+        <!-- Resource 5 -->
+        <div class="resource-card" data-category="manuals">
+          <div class="resource-icon">
+            <i class="fa-solid fa-book"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Recommended Reading</span>
+          <h3>Phantom of the Pits - Annotated Study Guide</h3>
+          <p>
+            An abridged study guide and summary of the classic trading guide, with personal commentary on trade execution, capital protection, and position addition methods.
+          </p>
+          <a href="#" onclick="alert('Downloading: Phantom_Of_The_Pits_Study_Guide.pdf')" class="resource-download-btn">Download Guide</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-pdf"></i> PDF (3.1 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 9,384 Downloads</span>
+          </div>
+        </div>
+
+        <!-- Resource 6 -->
+        <div class="resource-card" data-category="strategies">
+          <div class="resource-icon">
+            <i class="fa-solid fa-arrows-split-up-and-left"></i>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;">Backtested Strategy</span>
+          <h3>London Session FX Momentum Strategy</h3>
+          <p>
+            A statistical breakout and momentum tracking strategy for EUR/USD and GBP/USD during the London market open. Backtested metrics across 5 years of intra-day data.
+          </p>
+          <a href="#" onclick="alert('Downloading: London_Session_Momentum.pdf')" class="resource-download-btn">Download Strategy Guide</a>
+          <div class="resource-meta-details">
+            <span><i class="fa-solid fa-file-pdf"></i> PDF (1.7 MB)</span>
+            <span><i class="fa-solid fa-download"></i> 6,554 Downloads</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer" id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1 -->
+        <div class="footer-col">
+          <a href="#" class="logo" style="margin-bottom: 1.5rem; color: var(--color-white);">
+            <span class="logo-brand">Pheunkarm</span>
+            <span class="logo-line"></span>
+            <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
+          </a>
+          <p>Pheunkarm Institute of Trading & Portfolio Management provides practical financial training. We prepare individuals to understand markets, execute strategies, and trade professionally.</p>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="footer-col">
+          <h4>Popular Courses</h4>
+          <ul class="footer-links">
+            <li><a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a></li>
+            <li><a href="/courses/trading-skills-course/">Trading Skills Course</a></li>
+            <li><a href="/courses/advanced-trading-course/">Advanced Trading Course</a></li>
+            <li><a href="/courses/options-trading-course/">Options Trading Course</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-us/">About Us</a></li>
+            <li><a href="/contact-us/">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div class="footer-col">
+          <h4>Support & Inquiries</h4>
+          <ul class="footer-contact">
+            <li>
+              <i class="fa-solid fa-envelope" style="color: var(--color-cta);"></i>
+              <a href="mailto:admin@pheunkarm.online">admin@pheunkarm.online</a>
+            </li>
+          </ul>
+          <p style="font-size: 0.8rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.4);">
+            For student support, billing inquiries, or advising, please contact our support desk.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pheunkarm Institute of Trading & Portfolio Management. All rights reserved.</p>
+        <p>Built with Premium Institute Layout styling.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Link (Root Relative) -->
+  <script type="module" src="/main.js"></script>
+  
+  <script>
+    // Local filter tabs for resources page
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const cards = document.querySelectorAll('.resource-card');
+      
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const filter = btn.getAttribute('data-filter');
+          
+          cards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

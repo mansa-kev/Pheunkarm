@@ -18,6 +18,10 @@ export default defineConfig({
         psychology_workshop: resolve(__dirname, 'courses/trading-psychology-workshop/index.html'),
         admin: resolve(__dirname, 'admin/index.html'),
         checkout: resolve(__dirname, 'checkout/index.html'),
+        resources: resolve(__dirname, 'resources/index.html'),
+        events: resolve(__dirname, 'events/index.html'),
+        quant_strategy: resolve(__dirname, 'courses/quantitative-trading-and-algorithmic-strategy/index.html'),
+        crypto_portfolio: resolve(__dirname, 'courses/crypto-asset-class-portfolio-management/index.html'),
       }
     }
   }

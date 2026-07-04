@@ -48,10 +48,10 @@
         
         <!-- Courses Dropdown -->
         <div class="nav-item active" id="courses-dropdown">
-          <a href="/courses/" class="nav-link">Courses <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <a href="#" class="nav-link">Programs <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
           <ul class="dropdown-menu">
             <li class="dropdown-item">
-              <a href="/courses/"><strong>Learn How to Trade</strong></a>
+              <a href="#" class="courses-sub-trigger"><strong>Learn How to Trade</strong></a>
             </li>
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a>
@@ -62,13 +62,16 @@
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/advanced-trading-course/">Advanced Trading Course</a>
             </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/quantitative-trading-and-algorithmic-strategy/">Quantitative Trading & Algorithmic Strategy</a>
+            </li>
             <li class="dropdown-item" style="margin-top: 0.5rem; border-top: 1px solid var(--color-border);">
-              <a href="/courses/"><strong>Specialist Financial Courses</strong></a>
+              <a href="/courses/"><strong>Specialist & Advanced Programs</strong></a>
             </li>
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/options-trading-course/">Options Trading Course</a>
             </li>
-            <li class="dropdown-item style-active" style="padding-left: 1.5rem; font-size: 0.9rem;">
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/futures-trading-techniques/">Futures Trading Techniques</a>
             </li>
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
@@ -77,7 +80,21 @@
             <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
               <a href="/courses/trading-psychology-workshop/">Trading Psychology Workshop</a>
             </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/crypto-asset-class-portfolio-management/">Crypto Asset Portfolio Management</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem; font-weight: bold; border-top: 1px dashed var(--color-border); margin-top: 0.5rem; padding-top: 0.5rem;">
+              <a href="/contact-us/?subject=Admissions%20Mentorship%20Application" class="mentorship-only" data-is-mentorship="true" style="color: var(--color-cta) !important;">Advanced Macro Portfolio Strategy (Mentorship)</a>
+            </li>
           </ul>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/resources/" class="nav-link">Resources</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/events/" class="nav-link">Events</a>
         </div>
         
         <div class="nav-item">
@@ -90,7 +107,7 @@
         
         <!-- Header CTA Button -->
         <div class="nav-item mobile-cta-container" style="margin-left: 1rem;">
-          <a href="/contact-us/" class="btn btn-cta">Learn to Trade</a>
+          <a href="/contact-us/?subject=Admissions%20Inquiry" class="btn btn-cta" id="header-cta-btn">Learn to Trade</a>
         </div>
       </nav>
 
@@ -138,7 +155,7 @@
        COURSE MAIN CONTENT & SIDEBAR
        ========================================== -->
   <section class="courses-section" style="background-color: var(--color-white);">
-    <div class="container" style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 4rem; align-items: start;">
+    <div class="container grid-2-col" style="--grid-cols: 1.3fr 0.7fr;">
       
       <!-- Left Column: Details -->
       <div>

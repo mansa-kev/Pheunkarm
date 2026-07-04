@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Metadata -->
+  <title>Upcoming Events & Free Webinars - Pheunkarm Institute</title>
+  <meta name="description" content="Register for upcoming free live trading webinars, market updates, and our flagship physical end-of-year trading conference at Pheunkarm Institute.">
+  
+  <!-- Style Link (Root Relative) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .events-hero {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(23, 85, 117, 0.96), rgba(11, 15, 25, 0.98)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+    }
+    .events-wrapper {
+      padding: 5rem 0;
+      background-color: var(--color-white);
+    }
+    .featured-event-box {
+      background: linear-gradient(135deg, #175575, #0b0f19);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 3rem;
+      color: var(--color-white);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      margin-bottom: 4rem;
+    }
+    .event-tag {
+      background-color: var(--color-cta);
+      color: var(--color-white);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .event-calendar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .calendar-item {
+      background-color: var(--color-light);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 150px 1fr 200px;
+      align-items: center;
+      gap: 2rem;
+      transition: var(--transition-normal);
+    }
+    .calendar-item:hover {
+      box-shadow: 0 8px 25px rgba(23, 85, 117, 0.04);
+      border-color: rgba(23, 85, 117, 0.2);
+    }
+    .calendar-date {
+      text-align: center;
+      border-right: 1px solid var(--color-border);
+      padding-right: 2rem;
+    }
+    .calendar-date .day {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      display: block;
+      line-height: 1;
+    }
+    .calendar-date .month {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-cta);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.25rem;
+      display: block;
+    }
+    .calendar-info h3 {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .calendar-info p {
+      font-size: 0.95rem;
+      color: var(--color-text-main);
+      line-height: 1.5;
+    }
+    .calendar-action .btn {
+      width: 100%;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .calendar-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .calendar-date {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP BAR
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <a href="mailto:admin@pheunkarm.online" id="top-bar-email">
+        <i class="fa-solid fa-envelope"></i> admin@pheunkarm.online
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header" id="site-header">
+    <div class="container">
+      <!-- Rebranded Logo -->
+      <a href="/" class="logo" id="header-logo">
+        <span class="logo-brand">Pheunkarm</span>
+        <span class="logo-line"></span>
+        <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="nav-menu">
+        <div class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </div>
+        
+        <!-- Courses Dropdown -->
+        <div class="nav-item" id="courses-dropdown">
+          <a href="#" class="nav-link">Programs <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <a href="#" class="courses-sub-trigger"><strong>Learn How to Trade</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-skills-course/">Trading Skills Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/advanced-trading-course/">Advanced Trading Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/quantitative-trading-and-algorithmic-strategy/">Quantitative Trading & Algorithmic Strategy</a>
+            </li>
+            <li class="dropdown-item" style="margin-top: 0.5rem; border-top: 1px solid var(--color-border);">
+              <a href="/courses/"><strong>Specialist & Advanced Programs</strong></a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/options-trading-course/">Options Trading Course</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/futures-trading-techniques/">Futures Trading Techniques</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/equity-investing-and-wealth/">Equity Investing & Wealth</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/trading-psychology-workshop/">Trading Psychology Workshop</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem;">
+              <a href="/courses/crypto-asset-class-portfolio-management/">Crypto Asset Portfolio Management</a>
+            </li>
+            <li class="dropdown-item" style="padding-left: 1.5rem; font-size: 0.9rem; font-weight: bold; border-top: 1px dashed var(--color-border); margin-top: 0.5rem; padding-top: 0.5rem;">
+              <a href="/contact-us/?subject=Admissions%20Mentorship%20Application" class="mentorship-only" data-is-mentorship="true" style="color: var(--color-cta) !important;">Advanced Macro Portfolio Strategy (Mentorship)</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/resources/" class="nav-link">Resources</a>
+        </div>
+
+        <div class="nav-item active">
+          <a href="/events/" class="nav-link">Events</a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/about-us/" class="nav-link">About Us</a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/contact-us/" class="nav-link">Contact Us</a>
+        </div>
+        
+        <!-- Header CTA Button -->
+        <div class="nav-item mobile-cta-container" style="margin-left: 1rem;">
+          <a href="/contact-us/?subject=Admissions%20Inquiry" class="btn btn-cta" id="header-cta-btn">Learn to Trade</a>
+        </div>
+      </nav>
+
+      <!-- Hamburger toggle button -->
+      <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+  <section class="events-hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Knowledge Events</span>
+        <h1 style="font-size: 2.75rem; color: var(--color-white);">Free Webinars & Physical Seminars</h1>
+        <p style="color: rgba(255,255,255,0.85); max-width: 700px; margin: 0 auto;">
+          Accelerate your market insight. Join our live interactive training sessions covering real-time macro analysis, risk setups, and trader mindset exercises.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       EVENTS CONTAINER
+       ========================================== -->
+  <section class="events-wrapper">
+    <div class="container">
+      
+      <!-- Flagship Physical Seminar Promo -->
+      <div class="featured-event-box">
+        <div class="grid-2-col" style="--grid-cols: 1.2fr 0.8fr; gap: 3rem; align-items: center;">
+          <div>
+            <span class="event-tag">End-of-Year Flagship Seminar</span>
+            <h2 style="color: var(--color-white); font-size: 2rem; margin-bottom: 1rem;">Pheunkarm Annual Trading & Wealth Conference</h2>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; line-height: 1.6;">
+              A full-day physical networking and educational conference designed for HNWIs, portfolio managers, and dedicated retail traders. Join our panel of institutional traders as they discuss macroeconomic trends, currency valuations, options hedging setups, and market forecasts for 2027.
+            </p>
+            <div style="display: flex; gap: 1.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; flex-wrap: wrap;">
+              <span><i class="fa-solid fa-location-dot" style="color: var(--color-cta);"></i> Premium City Center Venue</span>
+              <span><i class="fa-solid fa-calendar" style="color: var(--color-cta);"></i> December 12, 2026</span>
+              <span><i class="fa-solid fa-clock" style="color: var(--color-cta);"></i> 09:00 - 17:00</span>
+            </div>
+            <a href="/contact-us/?subject=Flagship%20Physical%20Conference%20Seat%20Reservation" class="btn btn-cta">Request Invitation Card</a>
+          </div>
+          <div style="text-align: center;">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80" alt="Trading Conference" style="border-radius: 8px; width: 100%; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar List -->
+      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+        <h2>Intraday Webinar Calendar</h2>
+        <p>Book your free seat for our upcoming bi-weekly educational webinars.</p>
+      </div>
+
+      <div class="event-calendar-list">
+        
+        <!-- Event 1 -->
+        <div class="calendar-item">
+          <div class="calendar-date">
+            <span class="day">18</span>
+            <span class="month">Jul 2026</span>
+          </div>
+          <div class="calendar-info">
+            <span class="event-tag" style="background-color: var(--color-primary); margin-bottom: 0.5rem; font-size: 0.7rem;">Free Webinar</span>
+            <h3>Reading Institutional Liquidity & Volatility Sweeps</h3>
+            <p>Learn how to identify fake retail breakout patterns and execute entries where hedge funds and liquidity providers accumulate their positions.</p>
+          </div>
+          <div class="calendar-action">
+            <a href="/contact-us/?subject=Registration:%20Liquidity%20Sweeps%20Webinar" class="btn btn-primary">Register Free Seat</a>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="calendar-item">
+          <div class="calendar-date">
+            <span class="day">01</span>
+            <span class="month">Aug 2026</span>
+          </div>
+          <div class="calendar-info">
+            <span class="event-tag" style="background-color: var(--color-primary); margin-bottom: 0.5rem; font-size: 0.7rem;">Free Webinar</span>
+            <h3>Macroeconomic Frameworks for Currency Traders</h3>
+            <p>Understand how interest rate differentials, central bank policies, and global balance sheets drive EUR/USD and GBP/USD trends.</p>
+          </div>
+          <div class="calendar-action">
+            <a href="/contact-us/?subject=Registration:%20Macro%20Currency%20Webinar" class="btn btn-primary">Register Free Seat</a>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="calendar-item">
+          <div class="calendar-date">
+            <span class="day">15</span>
+            <span class="month">Aug 2026</span>
+          </div>
+          <div class="calendar-info">
+            <span class="event-tag" style="background-color: var(--color-primary); margin-bottom: 0.5rem; font-size: 0.7rem;">Free Webinar</span>
+            <h3>Options Greeks: Sizing Risks & Hedging Portfolios</h3>
+            <p>An introduction to Delta, Gamma, Theta, and Vega. Learn how volatility changes influence options valuation and how to protect equity capital.</p>
+          </div>
+          <div class="calendar-action">
+            <a href="/contact-us/?subject=Registration:%20Options%20Greeks%20Webinar" class="btn btn-primary">Register Free Seat</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer" id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1 -->
+        <div class="footer-col">
+          <a href="#" class="logo" style="margin-bottom: 1.5rem; color: var(--color-white);">
+            <span class="logo-brand">Pheunkarm</span>
+            <span class="logo-line"></span>
+            <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
+          </a>
+          <p>Pheunkarm Institute of Trading & Portfolio Management provides practical financial training. We prepare individuals to understand markets, execute strategies, and trade professionally.</p>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="footer-col">
+          <h4>Popular Courses</h4>
+          <ul class="footer-links">
+            <li><a href="/courses/introduction-to-financial-markets/">Introduction to Financial Markets</a></li>
+            <li><a href="/courses/trading-skills-course/">Trading Skills Course</a></li>
+            <li><a href="/courses/advanced-trading-course/">Advanced Trading Course</a></li>
+            <li><a href="/courses/options-trading-course/">Options Trading Course</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-us/">About Us</a></li>
+            <li><a href="/contact-us/">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div class="footer-col">
+          <h4>Support & Inquiries</h4>
+          <ul class="footer-contact">
+            <li>
+              <i class="fa-solid fa-envelope" style="color: var(--color-cta);"></i>
+              <a href="mailto:admin@pheunkarm.online">admin@pheunkarm.online</a>
+            </li>
+          </ul>
+          <p style="font-size: 0.8rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.4);">
+            For student support, billing inquiries, or advising, please contact our support desk.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Pheunkarm Institute of Trading & Portfolio Management. All rights reserved.</p>
+        <p>Built with Premium Institute Layout styling.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Link (Root Relative) -->
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
