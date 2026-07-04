@@ -293,6 +293,7 @@ function initLiveTicker() {
     { name: 'NASDAQ', value: 17688.88, change: 0.88, decimal: 2 },
     { name: 'DOW JONES', value: 38647.10, change: -0.15, decimal: 2 },
     { name: 'FTSE 100', value: 8146.86, change: 0.25, decimal: 2 },
+    { name: 'Pheunkarm Institute of Trading & Portfolio Management', isCustomText: true },
     { name: 'BTC/USD', value: 68245.10, change: 1.20, decimal: 2 },
     { name: 'ETH/USD', value: 3480.55, change: -0.40, decimal: 2 },
     { name: 'SOL/USD', value: 143.62, change: 3.10, decimal: 2 },
@@ -307,6 +308,14 @@ function initLiveTicker() {
   // Helper to build items HTML
   function buildTrackHTML() {
     return assets.map((asset, index) => {
+      if (asset.isCustomText) {
+        return `
+          <span class="ticker-item" style="display: inline-flex; align-items: center; gap: 6px; padding: 0 1.5rem; border-right: 1px solid rgba(255,255,255,0.15);">
+            <strong style="font-weight: 900; color: var(--color-cta); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Pheunkarm</strong>
+            <span style="font-weight: 600; color: #ffffff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; opacity: 0.95;">Institute of Trading & Portfolio Management</span>
+          </span>
+        `;
+      }
       const sign = asset.change >= 0 ? '+' : '';
       const colorClass = asset.change >= 0 ? 'ticker-up' : 'ticker-down';
       const arrow = asset.change >= 0 ? '▲' : '▼';
@@ -344,10 +353,14 @@ function initLiveTicker() {
 
   // Interval updates
   setInterval(() => {
-    // Randomly update 2 assets
-    for (let i = 0; i < 2; i++) {
+    // Randomly update 2 assets (excluding custom text items)
+    let updated = 0;
+    let attempts = 0;
+    while (updated < 2 && attempts < 10) {
+      attempts++;
       const idx = Math.floor(Math.random() * assets.length);
       const asset = assets[idx];
+      if (asset.isCustomText) continue;
 
       const pct = (Math.random() * 0.12 - 0.06); // -0.06% to +0.06%
       const tick = asset.value * (pct / 100);
@@ -377,6 +390,8 @@ function initLiveTicker() {
         el.classList.remove(removeClass);
         el.classList.add(colorClass);
       });
+      
+      updated++;
     }
   }, 1200);
 }

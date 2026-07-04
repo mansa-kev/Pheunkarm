@@ -264,7 +264,7 @@ img {
 
 .logo-brand {
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: var(--color-primary); /* #175575 */
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -280,8 +280,8 @@ img {
 .logo-subtitle {
   font-family: var(--font-heading);
   font-weight: 600; /* refined/medium */
-  font-size: 0.45rem; /* small */
-  letter-spacing: 1.2px;
+  font-size: 0.52rem; /* small */
+  letter-spacing: 1.5px;
   color: #1a1a2e; /* black */
   text-transform: uppercase;
   white-space: nowrap;
