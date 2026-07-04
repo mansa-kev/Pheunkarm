@@ -254,16 +254,52 @@ img {
 /* Logo */
 .logo {
   font-family: var(--font-heading);
-  font-weight: 900;
-  font-size: 1.6rem;
-  color: var(--color-primary);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  line-height: 1.1;
+  vertical-align: middle;
 }
 
-.logo span {
-  color: var(--color-cta);
+.logo-brand {
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--color-primary); /* #175575 */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logo-line {
+  width: 100%;
+  height: 1.5px; /* thin gold line */
+  background-color: var(--color-cta); /* #ffa322 */
+  margin: 3px 0 4px 0;
+}
+
+.logo-subtitle {
+  font-family: var(--font-heading);
+  font-weight: 600; /* refined/medium */
+  font-size: 0.45rem; /* small */
+  letter-spacing: 1.2px;
+  color: #1a1a2e; /* black */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Dark background overrides (footer / checkout header) */
+.footer .logo-brand,
+.footer-col .logo-brand,
+.footer-logo .logo-brand,
+.checkout-card-header .logo-brand {
+  color: var(--color-white) !important;
+}
+
+.footer .logo-subtitle,
+.footer-col .logo-subtitle,
+.footer-logo .logo-subtitle,
+.checkout-card-header .logo-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .logo-icon {

@@ -1,5 +1,5 @@
 // ==========================================
-// Pheunkarm Academy Main JavaScript
+// Pheunkarm Institute of Trading & Portfolio Management Main JavaScript
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
