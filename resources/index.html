@@ -114,6 +114,188 @@
       background-color: var(--color-primary);
       color: var(--color-white) !important;
     }
+
+    /* Calculator Styles */
+    .calculator-section {
+      padding: 5rem 0;
+      background-color: var(--color-dark);
+      color: var(--color-white);
+    }
+    .calc-header-wrapper {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    .calc-inputs {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.5px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.85rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--color-cta);
+    }
+    .calc-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--color-cta);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition-normal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+    }
+    .calc-btn:hover {
+      background-color: var(--color-cta-hover);
+      transform: translateY(-2px);
+    }
+    .calc-results {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .chart-container {
+      flex-grow: 1;
+      min-height: 350px;
+      background: #0a0e17;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    #monteCarloCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .stat-box {
+      background: rgba(0,0,0,0.3);
+      padding: 1.5rem;
+      border-radius: 4px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-cta);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    /* SEO Sections */
+    .seo-section {
+      padding: 6rem 0;
+      background-color: var(--color-white);
+      border-top: 1px solid var(--color-border);
+    }
+    .seo-article {
+      max-width: 800px;
+      margin: 0 auto 5rem;
+      background: var(--color-white);
+    }
+    .seo-article h2 {
+      color: var(--color-primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      line-height: 1.3;
+    }
+    .seo-article h3 {
+      color: var(--color-primary);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .seo-article p {
+      line-height: 1.8;
+      color: var(--color-text-main);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+    .seo-article ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-text-main);
+    }
+    .seo-article li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .seo-article blockquote {
+      border-left: 4px solid var(--color-cta);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--color-primary);
+      background: var(--color-accent-light);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    @media (max-width: 992px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 576px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -361,6 +543,118 @@
   </section>
 
   <!-- ==========================================
+       MONTE CARLO EDGE CALCULATOR
+       ========================================== -->
+  <section class="calculator-section" id="edge-calculator">
+    <div class="container">
+      <div class="calc-header-wrapper">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Trading Edge & Risk of Ruin Calculator</h2>
+        <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem; line-height: 1.6;">
+          An institutional Monte Carlo stress test. Run 100 simulated equity curves based on your hit rate and risk-to-reward ratio to visualize the mathematical reality of drawdown and edge over 500 trades.
+        </p>
+      </div>
+
+      <div class="calc-grid">
+        <!-- Inputs -->
+        <div class="calc-inputs">
+          <div class="input-group">
+            <label for="winRate"><i class="fa-solid fa-bullseye"></i> Win Rate (%)</label>
+            <input type="number" id="winRate" value="45" min="1" max="99" step="1">
+          </div>
+          <div class="input-group">
+            <label for="rewardRisk"><i class="fa-solid fa-scale-unbalanced"></i> Average Reward:Risk Ratio</label>
+            <input type="number" id="rewardRisk" value="2.0" min="0.1" max="100" step="0.1">
+          </div>
+          <div class="input-group">
+            <label for="riskPerTrade"><i class="fa-solid fa-percent"></i> Risk Per Trade (%)</label>
+            <input type="number" id="riskPerTrade" value="1.0" min="0.1" max="20" step="0.1">
+          </div>
+          <div class="input-group">
+            <label for="startingCapital"><i class="fa-solid fa-sack-dollar"></i> Starting Capital ($)</label>
+            <input type="number" id="startingCapital" value="10000" min="100" step="100">
+          </div>
+          
+          <button class="calc-btn" onclick="runMonteCarlo()"><i class="fa-solid fa-play"></i> Run 100 Simulations</button>
+        </div>
+
+        <!-- Results & Chart -->
+        <div class="calc-results">
+          <div class="chart-container">
+            <canvas id="monteCarloCanvas"></canvas>
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="statExpectancy">0.35 R</div>
+              <div class="stat-label">Expectancy Per Trade</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statRuin">1.2%</div>
+              <div class="stat-label">Risk of Ruin (50% DD)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statMedian">1.8x</div>
+              <div class="stat-label">Median Final Capital</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       HIGH-INTENT SEO STRATEGY ARTICLES
+       ========================================== -->
+  <section class="seo-section" id="strategy-insights">
+    <div class="container">
+      
+      <!-- Article 1 -->
+      <article class="seo-article">
+        <h2>How to Calculate the Risk of Ruin in Multi-Asset Portfolios</h2>
+        <p>
+          In institutional finance, the "Risk of Ruin" isn't merely a theoretical concept—it is the foundational metric that dictates position sizing, margin allocation, and portfolio heat. While retail traders obsess over entry patterns and indicators, professional proprietary traders focus on statistical survival.
+        </p>
+        <h3>The Mathematical Reality of Drawdown</h3>
+        <p>
+          Drawdowns are asymmetric. If your portfolio loses 20%, it requires a 25% gain to recover the watermark. If it loses 50%, you need a 100% gain just to break even. This compounding decay means that surviving a string of consecutive losses (the left tail of a probability distribution) is mathematically more critical than capturing outlier wins.
+        </p>
+        <blockquote>
+          "In proprietary trading, your edge is your expected value over 1,000 trades. Your risk of ruin is whether you have enough capital to survive to trade 1,001."
+        </blockquote>
+        <h3>Calculating the Threshold</h3>
+        <p>
+          To calculate your personal risk of ruin, you must know your true historical Win Rate (W) and your Average Reward-to-Risk Ratio (R). Using the Monte Carlo stress test above, you can simulate hundreds of possible equity curves over 500 trades. If your Risk of Ruin exceeds 1% at a 50% drawdown threshold, your position sizing is too aggressive for your edge. Reduce your risk per trade until your mathematical survival rate approaches 100%.
+        </p>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="seo-article">
+        <h2>Institutional Drawdown Recovery Rules vs. Retail Martingale Systems</h2>
+        <p>
+          One of the most dangerous psychological traps in financial markets is the urge to quickly recover losses. When amateur traders face a steep drawdown, they frequently increase their position sizing or widen their stop losses—a destructive phenomenon known as the Martingale approach.
+        </p>
+        <h3>The Retail Martingale Trap</h3>
+        <p>
+          The logic seems intuitive: "If I double my risk, I only need one winning trade to make back the loss." However, markets do not owe you a reversion to the mean. In trending or highly volatile environments, adding to losing positions or averaging down accelerates account liquidation. This is the primary reason why retail brokers report that over 70% of accounts lose money.
+        </p>
+        <h3>The Institutional Anti-Martingale Method</h3>
+        <p>
+          Professional proprietary desks implement the exact opposite approach. We utilize <strong>Dynamic Risk Scaling</strong>.
+        </p>
+        <ul>
+          <li><strong>Peak Equity Sizing:</strong> You trade your maximum standard risk (e.g., 1.5% per trade) only when your account is at or near an all-time high.</li>
+          <li><strong>Drawdown Reduction:</strong> If the portfolio drops 5%, risk per trade is halved.</li>
+          <li><strong>The Hard Stop:</strong> If the portfolio drops 10% (the maximum allowable drawdown on many prop desks), trading is suspended. The trader must return to the simulator, recalibrate their edge, and rebuild their psychological capital before live trading resumes.</li>
+        </ul>
+        <p>
+          By shrinking position sizing during losing streaks, you artificially flat-line your drawdown curve. You buy time to regain clarity and wait for market conditions to realign with your strategy. Learn to protect the baseline above all else.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
        FOOTER
        ========================================== -->
   <footer class="footer" id="site-footer">
@@ -446,6 +740,156 @@
         });
       });
     });
+
+    // ==========================================
+    // MONTE CARLO SIMULATION LOGIC
+    // ==========================================
+    function runMonteCarlo() {
+      // Get inputs
+      const winRate = parseFloat(document.getElementById('winRate').value) / 100;
+      const rr = parseFloat(document.getElementById('rewardRisk').value);
+      const riskPerTrade = parseFloat(document.getElementById('riskPerTrade').value) / 100;
+      const startingCapital = parseFloat(document.getElementById('startingCapital').value);
+
+      const numSimulations = 100;
+      const numTrades = 500;
+      const ruinThreshold = startingCapital * 0.5; // 50% Drawdown
+
+      let ruinedCount = 0;
+      let finalCapitals = [];
+      let allPaths = [];
+
+      // Run simulations
+      for (let i = 0; i < numSimulations; i++) {
+        let currentCapital = startingCapital;
+        let path = [startingCapital];
+        let isRuined = false;
+
+        for (let t = 0; t < numTrades; t++) {
+          if (currentCapital <= ruinThreshold) {
+            isRuined = true;
+          }
+          
+          if (isRuined) {
+            path.push(currentCapital); // Flatline after ruin
+            continue;
+          }
+
+          // Trade logic: Risk is fixed % of starting capital for simplicity, or compounding
+          // We will use fixed fractional (risk % of current capital)
+          const tradeRiskAmount = currentCapital * riskPerTrade;
+          
+          if (Math.random() <= winRate) {
+            // Win
+            currentCapital += tradeRiskAmount * rr;
+          } else {
+            // Loss
+            currentCapital -= tradeRiskAmount;
+          }
+          path.push(currentCapital);
+        }
+
+        if (isRuined) ruinedCount++;
+        finalCapitals.push(currentCapital);
+        allPaths.push(path);
+      }
+
+      // Calculate Stats
+      const expectancyR = (winRate * rr) - ((1 - winRate) * 1);
+      const ruinPercentage = ((ruinedCount / numSimulations) * 100).toFixed(1);
+      
+      // Median
+      finalCapitals.sort((a, b) => a - b);
+      const medianFinal = finalCapitals[Math.floor(numSimulations / 2)];
+      const medianMultiplier = (medianFinal / startingCapital).toFixed(2);
+
+      // Update UI
+      document.getElementById('statExpectancy').innerText = expectancyR.toFixed(2) + ' R';
+      document.getElementById('statRuin').innerText = ruinPercentage + '%';
+      document.getElementById('statMedian').innerText = medianMultiplier + 'x';
+      
+      // Color coding for expectancy
+      const expEl = document.getElementById('statExpectancy');
+      if(expectancyR > 0) {
+        expEl.style.color = 'var(--color-cta)';
+      } else {
+        expEl.style.color = '#ef4444'; // Red for negative edge
+      }
+
+      drawChart(allPaths, startingCapital);
+    }
+
+    // Chart Drawing Function
+    function drawChart(paths, startingCapital) {
+      const canvas = document.getElementById('monteCarloCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Make canvas responsive
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Find global max to scale chart
+      let maxCap = startingCapital;
+      paths.forEach(path => {
+        const pathMax = Math.max(...path);
+        if(pathMax > maxCap) maxCap = pathMax;
+      });
+      // Cap the visual max to avoid extreme outliers squishing everything
+      const sortedMaxes = paths.map(p => Math.max(...p)).sort((a,b)=>a-b);
+      const visualMax = sortedMaxes[Math.floor(sortedMaxes.length * 0.95)] || maxCap; 
+      
+      const padding = 20;
+      const usableHeight = canvas.height - (padding * 2);
+      const usableWidth = canvas.width - (padding * 2);
+
+      // Draw starting line
+      const startY = canvas.height - padding - ((startingCapital / visualMax) * usableHeight);
+      ctx.beginPath();
+      ctx.moveTo(padding, startY);
+      ctx.lineTo(canvas.width - padding, startY);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.setLineDash([5, 5]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Draw paths
+      paths.forEach((path, idx) => {
+        ctx.beginPath();
+        for (let i = 0; i < path.length; i++) {
+          const x = padding + (i / path.length) * usableWidth;
+          // Clamp value for visual drawing
+          let val = path[i];
+          if(val > visualMax * 1.5) val = visualMax * 1.5; 
+          
+          const y = canvas.height - padding - ((val / visualMax) * usableHeight);
+          
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        
+        // Color based on outcome
+        const finalVal = path[path.length - 1];
+        if (finalVal < startingCapital * 0.5) {
+          ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)'; // Red (Ruin)
+        } else if (finalVal > startingCapital) {
+          ctx.strokeStyle = 'rgba(23, 163, 74, 0.3)'; // Green (Profit)
+        } else {
+          ctx.strokeStyle = 'rgba(255, 163, 34, 0.3)'; // Orange/Yellow (Loss but no ruin)
+        }
+        
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+    }
+
+    // Run once on load
+    window.addEventListener('load', runMonteCarlo);
+    window.addEventListener('resize', runMonteCarlo);
   </script>
 </body>
 </html>

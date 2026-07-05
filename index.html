@@ -432,51 +432,32 @@
       const grid = document.getElementById('carousel-track');
       if (!grid) return;
 
-      const originalCards = Array.from(grid.querySelectorAll('.carousel-card:not(.carousel-card-clone)'));
-      const originalCount = originalCards.length;
-
-      // Clone first 2 cards for mobile carousel looping
-      const cloneCount = 2;
-      for (let i = 0; i < cloneCount; i++) {
-        const clone = originalCards[i].cloneNode(true);
-        clone.classList.add('carousel-card-clone');
-        grid.appendChild(clone);
-      }
-
-      let currentIndex = 0;
       let slideInterval = null;
       const slideDuration = 4000;
 
-      function getSlideWidth() {
-        const firstCard = grid.firstElementChild;
-        if (firstCard) {
-          const cardWidth = firstCard.getBoundingClientRect().width;
-          const gap = parseFloat(window.getComputedStyle(grid).gap) || 16;
-          return cardWidth + gap;
-        }
-        return 0;
-      }
-
       function slideNext() {
-        if (window.innerWidth > 768) return;
+        if (window.innerWidth > 992) return;
         
-        currentIndex++;
-        const slideWidth = getSlideWidth();
+        const scrollLeft = grid.scrollLeft;
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
         
-        grid.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-        grid.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        const firstCard = grid.firstElementChild;
+        if (!firstCard) return;
+        
+        const cardWidth = firstCard.getBoundingClientRect().width;
+        const gap = parseFloat(window.getComputedStyle(grid).gap) || 16;
+        const slideAmount = cardWidth + gap;
 
-        if (currentIndex >= originalCount) {
-          setTimeout(() => {
-            grid.style.transition = 'none';
-            currentIndex = 0;
-            grid.style.transform = 'translateX(0)';
-          }, 600);
+        // If we reached the end (with a small 10px threshold for rounding errors)
+        if (scrollLeft + 10 >= maxScroll) {
+          grid.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          grid.scrollBy({ left: slideAmount, behavior: 'smooth' });
         }
       }
 
       function startSlider() {
-        if (window.innerWidth <= 768 && !slideInterval) {
+        if (window.innerWidth <= 992 && !slideInterval) {
           slideInterval = setInterval(slideNext, slideDuration);
         }
       }
@@ -489,13 +470,9 @@
       }
 
       function handleResponsiveSlider() {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 992) {
           stopSlider();
-          grid.style.transition = 'none';
-          grid.style.transform = 'none';
-          grid.querySelectorAll('.carousel-card-clone').forEach(el => el.style.display = 'none');
         } else {
-          grid.querySelectorAll('.carousel-card-clone').forEach(el => el.style.display = '');
           startSlider();
         }
       }
