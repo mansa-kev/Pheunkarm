@@ -36,6 +36,7 @@ export default defineConfig({
         strategies_opt: resolve(__dirname, 'strategies/defined-risk-options-momentum/index.html'),
         admin_strategies: resolve(__dirname, 'admin/strategies/index.html'),
         admin_strategies_perf: resolve(__dirname, 'admin/strategies/performance/new/index.html'),
+        market_research: resolve(__dirname, 'market-research/index.html'),
       }
     }
   }
