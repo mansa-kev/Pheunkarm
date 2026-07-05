@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Strategies Overview</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: var(--color-background); color: var(--color-white); }
+    .admin-container { padding: 4rem 0; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem; margin-bottom: 2rem; }
+    .admin-header h1 { color: var(--color-white); }
+    .admin-nav { display: flex; gap: 1rem; margin-bottom: 2rem; }
+    .admin-nav a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border-radius: 4px; }
+    .admin-nav a:hover, .admin-nav a.active { background: var(--color-cta); color: white; }
+    
+    .strategy-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .strategy-table th { text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+    .strategy-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+
+  <!-- Mock Admin Sidebar / Topbar -->
+  <div style="background: var(--color-primary); padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <a href="/admin/" style="color: white; text-decoration: none; font-weight: bold;">Pheunkarm Internal System</a>
+  </div>
+
+  <div class="container admin-container">
+    <div class="admin-header">
+      <h1>Research & Models Management</h1>
+      <a href="/admin/strategies/performance/new/" class="btn btn-cta"><i class="fa-solid fa-plus"></i> Log PMOR Trade</a>
+    </div>
+
+    <div class="admin-nav">
+      <a href="/admin/">Payments</a>
+      <a href="/admin/strategies/" class="active">Strategies & Performance</a>
+      <a href="/admin/courses/">Courses</a>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+      <h3 style="margin-bottom: 1rem;">Tracked Models</h3>
+      <p style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">Only flagship models are currently logged via the public performance dashboard.</p>
+      
+      <table class="strategy-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="admin-strategy-list">
+          <tr>
+            <td><strong>PMOR Breakout</strong></td>
+            <td><span class="badge" style="background: var(--color-cta); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Flagship / Tracked</span></td>
+            <td>Index Structure</td>
+            <td>
+              <a href="/strategies/pmor-breakout/" class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">View Public Page</a>
+              <a href="/admin/strategies/performance/new/" class="btn btn-cta" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; margin-left: 0.5rem;">Log Trade</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Liquidity Sweep Reversal</td>
+            <td><span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Research</span></td>
+            <td>Reversal</td>
+            <td><a href="/strategies/liquidity-sweep-reversal/" class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5);">View Public Page</a></td>
+          </tr>
+          <!-- Note: Additional strategies are mocked for brevity -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

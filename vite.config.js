@@ -22,6 +22,20 @@ export default defineConfig({
         events: resolve(__dirname, 'events/index.html'),
         quant_strategy: resolve(__dirname, 'courses/quantitative-trading-and-algorithmic-strategy/index.html'),
         crypto_portfolio: resolve(__dirname, 'courses/crypto-asset-class-portfolio-management/index.html'),
+        strategies: resolve(__dirname, 'strategies/index.html'),
+        strategies_pmor: resolve(__dirname, 'strategies/pmor-breakout/index.html'),
+        strategies_liq: resolve(__dirname, 'strategies/liquidity-sweep-reversal/index.html'),
+        strategies_gold: resolve(__dirname, 'strategies/gold-liquidity-raid-fvg/index.html'),
+        strategies_sess: resolve(__dirname, 'strategies/session-raid-continuation/index.html'),
+        strategies_macro: resolve(__dirname, 'strategies/macro-displacement/index.html'),
+        strategies_corr: resolve(__dirname, 'strategies/correlated-market-divergence/index.html'),
+        strategies_auc: resolve(__dirname, 'strategies/auction-balance-rotation/index.html'),
+        strategies_ob: resolve(__dirname, 'strategies/opening-bell-range-breakout/index.html'),
+        strategies_osb: resolve(__dirname, 'strategies/opening-signal-bar-expansion/index.html'),
+        strategies_acc: resolve(__dirname, 'strategies/accumulation-distribution-volume/index.html'),
+        strategies_opt: resolve(__dirname, 'strategies/defined-risk-options-momentum/index.html'),
+        admin_strategies: resolve(__dirname, 'admin/strategies/index.html'),
+        admin_strategies_perf: resolve(__dirname, 'admin/strategies/performance/new/index.html'),
       }
     }
   }

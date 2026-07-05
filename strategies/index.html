@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Strategy Library - Pheunkarm Institute</title>
+  <meta name="description" content="A research-driven collection of trading models studied, tested, and tracked by Pheunkarm across global markets.">
+  
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Strategies Specific Styling */
+    .strategy-library-header {
+      background-color: var(--color-background);
+      color: var(--color-white);
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    
+    .strategy-library-header h1 {
+      font-size: 2.5rem;
+      color: var(--color-white);
+      margin-bottom: 1rem;
+    }
+    
+    .strategy-library-header p.lead {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .classification-section {
+      background-color: var(--color-light);
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+    
+    .strategy-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .strategy-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(23,85,117,0.08);
+      border-color: var(--color-primary);
+    }
+    
+    .strategy-card.flagship {
+      border: 2px solid var(--color-cta);
+      background-color: rgba(23, 85, 117, 0.02);
+    }
+    
+    .strategy-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .s-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--color-light);
+      color: var(--color-text-muted);
+    }
+    
+    .s-badge.flagship {
+      background-color: var(--color-cta);
+      color: var(--color-white);
+    }
+    
+    .s-badge.tracked {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+    
+    .strategy-card h3 {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+    
+    .strategy-card p {
+      font-size: 0.9rem;
+      color: var(--color-text-main);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    
+    .strategy-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      padding-top: 1rem;
+    }
+    
+    .strategy-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .disclaimer-panel {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      background-color: var(--color-light);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 3rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar & Header injected via JS (shared) -->
+  <div id="shared-header-container"></div>
+
+  <!-- Hero Section -->
+  <section class="strategy-library-header">
+    <div class="container">
+      <h1>Strategy Library</h1>
+      <h3 style="color: var(--color-cta); margin-bottom: 1.5rem; font-weight: 600;">Structured trading models. Defined rules. Transparent research.</h3>
+      <p class="lead">Pheunkarm studies trading strategies as research models before treating them as execution models. Each framework is documented by thesis, market behavior, entry logic, risk model, no-trade conditions, and performance status.</p>
+      
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="/strategies/pmor-breakout/" class="btn btn-cta">View PMOR Breakout</a>
+        <a href="#library" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;">Explore All Strategies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy / Classification -->
+  <section class="classification-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>How We Classify Strategies</h2>
+        <p>Every model inside the Pheunkarm framework is categorized and strictly documented to maintain institutional integrity.</p>
+      </div>
+      
+      <div class="grid-2-col" style="--grid-cols: 1fr 1fr; gap: 2rem;">
+        <div>
+          <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Core Documentation Pillars</h4>
+          <ul style="list-style-type: disc; margin-left: 1.5rem; color: var(--color-text-main); line-height: 1.8;">
+            <li>Market behavior context</li>
+            <li>Session and time context</li>
+            <li>Entry and exit triggers</li>
+            <li>Risk and position sizing models</li>
+            <li>Assets supported</li>
+            <li>News sensitivity handling</li>
+            <li>Testing and active status</li>
+            <li>Performance evidence (Tracked Models)</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Testing Status Hierarchy</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div><span class="s-badge flagship">Flagship</span> Primary execution models traded daily by the Institute.</div>
+            <div><span class="s-badge tracked">Tracked</span> Models with live public data logging.</div>
+            <div><span class="s-badge" style="background:#198754; color:#fff;">Forward Testing</span> In live trial mode on prop desk accounts.</div>
+            <div><span class="s-badge">Research Model</span> Theoretical logic currently undergoing Monte Carlo validation.</div>
+            <div><span class="s-badge">Educational Framework</span> Standard models used to teach core concepts.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategies Grid -->
+  <section id="library" class="section">
+    <div class="container">
+      
+      <div class="strategy-grid" id="strategy-grid-container">
+        <!-- Rendered via JS -->
+      </div>
+      
+      <div class="disclaimer-panel">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size: 1.25rem; color: #ffc107; margin-bottom: 0.5rem; display: block;"></i>
+        The strategies presented in this library are for educational and research purposes only. They are not financial advice, investment recommendations, or trade signals. Trading involves substantial risk. Actual results may differ because of spread, slippage, broker pricing, execution speed, liquidity, market conditions, and individual risk management. Past performance does not guarantee future results.
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Footer injected via JS -->
+  <div id="shared-footer-container"></div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { STRATEGIES } from '/src/data/strategies.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('strategy-grid-container');
+      
+      // Render cards
+      let html = '';
+      STRATEGIES.forEach(strategy => {
+        const isFlagship = strategy.isFlagship;
+        
+        let badgesHtml = strategy.status.map(status => {
+          let badgeClass = 's-badge';
+          if(status === 'Flagship Strategy') badgeClass += ' flagship';
+          if(status === 'Tracked') badgeClass += ' tracked';
+          return `<span class="${badgeClass}">${status}</span>`;
+        }).join('');
+        
+        html += `
+          <div class="strategy-card ${isFlagship ? 'flagship' : ''}">
+            <div class="strategy-badges">
+              ${badgesHtml}
+            </div>
+            <h3>${strategy.title}</h3>
+            <p>${strategy.summary}</p>
+            
+            <div class="strategy-meta">
+              <span><i class="fa-solid fa-chart-line"></i> ${strategy.style}</span>
+              <span><i class="fa-solid fa-clock"></i> ${strategy.timeframes[0]}</span>
+            </div>
+            
+            <a href="/strategies/${strategy.slug}/" class="btn ${isFlagship ? 'btn-cta' : 'btn-outline'}" style="text-align: center; width: 100%; border-color: ${isFlagship ? '' : 'rgba(0,0,0,0.1)'};">View Framework</a>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+      
+      // A quick hack to copy header/footer from index.html if we don't have a shared component system set up yet.
+      // Since this is vanilla JS, we can dynamically fetch the homepage and extract header/footer.
+      // But for better performance, I'll recommend the user uses Vite's capabilities or I can build a simple layout injector.
+      // Let's implement a simple fetch for the header/footer from `/index.html`
+      fetch('/')
+        .then(res => res.text())
+        .then(text => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, 'text/html');
+          
+          const topBar = doc.querySelector('.top-bar');
+          const header = doc.querySelector('.header');
+          const footer = doc.querySelector('.footer');
+          
+          if(topBar && header) {
+            const hContainer = document.getElementById('shared-header-container');
+            hContainer.appendChild(topBar.cloneNode(true));
+            hContainer.appendChild(header.cloneNode(true));
+          }
+          if(footer) {
+            const fContainer = document.getElementById('shared-footer-container');
+            fContainer.appendChild(footer.cloneNode(true));
+          }
+        });
+    });
+  </script>
+</body>
+</html>

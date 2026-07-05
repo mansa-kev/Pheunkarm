@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Log Performance</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: var(--color-background); color: var(--color-white); }
+    .admin-container { padding: 4rem 0; max-width: 800px; }
+    
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: rgba(255,255,255,0.8); font-weight: 600; font-size: 0.9rem; }
+    .form-control {
+      width: 100%; padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2); 
+      background: rgba(255,255,255,0.05); color: white; border-radius: 4px;
+      font-family: inherit;
+    }
+    .form-control:focus { border-color: var(--color-cta); outline: none; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <div style="background: var(--color-primary); padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <a href="/admin/" style="color: white; text-decoration: none; font-weight: bold;">Pheunkarm Internal System</a>
+  </div>
+
+  <div class="container admin-container">
+    <a href="/admin/strategies/" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; margin-bottom: 1.5rem; display: inline-block;"><i class="fa-solid fa-arrow-left"></i> Back to Strategies Admin</a>
+    
+    <h1 style="margin-bottom: 2rem;">Log PMOR Trade Data</h1>
+    
+    <div style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+      <form id="pmorForm">
+        <input type="hidden" id="strategySlug" value="pmor-breakout">
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="date">Trade Date</label>
+            <input type="date" id="date" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="market">Market Symbol (e.g. DAX, US500)</label>
+            <select id="market" class="form-control" required>
+              <option value="DAX">DAX / GER40</option>
+              <option value="US500">S&P 500 / US500</option>
+              <option value="UK100">FTSE 100 / UK100</option>
+              <option value="WS30">Dow / WS30</option>
+              <option value="NQ100">NASDAQ / NQ100</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="direction">Direction</label>
+            <select id="direction" class="form-control" required>
+              <option value="long">Long (Buy)</option>
+              <option value="short">Short (Sell)</option>
+              <option value="no_trade">No Trade Day</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="pmorSize">PMOR Range Size (Points)</label>
+            <input type="number" id="pmorSize" class="form-control" step="0.1" placeholder="e.g. 45.5">
+          </div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="entryPrice">Entry Price</label>
+            <input type="number" id="entryPrice" class="form-control" step="0.1" placeholder="Optional">
+          </div>
+          
+          <div class="form-group">
+            <label for="exitPrice">Exit Price</label>
+            <input type="number" id="exitPrice" class="form-control" step="0.1" placeholder="Optional">
+          </div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="resultR">Result in R (e.g. +2.0, -1.0)</label>
+            <input type="number" id="resultR" class="form-control" step="0.1" placeholder="Leave blank if No Trade">
+          </div>
+          
+          <div class="form-group">
+            <label for="exitReason">Exit Reason</label>
+            <select id="exitReason" class="form-control">
+              <option value="target_hit">Target Hit</option>
+              <option value="stop_loss">Stop Loss</option>
+              <option value="timed_exit">Timed Exit</option>
+              <option value="manual_close">Manual Close</option>
+              <option value="no_entry">No Entry Triggered</option>
+              <option value="range_too_wide">Range Too Wide</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="publishStatus">Status</label>
+          <select id="publishStatus" class="form-control">
+            <option value="published">Published to public dashboard</option>
+            <option value="draft">Internal Draft</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <button type="submit" class="btn btn-cta" style="width: 100%; padding: 1rem; font-size: 1rem;"><i class="fa-solid fa-save"></i> Save Performance Entry</button>
+        </div>
+        <div id="statusMessage" style="margin-top: 1rem; text-align: center; color: #10b981; font-weight: bold; display: none;">Entry saved successfully!</div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { addEntry } from '/src/data/performance.js';
+    
+    // Set default date to today
+    document.getElementById('date').valueAsDate = new Date();
+    
+    document.getElementById('pmorForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+      
+      const entryData = {
+        strategySlug: document.getElementById('strategySlug').value,
+        date: document.getElementById('date').value,
+        market: document.getElementById('market').value,
+        direction: document.getElementById('direction').value,
+        pmorSize: document.getElementById('pmorSize').value,
+        entryPrice: document.getElementById('entryPrice').value,
+        exitPrice: document.getElementById('exitPrice').value,
+        resultR: document.getElementById('resultR').value,
+        exitReason: document.getElementById('exitReason').value,
+        publishStatus: document.getElementById('publishStatus').value,
+      };
+      
+      try {
+        await addEntry(entryData);
+        
+        const statusMsg = document.getElementById('statusMessage');
+        statusMsg.style.display = 'block';
+        
+        setTimeout(() => {
+          statusMsg.style.display = 'none';
+          e.target.reset();
+          document.getElementById('date').valueAsDate = new Date(); // reset date
+        }, 3000);
+      } catch (err) {
+        console.error("Failed to save", err);
+        alert("Error saving data. Check console.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-save"></i> Save Performance Entry';
+      }
+    });
+  </script>
+</body>
+</html>
