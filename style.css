@@ -247,9 +247,9 @@ img {
 
 .header .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 80px;
+  max-width: 1400px;
 }
 
 /* Logo */
@@ -281,8 +281,8 @@ img {
 .logo-subtitle {
   font-family: var(--font-heading);
   font-weight: 600; /* refined/medium */
-  font-size: 0.52rem; /* small */
-  letter-spacing: 1.5px;
+  font-size: 0.5rem; /* small */
+  letter-spacing: 1.1px;
   color: #1a1a2e; /* black */
   text-transform: uppercase;
   white-space: nowrap;
@@ -319,9 +319,11 @@ img {
 /* Main Navigation */
 .nav-menu {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
   height: 100%;
+  margin-left: auto;
+  margin-right: 2rem;
 }
 
 .nav-item {
@@ -415,13 +417,14 @@ img {
 /* Hamburger & Mobile Menu Toggle */
 .mobile-toggle {
   display: none;
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   width: 30px;
   height: 24px;
   position: relative;
-  z-index: 1100;
+  z-index: 2501; /* Above nav drawer */
+  margin-left: auto;
 }
 
 .mobile-toggle span {
