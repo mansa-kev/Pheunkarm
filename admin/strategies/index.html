@@ -58,6 +58,7 @@
             <td>Index Structure</td>
             <td>
               <a href="/strategies/pmor-breakout/" class="btn" style="border: 1px solid var(--color-primary); color: var(--color-primary); padding: 0.35rem 0.75rem; font-size: 0.75rem; text-decoration: none; border-radius: 4px;">View Public Page</a>
+              <button class="btn" style="border: 1px solid var(--color-primary); color: var(--color-primary); padding: 0.35rem 0.75rem; font-size: 0.75rem; border-radius: 4px; background: transparent; cursor: pointer;" onclick="document.getElementById('media-modal').style.display='block'">Edit Media</button>
               <a href="/admin/strategies/performance/new/" class="btn btn-cta" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; margin-left: 0.5rem; text-decoration: none; border-radius: 4px; color: white;">Log Trade</a>
             </td>
           </tr>
@@ -65,11 +66,31 @@
             <td>Liquidity Sweep Reversal</td>
             <td><span style="color: var(--color-text-muted); font-size: 0.85rem; padding: 0.25rem 0.5rem; background: var(--color-light); border-radius: 4px;">Research</span></td>
             <td>Reversal</td>
-            <td><a href="/strategies/liquidity-sweep-reversal/" class="btn" style="border: 1px solid var(--color-border); color: var(--color-text-muted); padding: 0.35rem 0.75rem; font-size: 0.75rem; text-decoration: none; border-radius: 4px;">View Public Page</a></td>
+            <td>
+              <a href="/strategies/liquidity-sweep-reversal/" class="btn" style="border: 1px solid var(--color-border); color: var(--color-text-muted); padding: 0.35rem 0.75rem; font-size: 0.75rem; text-decoration: none; border-radius: 4px;">View Public Page</a>
+              <button class="btn" style="border: 1px solid var(--color-primary); color: var(--color-primary); padding: 0.35rem 0.75rem; font-size: 0.75rem; border-radius: 4px; background: transparent; cursor: pointer;" onclick="document.getElementById('media-modal').style.display='block'">Edit Media</button>
+            </td>
           </tr>
           <!-- Note: Additional strategies are mocked for brevity -->
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- Media Update Modal Mockup -->
+  <div id="media-modal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+    <div style="background: white; padding: 2rem; border-radius: 8px; width: 400px; max-width: 90%; margin: 10% auto; position: relative;">
+      <button onclick="document.getElementById('media-modal').style.display='none'" style="position: absolute; top: 10px; right: 15px; border: none; background: transparent; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Update Strategy Media</h3>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--color-text-muted);">Screenshot URL</label>
+        <input type="text" placeholder="https://example.com/chart.png" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--color-text-muted);">YouTube Walkthrough URL</label>
+        <input type="text" placeholder="https://www.youtube.com/watch?v=..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+      <button class="btn btn-cta" style="width: 100%; padding: 0.75rem; color: white;" onclick="alert('Media updated successfully. (Mockup)'); document.getElementById('media-modal').style.display='none'">Save Media</button>
     </div>
   </div>
 

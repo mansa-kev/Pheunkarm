@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonialSlider();
   initAccordion();
   initFormSubmit();
+  initLeadMagnet();
 });
-
 /**
  * 1. Sticky Header Shrink Effect
  */
@@ -537,4 +537,74 @@ function initFavicon() {
   document.head.appendChild(link);
 }
 
+/**
+ * 9. Lead Magnet / Exit Intent Logic
+ */
+function initLeadMagnet() {
+  const overlay = document.getElementById('lead-magnet-overlay');
+  const closeBtn = document.getElementById('lead-magnet-close');
+  const form = document.getElementById('lead-magnet-form');
+  
+  if (!overlay) return;
 
+  // Check if user already saw or submitted it
+  if (localStorage.getItem('pheunkarm_lead_magnet_seen')) {
+    return;
+  }
+
+  const showModal = () => {
+    overlay.classList.add('active');
+    // Save to local storage so they aren't annoyed on every page reload
+    localStorage.setItem('pheunkarm_lead_magnet_seen', 'true');
+  };
+
+  const hideModal = () => {
+    overlay.classList.remove('active');
+  };
+
+  // Trigger 1: Exit intent (mouse leaves the top of viewport)
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY < 0 && !overlay.classList.contains('active')) {
+      if (!localStorage.getItem('pheunkarm_lead_magnet_seen')) {
+        showModal();
+      }
+    }
+  });
+
+  // Trigger 2: Time delay (15 seconds fallback for mobile or long reading)
+  setTimeout(() => {
+    if (!localStorage.getItem('pheunkarm_lead_magnet_seen')) {
+      showModal();
+    }
+  }, 15000);
+
+  // Close logic
+  if (closeBtn) closeBtn.addEventListener('click', hideModal);
+  
+  // Close on outside click
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      hideModal();
+    }
+  });
+
+  // Handle Form Submit
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      const originalText = btn.innerText;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Accessing...';
+      
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Playbook Sent to Email!';
+        btn.style.backgroundColor = '#10b981';
+        btn.style.borderColor = '#10b981';
+        
+        setTimeout(() => {
+          hideModal();
+        }, 2000);
+      }, 1500);
+    });
+  }
+}

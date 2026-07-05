@@ -382,6 +382,26 @@ img {
   border: 1px solid var(--color-border);
 }
 
+.mega-menu {
+  width: 600px;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.mega-column {
+  flex: 1;
+}
+
+@media (max-width: 991px) {
+  .mega-menu {
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+  }
+}
+
 .nav-item:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -1586,4 +1606,119 @@ img {
     font-size: 0.6rem;
     padding: 0.25rem 0.5rem;
   }
+}
+
+/* ==========================================
+   LEAD MAGNET MODAL
+   ========================================== */
+.lead-magnet-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(11, 15, 25, 0.85); /* Deep blue with opacity */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.lead-magnet-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lead-magnet-modal {
+  background-color: #0b0f19; /* Deep blue as seen on section */
+  border: 1px solid rgba(245, 166, 35, 0.2); /* Gold accent border */
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.lead-magnet-overlay.active .lead-magnet-modal {
+  transform: translateY(0);
+}
+
+.lead-magnet-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.lead-magnet-close:hover {
+  color: #fff;
+}
+
+.lead-magnet-content {
+  padding: 3rem 2.5rem;
+  position: relative;
+}
+
+/* Subtle gold top border highlight */
+.lead-magnet-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--color-cta), transparent);
+}
+
+.lm-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.lead-magnet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lm-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.lm-input:focus {
+  outline: none;
+  border-color: var(--color-cta);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lm-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.lm-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  font-size: 1.1rem;
 }

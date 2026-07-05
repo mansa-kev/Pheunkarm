@@ -5,6 +5,7 @@
 export const STRATEGIES = [
   {
     slug: "pmor-breakout",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "PMOR Breakout Model",
     subtitle: "Pheunkarm’s flagship pre-market opening range model for structured index trading.",
     status: ["Flagship Strategy", "Preferred Model", "Tracked", "Index Strategy"],
@@ -62,6 +63,7 @@ export const STRATEGIES = [
   },
   {
     slug: "liquidity-sweep-reversal",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Liquidity Sweep Reversal Model",
     subtitle: "Reversal modeling based on structural sweeps.",
     status: ["Research Model"],
@@ -116,6 +118,7 @@ export const STRATEGIES = [
   },
   {
     slug: "gold-liquidity-raid-fvg",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Gold Liquidity Raid FVG Model",
     subtitle: "Advanced reversal model specifically tuned for XAUUSD.",
     status: ["Research Model", "Advanced Model"],
@@ -177,6 +180,7 @@ export const STRATEGIES = [
   },
   {
     slug: "session-raid-continuation",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Session Raid Continuation Model",
     subtitle: "New York continuation after London sweeps.",
     status: ["Research Model"],
@@ -230,6 +234,7 @@ export const STRATEGIES = [
   },
   {
     slug: "macro-displacement",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Macro Displacement Model",
     subtitle: "Trading the post-news directional bias.",
     status: ["Advanced Model", "Research Model"],
@@ -282,6 +287,7 @@ export const STRATEGIES = [
   },
   {
     slug: "correlated-market-divergence",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Correlated Market Divergence Model",
     subtitle: "Using intermarket relationships to filter fakeouts.",
     status: ["Advanced Model", "Educational Framework"],
@@ -335,6 +341,7 @@ export const STRATEGIES = [
   },
   {
     slug: "auction-balance-rotation",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Auction Balance Rotation Model",
     subtitle: "Trading value area extremes.",
     status: ["Educational Framework", "Research Model"],
@@ -384,6 +391,7 @@ export const STRATEGIES = [
   },
   {
     slug: "opening-bell-range-breakout",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Opening Bell Range Breakout Model",
     subtitle: "Capturing the cash session expansion.",
     status: ["Research Model"],
@@ -431,6 +439,7 @@ export const STRATEGIES = [
   },
   {
     slug: "opening-signal-bar-expansion",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Opening Signal-Bar Expansion Model",
     subtitle: "Trading the immediate battle of the opening candle.",
     status: ["Research Model", "Intermediate"],
@@ -478,6 +487,7 @@ export const STRATEGIES = [
   },
   {
     slug: "accumulation-distribution-volume",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Accumulation-Distribution Volume Model",
     subtitle: "Validating price action with institutional participation.",
     status: ["Educational Framework", "Advanced Model"],
@@ -528,6 +538,7 @@ export const STRATEGIES = [
   },
   {
     slug: "defined-risk-options-momentum",
+    media: { screenshotUrl: "", videoWalkthroughUrl: "" },
     title: "Defined-Risk Options Momentum Model",
     subtitle: "Trading underlying structure via derivative leverage.",
     status: ["Advanced Model", "Educational Framework"],

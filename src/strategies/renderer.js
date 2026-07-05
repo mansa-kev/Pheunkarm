@@ -24,6 +24,7 @@ export async function renderStrategyPage(slug) {
   let html = buildHeroSection(strategy);
   html += buildPhilosophyAndCore(strategy);
   html += buildRulesSection(strategy);
+  html += buildMediaSection(strategy);
   
   // 3. If PMOR, append Performance Dashboard
   if (slug === 'pmor-breakout') {
@@ -206,6 +207,71 @@ function buildRulesSection(strategy) {
           <ul style="list-style: disc; margin-left: 1.5rem; color: var(--color-text-main); line-height: 1.6;">
             ${buildList(strategy.noTradeConditions)}
           </ul>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function buildMediaSection(strategy) {
+  if (!strategy.media) return '';
+  
+  const hasImage = strategy.media.screenshotUrl && strategy.media.screenshotUrl.trim() !== '';
+  const hasVideo = strategy.media.videoWalkthroughUrl && strategy.media.videoWalkthroughUrl.trim() !== '';
+  
+  if (!hasImage && !hasVideo) {
+    // Return a polished placeholder as requested
+    return `
+      <section class="section" style="background-color: var(--color-light); border-top: 1px solid var(--color-border);">
+        <div class="container text-center">
+          <div style="max-width: 600px; margin: 0 auto; padding: 3rem; background: var(--color-white); border: 1px dashed rgba(11, 155, 217, 0.4); border-radius: 8px;">
+            <i class="fa-solid fa-photo-film" style="font-size: 2.5rem; color: rgba(11, 155, 217, 0.5); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--color-primary); margin-bottom: 0.5rem;">Visual Walkthroughs Coming Soon</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem;">
+              We are currently compiling high-resolution chart examples and video breakdowns for this setup. Check back soon for the visual evidence.
+            </p>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  let mediaHtml = '';
+  
+  if (hasImage) {
+    mediaHtml += `
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--color-primary); margin-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;"><i class="fa-solid fa-chart-line"></i> Chart Evidence</h3>
+        <img src="${strategy.media.screenshotUrl}" alt="${strategy.title} Chart Setup" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--color-border);">
+      </div>
+    `;
+  }
+
+  if (hasVideo) {
+    let embedUrl = strategy.media.videoWalkthroughUrl;
+    if (embedUrl.includes('watch?v=')) {
+      embedUrl = embedUrl.replace('watch?v=', 'embed/');
+    }
+    
+    mediaHtml += `
+      <div>
+        <h3 style="color: var(--color-primary); margin-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 0.5rem;"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> Walkthrough Video</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--color-border);">
+          <iframe src="${embedUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <section class="section" style="background-color: var(--color-light); border-top: 1px solid var(--color-border);">
+      <div class="container">
+        <div class="section-header">
+          <h2 style="color: var(--color-primary);">Visual Walkthrough & Evidence</h2>
+          <p style="color: var(--color-text-main);">Review actual market executions and breakdown videos of this logic.</p>
+        </div>
+        <div style="max-width: 900px; margin: 0 auto;">
+          ${mediaHtml}
         </div>
       </div>
     </section>
