@@ -13,7 +13,7 @@
   <style>
     /* Strategies Specific Styling */
     .strategy-library-header {
-      background-color: var(--color-background);
+      background-color: #175575;
       color: var(--color-white);
       padding: 6rem 0 4rem;
       border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -162,8 +162,8 @@
   <section class="classification-section">
     <div class="container">
       <div class="section-header">
-        <h2>How We Classify Strategies</h2>
-        <p>Every model inside the Pheunkarm framework is categorized and strictly documented to maintain institutional integrity.</p>
+        <h2 style="color: var(--color-primary);">How We Classify Strategies</h2>
+        <p style="color: var(--color-text-main);">Every model inside the Pheunkarm framework is categorized and strictly documented to maintain institutional integrity.</p>
       </div>
       
       <div class="grid-2-col" style="--grid-cols: 1fr 1fr; gap: 2rem;">
@@ -245,7 +245,7 @@
               <span><i class="fa-solid fa-clock"></i> ${strategy.timeframes[0]}</span>
             </div>
             
-            <a href="/strategies/${strategy.slug}/" class="btn ${isFlagship ? 'btn-cta' : 'btn-outline'}" style="text-align: center; width: 100%; border-color: ${isFlagship ? '' : 'rgba(0,0,0,0.1)'};">View Framework</a>
+            <a href="/strategies/${strategy.slug}/" class="btn ${isFlagship ? 'btn-cta' : 'btn-outline'}" style="text-align: center; width: 100%; border-color: ${isFlagship ? '' : 'rgba(0,0,0,0.1)'}; color: ${isFlagship ? 'white' : 'var(--color-primary)'};">View Framework</a>
           </div>
         `;
       });

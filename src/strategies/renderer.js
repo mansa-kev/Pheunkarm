@@ -69,7 +69,7 @@ function buildHeroSection(strategy) {
   return `
     <style>
       .strategy-hero {
-        background-color: var(--color-background);
+        background-color: var(--color-primary);
         color: var(--color-white);
         padding: 6rem 0 4rem;
         border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -181,8 +181,8 @@ function buildRulesSection(strategy) {
     <section class="section" style="background-color: var(--color-white);">
       <div class="container">
         <div class="section-header">
-          <h2>Execution Framework</h2>
-          <p>Mechanical rules mapping out valid setups and invalidation criteria.</p>
+          <h2 style="color: var(--color-primary);">Execution Framework</h2>
+          <p style="color: var(--color-text-main);">Mechanical rules mapping out valid setups and invalidation criteria.</p>
         </div>
         
         <div class="grid-2-col" style="--grid-cols: 1fr 1fr; gap: 2rem; align-items: stretch;">
