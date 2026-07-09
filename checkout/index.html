@@ -607,8 +607,8 @@
         <div class="order-line">
           <span class="order-line-label">Payment Gateway</span>
           <span class="order-line-value">
-            <i class="fa-solid fa-shield-halved" style="color: var(--success); margin-right: 0.25rem;"></i>
-            PayRam (Base EVM)
+            <i class="fa-solid fa-credit-card" style="color: var(--info); margin-right: 0.25rem;"></i>
+            Pheunkarm Cards (Whop)
           </span>
         </div>
         <div class="order-line total">
@@ -719,22 +719,28 @@
   <!-- Footer -->
   <footer class="checkout-footer">
     &copy; 2025 Pheunkarm Investments Ltd. All rights reserved. &nbsp;|&nbsp;
-    Payments processed securely by <a href="https://pay.pheunkarm.online" target="_blank">PayRam</a>
+    Payments processed securely by <a href="https://whop.com" target="_blank">Whop</a> &amp; PayRam
   </footer>
 
   <script>
     // ── COURSE PRICE MAP ──
-    // This allows checkout to work when a course page links with just ?course=options
     const COURSE_PRICES = {
-      'intro':      { name: 'Intro to Financial Markets', price: 299 },
-      'skills':     { name: 'Trading Skills Course', price: 999 },
-      'advanced':   { name: 'Advanced Trading Course', price: 2499 },
-      'quant':      { name: 'Quantitative Trading & Algorithmic Strategy', price: 999 },
-      'options':    { name: 'Options Trading Course', price: 499 },
-      'futures':    { name: 'Futures Trading Techniques', price: 499 },
-      'equity':     { name: 'Equity Investing & Wealth', price: 499 },
-      'psychology': { name: 'Trading Psychology Workshop', price: 299 },
-      'crypto':     { name: 'Crypto Asset Portfolio Management', price: 499 },
+      'intro':      { name: 'Intro to Financial Markets', price: 299, currency: 'USD', symbol: '$' },
+      'skills':     { name: 'Trading Skills Course', price: 999, currency: 'USD', symbol: '$' },
+      'advanced':   { name: 'Advanced Trading Course', price: 2499, currency: 'USD', symbol: '$' },
+      'quant':      { name: 'Quantitative Trading & Algorithmic Strategy', price: 999, currency: 'USD', symbol: '$' },
+      'options':    { name: 'Options Trading Course', price: 499, currency: 'USD', symbol: '$' },
+      'futures':    { name: 'Futures Trading Techniques', price: 499, currency: 'USD', symbol: '$' },
+      'equity':     { name: 'Equity Investing & Wealth', price: 499, currency: 'USD', symbol: '$' },
+      'psychology': { name: 'Trading Psychology Workshop', price: 299, currency: 'USD', symbol: '$' },
+      'crypto':     { name: 'Crypto Asset Portfolio Management', price: 499, currency: 'USD', symbol: '$' },
+      // New EUR Plans
+      'eur-100':    { name: 'Basic Financial Literacy', price: 100, currency: 'EUR', symbol: '€' },
+      'eur-150':    { name: 'Introduction to Technical Analysis', price: 150, currency: 'EUR', symbol: '€' },
+      'eur-200':    { name: 'Intermediate Charting & Patterns', price: 200, currency: 'EUR', symbol: '€' },
+      'eur-300':    { name: 'Risk Management & Sizing', price: 300, currency: 'EUR', symbol: '€' },
+      'eur-500':    { name: 'Professional Mentorship Program', price: 500, currency: 'EUR', symbol: '€' },
+      'custom':     { name: 'Custom Trading Service', price: 0, currency: 'USD', symbol: '$' } // For admin custom
     };
 
     // ── PARSE URL PARAMS ──
@@ -746,15 +752,15 @@
     const payramLink = params.get('paylink') || '';
     const isSuccess = params.get('success') === 'true';
 
-    // Resolve course name and amount — use URL amount if provided, else look up from map
+    // Resolve course name, amount and currency
     let amount = params.get('amount') || '';
     let courseName = courseParam;
+    let currencySymbol = '$';
 
-    if (!amount && courseParam && COURSE_PRICES[courseParam]) {
-      amount = String(COURSE_PRICES[courseParam].price);
+    if (COURSE_PRICES[courseParam]) {
+      if (!amount) amount = String(COURSE_PRICES[courseParam].price);
       courseName = COURSE_PRICES[courseParam].name;
-    } else if (amount && courseParam && COURSE_PRICES[courseParam]) {
-      courseName = COURSE_PRICES[courseParam].name;
+      currencySymbol = COURSE_PRICES[courseParam].symbol;
     }
 
     // Validate
@@ -762,8 +768,42 @@
       document.getElementById('checkout-view').style.display = 'none';
       document.getElementById('success-view').classList.add('active');
     } else if (!amount || !courseParam) {
+      // If missing parameters, redirect to the new empty checkout selector
+      // We will show a simple JS prompt for now to select a plan and redirect
+      // This helps admin testing if they just visit /checkout/
       document.getElementById('checkout-view').style.display = 'none';
       document.getElementById('error-view').classList.add('active');
+      document.getElementById('error-view').innerHTML = `
+        <div style="width:80px;height:80px;border-radius:50%;background:rgba(59,130,246,0.1);border:2px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+          <i class="fa-solid fa-list" style="font-size:2rem;color:#3b82f6;"></i>
+        </div>
+        <h2>Select a Plan</h2>
+        <p>Please choose a plan to proceed to checkout.</p>
+        <select id="direct-plan-select" style="margin-bottom:1rem; padding:0.5rem; background:var(--bg-input); color:var(--text-primary); border:1px solid var(--border); border-radius:4px; width:100%; max-width:300px;">
+          <option value="">-- Choose a plan --</option>
+          <optgroup label="USD Courses">
+            <option value="intro">Intro to Financial Markets ($299)</option>
+            <option value="skills">Trading Skills Course ($999)</option>
+            <option value="advanced">Advanced Trading Course ($2,499)</option>
+            <option value="quant">Quantitative Trading ($999)</option>
+            <option value="options">Options Trading Course ($499)</option>
+            <option value="futures">Futures Trading Techniques ($499)</option>
+            <option value="equity">Equity Investing & Wealth ($499)</option>
+            <option value="psychology">Trading Psychology Workshop ($299)</option>
+            <option value="crypto">Crypto Asset Portfolio Management ($499)</option>
+          </optgroup>
+          <optgroup label="EUR Plans">
+            <option value="eur-100">Basic Financial Literacy (€100)</option>
+            <option value="eur-150">Introduction to Technical Analysis (€150)</option>
+            <option value="eur-200">Intermediate Charting & Patterns (€200)</option>
+            <option value="eur-300">Risk Management & Sizing (€300)</option>
+            <option value="eur-500">Professional Mentorship Program (€500)</option>
+          </optgroup>
+        </select>
+        <button onclick="if(document.getElementById('direct-plan-select').value) window.location.href='?course=' + document.getElementById('direct-plan-select').value;" class="back-btn" style="background:var(--accent-gradient);border:none;color:var(--bg);padding:0.65rem 1.5rem;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;">
+          <i class="fa-solid fa-arrow-right"></i> Continue to Checkout
+        </button>
+      `;
     } else {
       populateCheckout();
     }
@@ -771,18 +811,19 @@
     function populateCheckout() {
       const formattedAmount = Number(amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 
+      document.querySelector('.order-amount .currency').textContent = currencySymbol;
       document.getElementById('display-amount').textContent = formattedAmount;
       document.getElementById('display-course').textContent = courseName;
       document.getElementById('display-client').textContent = clientName || 'Not specified';
       document.getElementById('display-client-name').textContent = clientName || 'Guest';
       document.getElementById('display-client-email').textContent = clientEmail || '—';
       document.getElementById('display-invoice').textContent = invoiceId || 'N/A';
-      document.getElementById('display-total').textContent = '$' + formattedAmount;
-      document.getElementById('btn-amount').textContent = '$' + formattedAmount;
+      document.getElementById('display-total').textContent = currencySymbol + formattedAmount;
+      document.getElementById('btn-amount').textContent = currencySymbol + formattedAmount;
       document.getElementById('display-description').textContent = 
         'Enrollment for ' + courseName + ' — Pheunkarm Investments Ltd';
       
-      document.title = 'Checkout $' + formattedAmount + ' — Pheunkarm Investments';
+      document.title = 'Checkout ' + currencySymbol + formattedAmount + ' — Pheunkarm Investments';
     }
 
     // ── PAYMENT METHOD SELECTION ──

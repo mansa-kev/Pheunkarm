@@ -11,17 +11,37 @@ import { whop } from '../config/whop';
 export class PaymentService {
   /**
    * Create a checkout link using Whop's Checkout Configurations
-   * @param planId The ID of the plan being purchased
+   * @param productId The shortcode ID of the plan being purchased
    * @param redirectUrl URL to redirect to after successful payment
    */
   static async createCheckoutSession(
-    planId: string,
+    productId: string,
     redirectUrl?: string
   ) {
     try {
+      const PLAN_MAPPING: Record<string, string> = {
+        "intro": "plan_QnVf5NeJ59oio",
+        "skills": "plan_HoJJtMtB2imHG",
+        "advanced": "plan_sOZomed7kAKY4",
+        "quant": "plan_mpzqvRee1Ggkk",
+        "options": "plan_Ssi9OiAl25X36",
+        "futures": "plan_Q3lD8OMdFyUJ4",
+        "equity": "plan_8YU5pU712mt2S",
+        "psychology": "plan_A5KMO9vaZY2MP",
+        "crypto": "plan_2LDQKF9ZWBOf5",
+        "eur-100": "plan_OFGhvxLhTwTTF",
+        "eur-150": "plan_lTDmRz0Lc4ZMG",
+        "eur-200": "plan_Lumm5C82okevQ",
+        "eur-300": "plan_tFvZAzOIoHk9d",
+        "eur-500": "plan_bHFODuyP2RzfA",
+        "custom": "plan_jr9hWRgOPCJnM"
+      };
+
+      const actualPlanId = PLAN_MAPPING[productId] || PLAN_MAPPING['custom'];
+
       // Create a checkout configuration with custom styling
       const config = await whop.checkoutConfigurations.create({
-        plan_id: planId,
+        plan_id: actualPlanId,
         mode: 'payment',
         redirect_url: redirectUrl || undefined,
         checkout_styling: {
