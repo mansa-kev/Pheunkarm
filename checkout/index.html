@@ -856,7 +856,10 @@
 
       // Card method (Whop)
       try {
-        const response = await fetch('http://localhost:3000/api/checkout/create', {
+        // NOTE: Change this to your deployed backend URL (e.g. https://api.pheunkarm.online)
+        const BACKEND_URL = 'http://localhost:3000'; 
+        
+        const response = await fetch(`${BACKEND_URL}/api/checkout/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
