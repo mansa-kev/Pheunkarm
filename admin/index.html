@@ -3,480 +3,1384 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Metadata -->
-  <title>Admin Gateway Terminal - Pheunkarm Institute of Trading & Portfolio Management</title>
-  
-  <!-- Style Link (Root Relative) -->
-  <link rel="stylesheet" href="/style.css">
-  
-  <!-- FontAwesome for Icons -->
+  <title>Business Dashboard - Pheunkarm Investments Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <style>
     :root {
-      --color-dashboard-bg: #f3f7fa;
-      --color-status-pending: #ffc107;
-      --color-status-approved: #0dcaf0;
-      --color-status-success: #198754;
+      --sidebar-bg: #0f1b2d;
+      --sidebar-hover: #162236;
+      --sidebar-active: #1a2942;
+      --accent: #f0b429;
+      --accent-hover: #e5a820;
+      --accent-gradient: linear-gradient(135deg, #f0b429, #e88d1a);
+      --bg-main: #f4f6f9;
+      --bg-card: #ffffff;
+      --text-dark: #1a1f36;
+      --text-mid: #4a5568;
+      --text-light: #8492a6;
+      --text-white: #ffffff;
+      --border: #e8ecf1;
+      --border-focus: #3b82f6;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.08);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.08);
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --info-bg: rgba(59, 130, 246, 0.08);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+      --radius: 10px;
+      --radius-lg: 14px;
+      --transition: all 0.2s ease;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      background-color: var(--color-dashboard-bg);
-      color: var(--color-text-main);
-    }
-    .admin-wrapper {
-      padding: 3rem 0;
-    }
-    .admin-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1.9fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-    .admin-card {
-      background-color: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(23, 85, 117, 0.03);
-    }
-    .admin-card h2 {
-      font-size: 1.3rem;
-      color: var(--color-primary);
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 0.75rem;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-main);
+      color: var(--text-dark);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    .stats-row {
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-brand {
+      padding: 1.5rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar-brand-icon {
+      width: 38px; height: 38px;
+      background: var(--accent-gradient);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: var(--sidebar-bg);
+    }
+
+    .sidebar-brand-text {
+      display: flex; flex-direction: column;
+    }
+
+    .sidebar-brand-text span:first-child {
+      font-weight: 700; font-size: 0.95rem; color: var(--text-white);
+    }
+
+    .sidebar-brand-text span:last-child {
+      font-size: 0.7rem; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 500;
+    }
+
+    .sidebar-section-label {
+      padding: 1.25rem 1.25rem 0.5rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 600;
+    }
+
+    .sidebar-nav { flex: 1; padding: 0.5rem 0; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 1.25rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem; font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--sidebar-hover);
+      color: rgba(255,255,255,0.85);
+    }
+
+    .nav-item.active {
+      background: var(--sidebar-active);
+      color: var(--text-white);
+      border-left-color: var(--accent);
+    }
+
+    .nav-item.active i { color: var(--accent); }
+
+    .nav-item i { width: 20px; text-align: center; font-size: 0.9rem; }
+
+    .nav-item .badge {
+      margin-left: auto;
+      background: var(--accent);
+      color: var(--sidebar-bg);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .sidebar-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .sidebar-footer-avatar {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.75rem; color: white;
+    }
+
+    .sidebar-footer-info span:first-child {
+      display: block; font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.85);
+    }
+
+    .sidebar-footer-info span:last-child {
+      display: block; font-size: 0.65rem; color: var(--text-light);
+    }
+
+    /* ── MAIN ── */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    .topbar-left { display: flex; align-items: center; gap: 1rem; }
+
+    .mobile-toggle {
+      display: none;
+      background: none; border: none;
+      font-size: 1.2rem; color: var(--text-mid);
+      cursor: pointer;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem; color: var(--text-light);
+    }
+
+    .breadcrumb span { color: var(--text-dark); font-weight: 600; }
+
+    .topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    .topbar-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem; font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-support {
+      background: var(--info-bg);
+      color: var(--info);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+    }
+
+    .btn-support:hover { background: rgba(59, 130, 246, 0.15); }
+
+    .btn-payram {
+      background: var(--accent-gradient);
+      color: var(--sidebar-bg);
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-payram:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── PAGE CONTENT ── */
+    .page-content { padding: 1.75rem 2rem; flex: 1; }
+
+    .page-greeting {
+      margin-bottom: 1.75rem;
+    }
+
+    .page-greeting h1 {
+      font-size: 1.5rem; font-weight: 700; color: var(--text-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .page-greeting p {
+      font-size: 0.85rem; color: var(--text-light);
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
     }
-    .stat-box {
-      background-color: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
       padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
-    .stat-box h4 {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.5px;
+
+    .stat-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
-    .stat-box p {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--color-primary);
+
+    .stat-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
     }
-    .form-group {
-      margin-bottom: 1.25rem;
+
+    .stat-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
     }
+
+    .stat-card-icon.green { background: var(--success-bg); color: var(--success); }
+    .stat-card-icon.amber { background: var(--warning-bg); color: var(--warning); }
+    .stat-card-icon.blue  { background: var(--info-bg);    color: var(--info); }
+
+    .stat-card h3 {
+      font-size: 1.6rem; font-weight: 800; color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+
+    .stat-card p {
+      font-size: 0.78rem; color: var(--text-light); font-weight: 500;
+    }
+
+    /* ── SECTIONS / VIEWS ── */
+    .view { display: none; animation: fadeIn 0.3s ease; }
+    .view.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .card-header h2 {
+      font-size: 0.95rem; font-weight: 700; color: var(--text-dark);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .card-header h2 i { color: var(--accent); font-size: 0.85rem; }
+
+    .card-body { padding: 1.5rem; }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 1.15rem; }
+
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: var(--color-primary);
+      color: var(--text-mid);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .form-group input, .form-group select {
+
+    .form-group input,
+    .form-group select {
       width: 100%;
-      padding: 0.65rem;
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      font-size: 0.95rem;
-      background-color: var(--color-white);
+      padding: 0.7rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-card);
+      transition: var(--transition);
     }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+    }
+
+    .form-group input::placeholder { color: #c4cdd5; }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-    .admin-table {
+
+    .custom-amount-group {
+      display: none;
+      margin-bottom: 1.15rem;
+    }
+
+    .custom-amount-group.visible {
+      display: block;
+      animation: slideDown 0.25s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; max-height: 0; transform: translateY(-8px); }
+      to { opacity: 1; max-height: 100px; transform: translateY(0); }
+    }
+
+    .amount-input-wrapper { position: relative; }
+
+    .amount-input-wrapper::before {
+      content: '$';
+      position: absolute;
+      left: 0.85rem; top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700; color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .amount-input-wrapper input {
+      padding-left: 1.75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.85rem; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: var(--sidebar-bg);
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(240,180,41,0.3);
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.72rem;
+      border-radius: 6px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-mid);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-mid);
+      background: rgba(0,0,0,0.02);
+    }
+
+    .btn-open {
+      background: var(--sidebar-bg);
+      color: var(--text-white);
+    }
+
+    .btn-open:hover { opacity: 0.85; }
+
+    .btn-success-sm {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid rgba(16,185,129,0.15);
+    }
+
+    .btn-success-sm:hover { background: rgba(16,185,129,0.15); }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+
+    .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
     }
-    .admin-table th, .admin-table td {
-      padding: 0.9rem 1rem;
-      border-bottom: 1px solid var(--color-border);
+
+    .data-table th,
+    .data-table td {
+      padding: 0.85rem 1rem;
       text-align: left;
+      font-size: 0.82rem;
+      border-bottom: 1px solid var(--border);
     }
-    .admin-table th {
-      background-color: var(--color-light);
+
+    .data-table th {
       font-weight: 600;
-      color: var(--color-primary);
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      background: #fafbfc;
     }
-    .status-badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
+
+    .data-table td { color: var(--text-mid); }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .data-table tr:hover td { background: #fafbfc; }
+
+    .client-info strong {
+      display: block;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.83rem;
+    }
+
+    .client-info span {
+      font-size: 0.72rem;
+      color: var(--text-light);
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
-    .badge-pending {
-      background-color: rgba(255, 193, 7, 0.1);
-      color: #b58100;
+
+    .badge-pending { background: var(--warning-bg); color: #b45309; }
+    .badge-paid { background: var(--success-bg); color: #047857; }
+
+    .badge i { font-size: 0.55rem; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-light);
     }
-    .badge-approved {
-      background-color: rgba(13, 202, 240, 0.1);
-      color: #087990;
+
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.3;
     }
-    .badge-success {
-      background-color: rgba(25, 135, 84, 0.1);
-      color: var(--color-status-success);
+
+    .empty-state p {
+      font-size: 0.85rem;
     }
-    .btn-action {
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
+
+    /* ── ACTIVITY LOG ── */
+    .activity-list { list-style: none; }
+
+    .activity-item {
+      display: flex; gap: 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .activity-dot.green { background: var(--success); }
+    .activity-dot.amber { background: var(--warning); }
+    .activity-dot.blue  { background: var(--info); }
+
+    .activity-text {
+      font-size: 0.82rem; color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    .activity-text strong { color: var(--text-dark); }
+
+    .activity-time {
+      font-size: 0.7rem; color: var(--text-light);
+      margin-top: 0.15rem;
+    }
+
+    /* ── TOAST ── */
+    .toast-container {
+      position: fixed;
+      top: 1rem; right: 1rem;
+      z-index: 9999;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .toast {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--success);
+      border-radius: 8px;
+      padding: 0.85rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 0.75rem;
+      animation: toastIn 0.3s ease;
+      min-width: 300px;
+    }
+
+    .toast i { color: var(--success); font-size: 1.1rem; }
+    .toast span { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── SETTINGS ── */
+    .settings-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .settings-section h3 {
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .settings-section h3 i { color: var(--accent); }
+
+    .settings-info {
+      background: #f8f9fb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .settings-info code {
+      background: rgba(59,130,246,0.08);
+      color: var(--info);
+      padding: 0.15rem 0.4rem;
       border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
+      font-size: 0.78rem;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    /* ── MOBILE OVERLAY ── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open { transform: translateX(0); }
+
+      .sidebar-overlay.open { display: block; }
+
+      .main-content { margin-left: 0; }
+
+      .mobile-toggle { display: block; }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-content { padding: 1.25rem; }
+
+      .topbar { padding: 0 1rem; }
+
+      .form-row { grid-template-columns: 1fr; gap: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==========================================
-       TOP BAR
-       ========================================== -->
-  <div class="top-bar">
-    <div class="container">
-      <div>
-        <i class="fa-solid fa-user-shield"></i> SECURED ADMIN TERMINAL
+  <!-- ═══ SIDEBAR ═══ -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">PI</div>
+      <div class="sidebar-brand-text">
+        <span>Pheunkarm</span>
+        <span>Business</span>
       </div>
     </div>
-  </div>
 
-  <!-- ==========================================
-       HEADER
-       ========================================== -->
-  <header class="header">
-    <div class="container">
-      <a href="/" class="logo">
-                <div>Pheunkarm<span>Admin</span></div>
+    <div class="sidebar-section-label">Main Menu</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-view="dashboard" onclick="switchView('dashboard')">
+        <i class="fa-solid fa-chart-line"></i> Dashboard
       </a>
-      <div style="font-weight: 600; color: var(--color-secondary);">
-        <i class="fa-solid fa-wallet"></i> Wallet Payout: NOWPayments Gateway
+      <a class="nav-item" data-view="create" onclick="switchView('create')">
+        <i class="fa-solid fa-file-invoice-dollar"></i> Create Invoice
+      </a>
+      <a class="nav-item" data-view="transactions" onclick="switchView('transactions')">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i> Transactions
+        <span class="badge" id="nav-badge-tx">0</span>
+      </a>
+      <a class="nav-item" data-view="logs" onclick="switchView('logs')">
+        <i class="fa-solid fa-clock-rotate-left"></i> Activity Logs
+      </a>
+
+      <div class="sidebar-section-label" style="margin-top: 0.5rem;">System</div>
+      <a class="nav-item" data-view="settings" onclick="switchView('settings')">
+        <i class="fa-solid fa-gear"></i> Settings
+      </a>
+      <a class="nav-item" href="https://pay.pheunkarm.online" target="_blank">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> PayRam Gateway
+      </a>
+      <a class="nav-item" href="/" target="_blank">
+        <i class="fa-solid fa-globe"></i> View Website
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-avatar">PK</div>
+      <div class="sidebar-footer-info">
+        <span>Pheunkarm Investments</span>
+        <span>pheunkarminvestmentsltd@gmail.com</span>
       </div>
     </div>
-  </header>
+  </aside>
 
-  <!-- ==========================================
-       DASHBOARD WRAPPER
-       ========================================== -->
-  <section class="admin-wrapper">
-    <div class="container">
-      
-      <!-- Stats Row -->
-      <div class="stats-row">
-        <div class="stat-box">
-          <h4>Total Processed Volume</h4>
-          <p id="stat-total-volume">$0.00</p>
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="main-content">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="breadcrumb">
+          My Account &rsaquo; <span id="breadcrumb-current">Dashboard</span>
         </div>
-        <div class="stat-box">
-          <h4>Active Requests</h4>
-          <p id="stat-active-req">0</p>
+      </div>
+      <div class="topbar-right">
+        <a href="https://pay.pheunkarm.online" target="_blank" class="topbar-btn btn-payram">
+          <i class="fa-solid fa-bolt"></i> PayRam Gateway
+        </a>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+      <!-- Greeting -->
+      <div class="page-greeting">
+        <h1 id="greeting-text">Good evening, Pheunkarm Investments Ltd</h1>
+        <p>Your trusted partner in seamless, secure payments.</p>
+      </div>
+
+      <!-- Stats Row (always visible) -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon green"><i class="fa-solid fa-dollar-sign"></i></div>
+          </div>
+          <h3 id="stat-volume">$0.00</h3>
+          <p>Total Processed Volume</p>
         </div>
-        <div class="stat-box">
-          <h4>Settled Crypto Transactions</h4>
-          <p id="stat-settled-tx">0</p>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon amber"><i class="fa-solid fa-file-invoice"></i></div>
+          </div>
+          <h3 id="stat-active">0</h3>
+          <p>Active Invoices</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon blue"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+          <h3 id="stat-settled">0</h3>
+          <p>Settled Transactions</p>
         </div>
       </div>
 
-      <div class="admin-grid">
-        
-        <!-- Left Column: Generate request -->
-        <div class="admin-card">
-          <h2>
-            <span><i class="fa-solid fa-file-invoice-dollar"></i> Create Payment</span>
-            <span style="font-size: 0.75rem; font-weight: 400; color: var(--color-text-muted);">Step 1: Admin Card Capture</span>
-          </h2>
-          
-          <form id="payment-request-form">
-            <!-- Client Info -->
-            <div class="form-group">
-              <label for="client-name">Client Full Name</label>
-              <input type="text" id="client-name" required placeholder="John Doe">
+      <!-- ═══ VIEW: DASHBOARD ═══ -->
+      <div class="view active" id="view-dashboard">
+        <div class="content-grid">
+          <!-- Quick Actions -->
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-bolt"></i> Quick Actions</h2>
             </div>
-            
-            <div class="form-group">
-              <label for="client-email">Client Email Address</label>
-              <input type="email" id="client-email" required placeholder="john@example.com">
-            </div>
-
-            <!-- Course Selection -->
-            <div class="form-group">
-              <label for="course-select">Course & Price (USD)</label>
-              <select id="course-select" required>
-                <option value="" disabled selected>Select course...</option>
-                 <option value="intro-299">Intro to Financial Markets ($299)</option>
-                 <option value="skills-999">Trading Skills Course ($999)</option>
-                 <option value="advanced-2499">Advanced Trading Course ($2499)</option>
-                 <option value="quant-999">Quantitative Trading & Algorithmic Strategy ($999)</option>
-                 <option value="options-499">Options Trading Course ($499)</option>
-                 <option value="futures-499">Futures Trading Techniques ($499)</option>
-                 <option value="equity-499">Equity Investing & Wealth ($499)</option>
-                 <option value="psychology-299">Trading Psychology Workshop ($299)</option>
-                 <option value="crypto-499">Crypto Asset Portfolio Management ($499)</option>
-               </select>
-             </div>
-
-            <!-- Card Inputs (Authorized by Admin) -->
-            <div style="background-color: var(--color-light); border: 1px solid var(--color-border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.25rem;">
-              <h4 style="font-size: 0.85rem; color: var(--color-primary); margin-bottom: 0.75rem;"><i class="fa-solid fa-credit-card"></i> Card Processing Credentials</h4>
-              
-              <div class="form-group">
-                <label for="card-holder">Cardholder Name</label>
-                <input type="text" id="card-holder" required placeholder="John Doe">
+            <div class="card-body">
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <button class="btn btn-primary" onclick="switchView('create')">
+                  <i class="fa-solid fa-plus"></i> Create New Invoice
+                </button>
+                <a href="https://pay.pheunkarm.online/create-payment-link" target="_blank" class="btn btn-open" style="text-align:center;">
+                  <i class="fa-solid fa-link"></i> Generate PayRam Link
+                </a>
+                <a href="https://pay.pheunkarm.online" target="_blank" class="btn btn-outline" style="text-align:center;">
+                  <i class="fa-solid fa-chart-pie"></i> View PayRam Dashboard
+                </a>
               </div>
 
-              <div class="form-group">
-                <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="card-exp">Expiration Date</label>
-                  <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
+              <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fb; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem;">
+                  <i class="fa-solid fa-shield-halved" style="color: var(--success);"></i> Gateway Status
                 </div>
-                <div class="form-group">
-                  <label for="card-cvv">CVV</label>
-                  <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite;"></div>
+                  <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">PayRam Online — Base EVM Active</span>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Crypto Settlement details -->
-            <div style="background-color: rgba(255, 163, 34, 0.05); border: 1px solid rgba(255, 163, 34, 0.2); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
-              <h4 style="font-size: 0.85rem; color: var(--color-cta); margin-bottom: 0.75rem;"><i class="fa-brands fa-ethereum"></i> NOWPayments Crypto Settlement</h4>
-              
-              <div class="form-group">
-                <label for="crypto-currency">Payout Settlement Asset</label>
-                <select id="crypto-currency" required>
-                  <option value="USDT">USDT (Tether TRC-20)</option>
-                  <option value="BTC">BTC (Bitcoin)</option>
-                  <option value="ETH">ETH (Ethereum)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="wallet-address">Payout Wallet Address</label>
-                <input type="text" id="wallet-address" required placeholder="T9yD14Nj9yD14Nj9yD14Nj9yD14Nj..." value="TYuB18Nj9yD24Nj7yD12Nj9yD24Nj71X">
+          <!-- Recent Transactions -->
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-list-check"></i> Recent Transactions</h2>
+              <button class="btn btn-sm btn-outline" onclick="switchView('transactions')">View All</button>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashboard-tbody"></tbody>
+                </table>
               </div>
             </div>
-
-            <button type="submit" class="btn btn-cta" style="width: 100%; border: none; padding: 0.85rem;">Generate Payment Invoice</button>
-          </form>
-        </div>
-
-        <!-- Right Column: Requests list -->
-        <div class="admin-card">
-          <h2>
-            <span><i class="fa-solid fa-list-check"></i> Invoice Monitoring Panel</span>
-            <button onclick="clearPayments()" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-color: rgba(0,0,0,0.1);">Clear Database</button>
-          </h2>
-          
-          <div style="overflow-x: auto;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Client</th>
-                  <th>Course / Price</th>
-                  <th>Crypto / Status</th>
-                  <th>Link / Action</th>
-                </tr>
-              </thead>
-              <tbody id="payments-tbody">
-                <!-- Javascript will populate this -->
-              </tbody>
-            </table>
           </div>
         </div>
-
       </div>
 
-    </div>
-  </section>
+      <!-- ═══ VIEW: CREATE INVOICE ═══ -->
+      <div class="view" id="view-create">
+        <div class="content-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-file-invoice-dollar"></i> New Invoice</h2>
+              <span style="font-size: 0.72rem; color: var(--text-light); font-weight: 500;">Step 1: Client Details</span>
+            </div>
+            <div class="card-body">
+              <form id="invoice-form">
+                <div class="form-group">
+                  <label for="client-name">Client Full Name</label>
+                  <input type="text" id="client-name" required placeholder="Enter client name">
+                </div>
+                <div class="form-group">
+                  <label for="client-email">Client Email Address</label>
+                  <input type="email" id="client-email" required placeholder="client@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="course-select">Service / Course</label>
+                  <select id="course-select" required>
+                    <option value="" disabled selected>Select service...</option>
+                    <option value="intro-299">Intro to Financial Markets ($299)</option>
+                    <option value="skills-999">Trading Skills Course ($999)</option>
+                    <option value="advanced-2499">Advanced Trading Course ($2,499)</option>
+                    <option value="quant-999">Quantitative Trading & Algorithmic Strategy ($999)</option>
+                    <option value="options-499">Options Trading Course ($499)</option>
+                    <option value="futures-499">Futures Trading Techniques ($499)</option>
+                    <option value="equity-499">Equity Investing & Wealth ($499)</option>
+                    <option value="psychology-299">Trading Psychology Workshop ($299)</option>
+                    <option value="crypto-499">Crypto Asset Portfolio Management ($499)</option>
+                    <option value="custom-0">Premium / Custom Amount</option>
+                  </select>
+                </div>
 
-  <!-- ==========================================
+                <div class="custom-amount-group" id="custom-amount-group">
+                  <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-mid); margin-bottom:0.35rem; text-transform:uppercase; letter-spacing:0.5px;">Custom Amount (USD)</label>
+                  <div class="amount-input-wrapper">
+                    <input type="number" id="custom-amount" placeholder="0.00" min="1" step="0.01">
+                  </div>
+                </div>
+
+                <div style="background: var(--info-bg); border: 1px solid rgba(59,130,246,0.12); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem;">
+                  <i class="fa-solid fa-info-circle" style="color: var(--info); font-size: 0.9rem;"></i>
+                  <span style="font-size: 0.78rem; color: var(--text-mid); line-height: 1.4;">Invoice will be created locally. Use the <strong>Open in PayRam</strong> button to generate a secure payment link on the gateway.</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <i class="fa-solid fa-paper-plane"></i> Generate Invoice
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Preview -->
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fa-solid fa-eye"></i> Invoice Preview</h2>
+            </div>
+            <div class="card-body">
+              <div id="preview-empty" style="text-align: center; padding: 2rem; color: var(--text-light);">
+                <i class="fa-solid fa-file-invoice" style="font-size: 2.5rem; opacity: 0.2; margin-bottom: 0.75rem; display: block;"></i>
+                <p style="font-size: 0.85rem;">Fill out the form to preview your invoice</p>
+              </div>
+              <div id="preview-content" style="display: none;">
+                <div style="background: var(--sidebar-bg); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem; color: white;">
+                  <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; margin-bottom: 0.5rem;">Invoice Total</div>
+                  <div id="preview-total" style="font-size: 2rem; font-weight: 800;">$0.00</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                    <span style="color: var(--text-light);">Client</span>
+                    <span id="preview-client" style="font-weight: 600; color: var(--text-dark);">—</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                    <span style="color: var(--text-light);">Email</span>
+                    <span id="preview-email" style="font-weight: 600; color: var(--text-dark);">—</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                    <span style="color: var(--text-light);">Service</span>
+                    <span id="preview-service" style="font-weight: 600; color: var(--text-dark);">—</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                    <span style="color: var(--text-light);">Gateway</span>
+                    <span style="font-weight: 600; color: var(--success);">PayRam (Base EVM)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ VIEW: TRANSACTIONS ═══ -->
+      <div class="view" id="view-transactions">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fa-solid fa-arrow-right-arrow-left"></i> All Transactions</h2>
+            <button class="btn btn-sm btn-outline" onclick="clearPayments()">
+              <i class="fa-solid fa-trash-can"></i> Clear History
+            </button>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Service / Course</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ VIEW: ACTIVITY LOGS ═══ -->
+      <div class="view" id="view-logs">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fa-solid fa-clock-rotate-left"></i> Activity Logs</h2>
+            <button class="btn btn-sm btn-outline" onclick="clearLogs()">
+              <i class="fa-solid fa-eraser"></i> Clear Logs
+            </button>
+          </div>
+          <div class="card-body">
+            <ul class="activity-list" id="activity-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ VIEW: SETTINGS ═══ -->
+      <div class="view" id="view-settings">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fa-solid fa-gear"></i> Settings & Configuration</h2>
+          </div>
+          <div class="card-body">
+            <div class="settings-section">
+              <h3><i class="fa-solid fa-server"></i> Payment Gateway</h3>
+              <div class="settings-info">
+                <strong>PayRam Self-Hosted Gateway</strong><br>
+                Server: <code>pay.pheunkarm.online</code><br>
+                Network: <code>Base (EVM) — Mainnet</code><br>
+                Database: <code>PostgreSQL (Self-Hosted)</code><br>
+                Status: <span style="color: var(--success); font-weight: 600;">● Active</span>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3><i class="fa-solid fa-wallet"></i> Wallet Configuration</h3>
+              <div class="settings-info">
+                Funds are automatically swept from customer deposit addresses to your cold wallet via the PayRam smart contract on Base.<br><br>
+                To manage your wallet settings, visit the <a href="https://pay.pheunkarm.online" target="_blank" style="color: var(--info); font-weight: 600;">PayRam Dashboard → Wallet Management</a>.
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3><i class="fa-solid fa-credit-card"></i> Card Payments (Onramp)</h3>
+              <div class="settings-info">
+                Card payments are processed securely through PayRam's built-in Onramp feature. Customers can pay with Visa, Mastercard, or other supported cards directly on the PayRam checkout page.<br><br>
+                Funds are automatically converted and deposited to your wallet.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </div><!-- /main-content -->
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════
        SCRIPTS
-       ========================================== -->
+       ═══════════════════════════════════════════ -->
   <script>
-    // Format card input automatically
-    document.getElementById('card-number').addEventListener('input', function (e) {
-      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      let matches = v.match(/\d{4,16}/g);
-      let match = matches && matches[0] || '';
-      let parts = [];
-      for (let i=0, len=match.length; i<len; i+=4) {
-        parts.push(match.substring(i, i+4));
-      }
-      if (parts.length > 0) {
-        e.target.value = parts.join(' ');
-      } else {
-        e.target.value = v;
-      }
-    });
+    // ── GREETING ──
+    function setGreeting() {
+      const h = new Date().getHours();
+      let g = 'Good evening';
+      if (h < 12) g = 'Good morning';
+      else if (h < 17) g = 'Good afternoon';
+      document.getElementById('greeting-text').textContent = g + ', Pheunkarm Investments Ltd';
+    }
+    setGreeting();
 
-    document.getElementById('card-exp').addEventListener('input', function (e) {
-      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      if (v.length >= 2) {
-        e.target.value = v.substring(0,2) + '/' + v.substring(2,4);
-      } else {
-        e.target.value = v;
-      }
-    });
+    // ── SIDEBAR TOGGLE (mobile) ──
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('open');
+    }
 
-    // Handle LocalStorage state
+    // ── VIEW SWITCHING ──
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-item[data-view]').forEach(n => n.classList.remove('active'));
+
+      const el = document.getElementById('view-' + viewName);
+      if (el) el.classList.add('active');
+
+      const nav = document.querySelector(`.nav-item[data-view="${viewName}"]`);
+      if (nav) nav.classList.add('active');
+
+      const labels = { dashboard: 'Dashboard', create: 'Create Invoice', transactions: 'Transactions', logs: 'Activity Logs', settings: 'Settings' };
+      document.getElementById('breadcrumb-current').textContent = labels[viewName] || viewName;
+
+      // Close mobile sidebar
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('open');
+
+      if (viewName === 'transactions') renderTransactions();
+      if (viewName === 'logs') renderLogs();
+    }
+
+    // ── DATA: PAYMENTS ──
     function getPayments() {
-      let data = localStorage.getItem('pheunkarm_payments');
-      return data ? JSON.parse(data) : [];
+      try { return JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]'); }
+      catch(e) { return []; }
     }
 
     function savePayments(arr) {
       localStorage.setItem('pheunkarm_payments', JSON.stringify(arr));
-      renderPayments();
+      updateStats();
+      renderDashboardTable();
+      renderTransactions();
+      updateNavBadge();
     }
 
     function clearPayments() {
-      if (confirm("Are you sure you want to clear the payment request log?")) {
+      if (confirm('Clear all transaction history?')) {
         savePayments([]);
+        addLog('Cleared all transaction history', 'amber');
+        showToast('Transaction history cleared');
       }
     }
 
-    function renderPayments() {
-      const arr = getPayments();
-      const tbody = document.getElementById('payments-tbody');
-      tbody.innerHTML = '';
+    // ── DATA: ACTIVITY LOGS ──
+    function getLogs() {
+      try { return JSON.parse(localStorage.getItem('pheunkarm_activity_logs') || '[]'); }
+      catch(e) { return []; }
+    }
 
-      let totalVolume = 0;
-      let activeRequests = 0;
-      let settledTx = 0;
+    function saveLogs(arr) {
+      localStorage.setItem('pheunkarm_activity_logs', JSON.stringify(arr));
+    }
 
-      if (arr.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--color-text-muted);">No payment invoices created yet. Fill out the form to generate one.</td></tr>`;
+    function addLog(message, color) {
+      const logs = getLogs();
+      logs.unshift({
+        message: message,
+        color: color || 'blue',
+        time: new Date().toLocaleString()
+      });
+      if (logs.length > 50) logs.pop();
+      saveLogs(logs);
+    }
+
+    function clearLogs() {
+      if (confirm('Clear all activity logs?')) {
+        saveLogs([]);
+        renderLogs();
+        showToast('Activity logs cleared');
+      }
+    }
+
+    // ── STATS ──
+    function updateStats() {
+      const payments = getPayments();
+      let volume = 0, active = 0, settled = 0;
+      payments.forEach(p => {
+        if (p.status === 'paid') {
+          volume += parseFloat(p.price) || 0;
+          settled++;
+        } else {
+          active++;
+        }
+      });
+      document.getElementById('stat-volume').textContent = '$' + volume.toLocaleString(undefined, { minimumFractionDigits: 2 });
+      document.getElementById('stat-active').textContent = active;
+      document.getElementById('stat-settled').textContent = settled;
+    }
+
+    function updateNavBadge() {
+      const payments = getPayments();
+      const active = payments.filter(p => p.status !== 'paid').length;
+      const badge = document.getElementById('nav-badge-tx');
+      badge.textContent = active;
+      badge.style.display = active > 0 ? 'inline' : 'none';
+    }
+
+    // ── RENDER: DASHBOARD TABLE (last 5) ──
+    function renderDashboardTable() {
+      const payments = getPayments().slice(0, 5);
+      const tbody = document.getElementById('dashboard-tbody');
+      if (!payments.length) {
+        tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><i class="fa-solid fa-inbox"></i><p>No transactions yet</p></div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = payments.map(p => `
+        <tr>
+          <td class="client-info"><strong>${esc(p.clientName)}</strong><span>${esc(p.clientEmail)}</span></td>
+          <td style="font-weight:700; color:var(--text-dark);">$${p.price}</td>
+          <td>${statusBadge(p.status)}</td>
+          <td>${actionButtons(p)}</td>
+        </tr>
+      `).join('');
+    }
+
+    // ── RENDER: TRANSACTIONS TABLE ──
+    function renderTransactions() {
+      const payments = getPayments();
+      const tbody = document.getElementById('transactions-tbody');
+      if (!payments.length) {
+        tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-inbox"></i><p>No transactions found. Create an invoice to get started.</p></div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = payments.map(p => `
+        <tr>
+          <td class="client-info"><strong>${esc(p.clientName)}</strong><span>${esc(p.clientEmail)}</span></td>
+          <td>${esc(p.courseName)}</td>
+          <td style="font-weight:700; color:var(--text-dark);">$${p.price}</td>
+          <td style="font-size:0.75rem; color:var(--text-light);">${p.date || '—'}</td>
+          <td>${statusBadge(p.status)}</td>
+          <td>${actionButtons(p)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function statusBadge(status) {
+      if (status === 'paid') return '<span class="badge badge-paid"><i class="fa-solid fa-circle-check"></i> Paid</span>';
+      return '<span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span>';
+    }
+
+    function actionButtons(p) {
+      if (p.status === 'paid') return '<span style="color:var(--success);font-size:0.78rem;font-weight:600;"><i class="fa-solid fa-check-double"></i> Complete</span>';
+      const checkoutUrl = buildCheckoutUrl(p);
+      return `
+        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+          <a href="${checkoutUrl}" target="_blank" class="btn btn-sm btn-open"><i class="fa-solid fa-external-link-alt"></i> Preview</a>
+          <button onclick="copyCheckoutLink('${p.id}')" class="btn btn-sm btn-outline" style="color:var(--info);border-color:rgba(59,130,246,0.3);"><i class="fa-solid fa-copy"></i> Copy Link</button>
+          <button onclick="markPaid('${p.id}')" class="btn btn-sm btn-success-sm"><i class="fa-solid fa-check"></i> Mark Paid</button>
+        </div>
+      `;
+    }
+
+    function buildCheckoutUrl(p) {
+      const base = window.location.origin + '/checkout/';
+      const params = new URLSearchParams({
+        course: p.courseName,
+        amount: p.price,
+        name: p.clientName,
+        email: p.clientEmail,
+        id: p.id
+      });
+      return base + '?' + params.toString();
+    }
+
+    function copyCheckoutLink(id) {
+      const payments = getPayments();
+      const p = payments.find(x => x.id === id);
+      if (!p) return;
+      const url = buildCheckoutUrl(p);
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('Checkout link copied to clipboard!');
+        addLog(`Copied checkout link for <strong>${esc(p.clientName)}</strong>`, 'blue');
+      }).catch(() => {
+        // Fallback for older browsers
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast('Checkout link copied!');
+      });
+    }
+
+    function markPaid(id) {
+      const payments = getPayments();
+      const item = payments.find(x => x.id === id);
+      if (item) {
+        item.status = 'paid';
+        savePayments(payments);
+        addLog(`Payment marked as settled for <strong>${esc(item.clientName)}</strong> — $${item.price}`, 'green');
+        showToast('Payment marked as settled!');
+      }
+    }
+
+    // ── RENDER: ACTIVITY LOGS ──
+    function renderLogs() {
+      const logs = getLogs();
+      const list = document.getElementById('activity-list');
+      if (!logs.length) {
+        list.innerHTML = '<div class="empty-state"><i class="fa-solid fa-clock-rotate-left"></i><p>No activity recorded yet</p></div>';
+        return;
+      }
+      list.innerHTML = logs.map(l => `
+        <li class="activity-item">
+          <div class="activity-dot ${l.color}"></div>
+          <div>
+            <div class="activity-text">${l.message}</div>
+            <div class="activity-time">${l.time}</div>
+          </div>
+        </li>
+      `).join('');
+    }
+
+    // ── CUSTOM AMOUNT TOGGLE ──
+    document.getElementById('course-select').addEventListener('change', function(e) {
+      const customGroup = document.getElementById('custom-amount-group');
+      const customInput = document.getElementById('custom-amount');
+      if (e.target.value === 'custom-0') {
+        customGroup.classList.add('visible');
+        customInput.required = true;
+        customInput.focus();
       } else {
-        arr.forEach((item, index) => {
-          // stats calculations
-          if (item.status === 'paid') {
-            totalVolume += parseFloat(item.price);
-            settledTx++;
-          } else {
-            activeRequests++;
-          }
+        customGroup.classList.remove('visible');
+        customInput.required = false;
+        customInput.value = '';
+      }
+      updatePreview();
+    });
 
-          // render table row
-          const tr = document.createElement('tr');
-          
-          let statusBadgeClass = 'badge-pending';
-          let statusText = 'Pending Approval';
-          if (item.status === 'approved') {
-            statusBadgeClass = 'badge-approved';
-            statusText = 'Approved';
-          } else if (item.status === 'paid') {
-            statusBadgeClass = 'badge-success';
-            statusText = 'Paid (Settled)';
-          }
+    // ── LIVE PREVIEW ──
+    document.getElementById('client-name').addEventListener('input', updatePreview);
+    document.getElementById('client-email').addEventListener('input', updatePreview);
+    document.getElementById('custom-amount').addEventListener('input', updatePreview);
 
-          const maskedCard = '**** ' + item.cardNumber.slice(-4);
-          const checkoutLink = `/checkout/?id=${item.id}`;
+    function updatePreview() {
+      const name = document.getElementById('client-name').value;
+      const email = document.getElementById('client-email').value;
+      const select = document.getElementById('course-select');
+      const courseVal = select.value;
 
-          tr.innerHTML = `
-            <td>
-              <strong>${item.clientName}</strong><br>
-              <span style="font-size: 0.75rem; color: var(--color-text-muted);">${item.clientEmail}</span>
-            </td>
-            <td>
-              <strong>${item.courseName}</strong><br>
-              <span style="font-weight: 600; color: var(--color-secondary);">$${item.price}</span>
-            </td>
-            <td>
-              <strong>${item.cryptoCurrency}</strong> (${maskedCard})<br>
-              <span class="status-badge ${statusBadgeClass}">${statusText}</span>
-            </td>
-            <td>
-              ${item.status !== 'paid' ? `
-                <a href="${checkoutLink}" class="btn-action" style="background-color: var(--color-primary); color: white; margin-bottom: 0.25rem;">Open Link</a>
-                <button onclick="simulateApproval('${item.id}')" class="btn-action" style="background-color: var(--color-cta); color: white; border: none; cursor: pointer;">Simulate Approval</button>
-              ` : `
-                <span style="color: var(--color-status-success); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Complete</span>
-              `}
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
+      if (!name && !email && !courseVal) {
+        document.getElementById('preview-empty').style.display = 'block';
+        document.getElementById('preview-content').style.display = 'none';
+        return;
       }
 
-      // update stats boxes
-      document.getElementById('stat-total-volume').innerText = '$' + totalVolume.toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('stat-active-req').innerText = activeRequests;
-      document.getElementById('stat-settled-tx').innerText = settledTx;
+      document.getElementById('preview-empty').style.display = 'none';
+      document.getElementById('preview-content').style.display = 'block';
+
+      document.getElementById('preview-client').textContent = name || '—';
+      document.getElementById('preview-email').textContent = email || '—';
+
+      if (courseVal === 'custom-0') {
+        const amt = parseFloat(document.getElementById('custom-amount').value) || 0;
+        document.getElementById('preview-total').textContent = '$' + amt.toFixed(2);
+        document.getElementById('preview-service').textContent = 'Premium / Custom';
+      } else if (courseVal) {
+        const text = select.options[select.selectedIndex].text;
+        const price = courseVal.split('-').pop();
+        document.getElementById('preview-total').textContent = '$' + Number(price).toLocaleString();
+        document.getElementById('preview-service').textContent = text.split(' ($')[0];
+      } else {
+        document.getElementById('preview-total').textContent = '$0.00';
+        document.getElementById('preview-service').textContent = '—';
+      }
     }
 
-    // Form submit
-    document.getElementById('payment-request-form').addEventListener('submit', function (e) {
+    // ── FORM SUBMIT ──
+    document.getElementById('invoice-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const selectEl = document.getElementById('course-select');
-      const selectedOption = selectEl.options[selectEl.selectedIndex].text;
-      const courseVal = selectEl.value; // e.g. "intro-299"
-      const courseName = selectedOption.split(' (')[0];
-      const price = courseVal.split('-')[1];
 
-      const newItem = {
-        id: 'tx_' + Math.floor(Math.random() * 10000000),
+      const select = document.getElementById('course-select');
+      const courseVal = select.value;
+      let courseName, price;
+
+      if (courseVal === 'custom-0') {
+        const customAmt = parseFloat(document.getElementById('custom-amount').value);
+        if (!customAmt || customAmt <= 0) {
+          alert('Please enter a valid custom amount.');
+          return;
+        }
+        courseName = 'Premium / Custom Service';
+        price = customAmt.toFixed(2);
+      } else {
+        const text = select.options[select.selectedIndex].text;
+        courseName = text.split(' ($')[0];
+        price = courseVal.split('-').pop();
+      }
+
+      const item = {
+        id: 'INV-' + Date.now().toString(36).toUpperCase(),
         clientName: document.getElementById('client-name').value,
         clientEmail: document.getElementById('client-email').value,
         courseName: courseName,
         price: price,
-        cardHolder: document.getElementById('card-holder').value,
-        cardNumber: document.getElementById('card-number').value,
-        cardExp: document.getElementById('card-exp').value,
-        cryptoCurrency: document.getElementById('crypto-currency').value,
-        walletAddress: document.getElementById('wallet-address').value,
-        status: 'pending', // pending -> approved -> paid
-        date: new Date().toLocaleDateString()
+        status: 'pending',
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       };
 
       const payments = getPayments();
-      payments.unshift(newItem);
+      payments.unshift(item);
       savePayments(payments);
 
-      // Reset form fields except wallet address
-      document.getElementById('client-name').value = '';
-      document.getElementById('client-email').value = '';
-      document.getElementById('course-select').value = '';
-      document.getElementById('card-holder').value = '';
-      document.getElementById('card-number').value = '';
-      document.getElementById('card-exp').value = '';
-      document.getElementById('card-cvv').value = '';
+      addLog(`Invoice created for <strong>${esc(item.clientName)}</strong> — ${esc(item.courseName)} ($${item.price})`, 'blue');
+      
+      // Auto-copy checkout link
+      const checkoutUrl = buildCheckoutUrl(item);
+      navigator.clipboard.writeText(checkoutUrl).catch(() => {});
+      showToast('Invoice created! Checkout link copied to clipboard.');
 
-      alert("Invoice request successfully generated! Pushed authorization link to monitoring list.");
+      // Reset form
+      document.getElementById('invoice-form').reset();
+      document.getElementById('custom-amount-group').classList.remove('visible');
+      document.getElementById('preview-empty').style.display = 'block';
+      document.getElementById('preview-content').style.display = 'none';
+
+      // Switch to transactions view
+      setTimeout(() => switchView('transactions'), 800);
     });
 
-    function simulateApproval(id) {
-      const arr = getPayments();
-      const item = arr.find(x => x.id === id);
-      if (item) {
-        item.status = 'paid';
-        savePayments(arr);
-        alert("Simulated transaction approval. Payment routed to NOWPayments payout crypto account successfully!");
-      }
+    // ── TOAST ──
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(30px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
 
-    // Initial render
-    renderPayments();
+    // ── UTILS ──
+    function esc(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    // ── INIT ──
+    updateStats();
+    renderDashboardTable();
+    updateNavBadge();
+    renderLogs();
   </script>
 </body>
 </html>

@@ -3,916 +3,795 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Metadata -->
-  <title>Secure Checkout - Pheunkarm Institute of Trading & Portfolio Management</title>
-  
-  <!-- Style Link (Root Relative) -->
-  <link rel="stylesheet" href="/style.css">
-  
-  <!-- Google Fonts -->
+  <title>Checkout - Pheunkarm Investments Ltd</title>
+  <meta name="description" content="Secure checkout for Pheunkarm Investments trading courses and services.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome for Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg: #0c0e14;
+      --bg-card: #141722;
+      --bg-card-hover: #1a1f30;
+      --bg-input: #1a1f30;
+      --accent: #f0b429;
+      --accent-glow: rgba(240, 180, 41, 0.15);
+      --accent-gradient: linear-gradient(135deg, #f0b429 0%, #e88d1a 100%);
+      --text-primary: #ffffff;
+      --text-secondary: #8892a4;
+      --text-muted: #4a5268;
+      --border: rgba(255,255,255,0.06);
+      --border-accent: rgba(240, 180, 41, 0.25);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.15);
+      --info: #3b82f6;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      margin: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #1a1a2e;
-      background: #0b0f19;
-    }
-
-    /* ── Background ── */
-    .checkout-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .checkout-bg::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background:
-        url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-      filter: brightness(0.3);
-      z-index: 0;
-    }
-
-    .checkout-bg::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(11,15,25,0.7) 0%, rgba(23,85,117,0.4) 50%, rgba(11,15,25,0.85) 100%);
-      z-index: 1;
-    }
-
-    /* ── Top SSL Bar ── */
-    .ssl-bar {
-      position: relative;
-      z-index: 10;
-      background: rgba(23,85,117,0.95);
-      color: #fff;
-      text-align: center;
-      padding: 0.6rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(10px);
-    }
-
-    .ssl-bar i {
-      margin-right: 6px;
-      color: #4ade80;
-    }
-
-    /* ── Layout ── */
-    .checkout-wrapper {
-      position: relative;
-      z-index: 10;
-      min-height: calc(100vh - 40px);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .checkout-header {
+      padding: 1.25rem 2rem;
+      display: flex;
       align-items: center;
-      padding: 3rem 1.5rem;
-    }
-
-    /* ── Card ── */
-    .checkout-card {
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(23,85,117,0.15);
-      border-radius: 16px;
-      padding: 0;
-      width: 100%;
-      max-width: 520px;
-      box-shadow:
-        0 25px 60px rgba(0,0,0,0.4),
-        0 0 0 1px rgba(255,255,255,0.05),
-        inset 0 1px 0 rgba(255,255,255,0.8);
-      overflow: hidden;
-    }
-
-    /* ── Card Header ── */
-    .checkout-card-header {
-      background: linear-gradient(135deg, #175575, #0f3d56);
-      padding: 2rem 2.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .checkout-card-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #ffa322, #ff6b35, #ffa322);
-    }
-
-    .checkout-card-header .logo-text {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.7);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .checkout-card-header h1 {
-      font-size: 1.5rem;
-      color: #fff;
-      margin: 0;
-      font-weight: 800;
-    }
-
-    .checkout-card-header p {
-      color: rgba(255,255,255,0.65);
-      font-size: 0.85rem;
-      margin: 0.5rem 0 0 0;
-    }
-
-    /* ── Card Body ── */
-    .checkout-card-body {
-      padding: 2rem 2.5rem 2.5rem;
-    }
-
-    /* ── Order Summary ── */
-    .order-summary {
-      background: linear-gradient(135deg, #f0f7fb, #e8f4f8);
-      border: 1px solid rgba(23,85,117,0.12);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .order-row {
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.65rem;
-      font-size: 0.88rem;
-      color: #4a5568;
+      border-bottom: 1px solid var(--border);
+      background: rgba(20, 23, 34, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky; top: 0; z-index: 50;
     }
 
-    .order-row:last-child {
-      margin-bottom: 0;
-      padding-top: 0.75rem;
-      border-top: 2px solid rgba(23,85,117,0.15);
-      font-weight: 800;
-      color: #175575;
-      font-size: 1.15rem;
+    .header-brand {
+      display: flex; align-items: center; gap: 0.65rem;
+      text-decoration: none;
     }
 
-    .order-row span:first-child {
-      font-weight: 500;
-    }
-
-    .order-row span:last-child {
-      font-weight: 600;
-      color: #2d3748;
-    }
-
-    .order-row:last-child span:last-child {
-      color: #175575;
-    }
-
-    /* ── Form Fields ── */
-    .form-group {
-      margin-bottom: 1.15rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-      color: #2d3748;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
-      background: #fff;
-      color: #1a1a2e;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      -webkit-appearance: none;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #175575;
-      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
-    }
-
-    .form-group input::placeholder {
-      color: #a0aec0;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    /* ── Custom Amount Field ── */
-    .custom-amount-group {
-      display: none;
-      margin-bottom: 1.15rem;
-    }
-
-    .custom-amount-group.visible {
-      display: block;
-      animation: fadeSlideDown 0.3s ease;
-    }
-
-    @keyframes fadeSlideDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .custom-amount-group .amount-input-wrapper {
-      position: relative;
-    }
-
-    .custom-amount-group .amount-input-wrapper::before {
-      content: '$';
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1rem;
-      font-weight: 700;
-      color: #175575;
-    }
-
-    .custom-amount-group input {
-      width: 100%;
-      padding: 0.85rem 1rem 0.85rem 2rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      color: #175575;
-      background: #fff;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .custom-amount-group input:focus {
-      outline: none;
-      border-color: #175575;
-      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
-    }
-
-    /* ── Security Badge ── */
-    .security-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: #f7fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
-      margin-bottom: 1.75rem;
-      font-size: 0.8rem;
-      color: #718096;
-    }
-
-    .security-badge i {
-      color: #4ade80;
-      font-size: 1.1rem;
-    }
-
-    /* ── Submit Button ── */
-    .checkout-submit-btn {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, #175575, #0f3d56);
-      color: #fff;
-      border: none;
+    .header-brand-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-gradient);
       border-radius: 10px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      letter-spacing: 0.3px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.85rem; color: var(--bg);
     }
 
-    .checkout-submit-btn:hover {
-      background: linear-gradient(135deg, #1a6a8f, #175575);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(23,85,117,0.35);
+    .header-brand span {
+      font-weight: 700; font-size: 0.95rem; color: var(--text-primary);
     }
 
-    .checkout-submit-btn:active {
-      transform: translateY(0);
+    .header-secure {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.75rem; color: var(--success);
+      font-weight: 600;
     }
 
-    .checkout-submit-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .header-secure i { font-size: 0.7rem; }
 
-    .checkout-submit-btn i {
-      margin-right: 8px;
-    }
-
-    /* ── Card Brand Icons Row ── */
-    .card-brands {
+    /* ── MAIN LAYOUT ── */
+    .checkout-main {
+      flex: 1;
       display: flex;
+      align-items: flex-start;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1.25rem;
-      opacity: 0.5;
+      padding: 3rem 1.5rem;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
     }
 
-    .card-brands i {
-      font-size: 1.75rem;
-      color: #4a5568;
+    /* ── ORDER SUMMARY (Left) ── */
+    .order-panel {
+      flex: 1;
+      max-width: 420px;
     }
 
-    /* ── OTP Modal ── */
-    .otp-modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(11,15,25,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      backdrop-filter: blur(8px);
+    .order-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
     }
 
-    .otp-content {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2.5rem;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    .order-amount {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      line-height: 1;
     }
 
-    .otp-content h3 {
-      font-size: 1.2rem;
-      color: #175575;
-      margin: 0.75rem 0 0 0;
+    .order-amount .currency {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      vertical-align: super;
     }
 
-    .otp-content p {
-      font-size: 0.85rem;
-      color: #718096;
-      margin-top: 0.5rem;
+    .order-description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
       line-height: 1.5;
     }
 
-    .otp-input-field {
-      width: 160px;
-      padding: 0.85rem;
-      font-size: 1.5rem;
-      text-align: center;
-      letter-spacing: 6px;
-      margin: 1.5rem auto;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
-      font-family: 'Inter', monospace;
+    .order-details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .order-details-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .order-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .order-line:last-child { border-bottom: none; }
+
+    .order-line-label { color: var(--text-secondary); }
+
+    .order-line-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .order-line-value.highlight { color: var(--accent); }
+
+    .order-line.total {
+      background: rgba(240, 180, 41, 0.04);
+      border-top: 1px solid var(--border-accent);
+    }
+
+    .order-line.total .order-line-label {
       font-weight: 700;
-      display: block;
-      transition: border-color 0.2s ease;
+      color: var(--text-primary);
+      font-size: 0.9rem;
     }
 
-    .otp-input-field:focus {
-      outline: none;
-      border-color: #175575;
-      box-shadow: 0 0 0 3px rgba(23,85,117,0.12);
+    .order-line.total .order-line-value {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
     }
 
-    .otp-submit-btn {
-      width: 100%;
-      padding: 0.85rem;
-      background: linear-gradient(135deg, #175575, #0f3d56);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
+    /* ── PAYMENT PANEL (Right) ── */
+    .payment-panel {
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .payment-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .payment-card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .payment-card-header h2 {
       font-size: 1rem;
       font-weight: 700;
-      font-family: 'Inter', sans-serif;
+      margin-bottom: 0.2rem;
+    }
+
+    .payment-card-header p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .payment-card-body { padding: 1.5rem; }
+
+    /* Payment Methods */
+    .payment-methods {
+      display: flex; flex-direction: column; gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-method {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      background: transparent;
     }
 
-    .otp-submit-btn:hover {
-      background: linear-gradient(135deg, #1a6a8f, #175575);
+    .payment-method:hover {
+      border-color: rgba(255,255,255,0.12);
+      background: var(--bg-card-hover);
     }
 
-    .otp-cancel {
-      margin-top: 1.25rem;
+    .payment-method.selected {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .payment-method input[type="radio"] { display: none; }
+
+    .payment-method-radio {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .payment-method.selected .payment-method-radio {
+      border-color: var(--accent);
+    }
+
+    .payment-method.selected .payment-method-radio::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .payment-method-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .payment-method-icon.card-icon {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--info);
+    }
+
+    .payment-method-icon.crypto-icon {
+      background: rgba(139, 92, 246, 0.1);
+      color: #8b5cf6;
+    }
+
+    .payment-method-info strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .payment-method-info span {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .payment-method-badges {
+      margin-left: auto;
+      display: flex; gap: 0.25rem;
+    }
+
+    .payment-method-badges img {
+      height: 20px;
+      opacity: 0.7;
+    }
+
+    /* Client Info */
+    .client-info-section {
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .client-info-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .client-info-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .client-info-email {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* Pay Button */
+    .pay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.95rem;
       border: none;
-      background: none;
-      color: #a0aec0;
-      font-size: 0.82rem;
-      cursor: pointer;
-      text-decoration: underline;
+      border-radius: var(--radius);
+      background: var(--accent-gradient);
+      color: var(--bg);
+      font-size: 0.95rem;
+      font-weight: 800;
       font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ── Success Screen ── */
+    .pay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(240, 180, 41, 0.35);
+    }
+
+    .pay-btn:active { transform: translateY(0); }
+
+    .pay-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .pay-btn:hover::after {
+      transform: translateX(100%);
+    }
+
+    .pay-btn .btn-text { position: relative; z-index: 1; display: flex; align-items: center; gap: 0.5rem; }
+
+    /* Security Footer */
+    .security-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .security-badge {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .security-badge i { font-size: 0.7rem; }
+
+    /* ── SUCCESS STATE ── */
     .success-container {
-      text-align: center;
       display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      max-width: 500px;
+      margin: 0 auto;
+      animation: fadeUp 0.5s ease;
+    }
+
+    .success-container.active {
+      display: flex;
     }
 
     .success-icon {
-      font-size: 3.5rem;
-      color: #4ade80;
-      margin-bottom: 1rem;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--success-glow);
+      border: 2px solid rgba(16, 185, 129, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      animation: scaleIn 0.4s ease 0.2s both;
+    }
+
+    .success-icon i {
+      font-size: 2rem;
+      color: var(--success);
     }
 
     .success-container h2 {
-      font-size: 1.35rem;
-      color: #175575;
-      margin: 0 0 0.5rem 0;
-    }
-
-    .success-container > p {
-      font-size: 0.9rem;
-      color: #718096;
-    }
-
-    .tx-details {
-      background: linear-gradient(135deg, #f0f7fb, #e8f4f8);
-      border: 1px solid rgba(23,85,117,0.12);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      text-align: left;
-      font-size: 0.85rem;
-      margin: 1.5rem 0;
-    }
-
-    .tx-row {
-      display: flex;
-      justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 800;
       margin-bottom: 0.5rem;
-      color: #4a5568;
     }
 
-    .tx-row:last-child { margin-bottom: 0; }
-
-    .tx-row strong { color: #2d3748; }
-
-    .return-btn {
-      display: inline-block;
-      margin-top: 1.25rem;
-      padding: 0.75rem 2rem;
-      background: linear-gradient(135deg, #175575, #0f3d56);
-      color: #fff;
-      border-radius: 10px;
-      font-weight: 700;
+    .success-container p {
       font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-container .back-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
       text-decoration: none;
-      transition: all 0.3s ease;
     }
 
-    .return-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(23,85,117,0.35);
+    .success-container .back-btn:hover {
+      background: var(--bg-card-hover);
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .checkout-card-header {
-        padding: 1.5rem 1.5rem;
-      }
-      .checkout-card-body {
-        padding: 1.5rem 1.5rem 2rem;
-      }
-      .checkout-card-header h1 {
-        font-size: 1.3rem;
-      }
-      .form-row {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-      .checkout-wrapper {
+    /* ── ERROR STATE ── */
+    .error-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .error-container.active { display: flex; }
+
+    .error-container h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-container p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    .checkout-footer {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .checkout-footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .checkout-footer a:hover { color: var(--accent); }
+
+    /* ── LOADING SPINNER ── */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(0,0,0,0.15);
+      border-top-color: var(--bg);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .pay-btn.loading .spinner { display: block; }
+    .pay-btn.loading .btn-text { display: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .checkout-main {
+        flex-direction: column;
         padding: 1.5rem 1rem;
-        align-items: flex-start;
+        gap: 1.5rem;
       }
+
+      .order-panel,
+      .payment-panel {
+        max-width: 100%;
+      }
+
+      .order-amount { font-size: 2.25rem; }
+
+      .checkout-header { padding: 1rem; }
+
+      .security-badges { flex-wrap: wrap; gap: 0.75rem; }
     }
+
+    /* ── AMBIENT GLOW ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(240, 180, 41, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .checkout-main { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
 
-  <!-- ==========================================
-       TRADING BACKGROUND
-       ========================================== -->
-  <div class="checkout-bg"></div>
+  <!-- Header -->
+  <header class="checkout-header">
+    <a href="/" class="header-brand">
+      <div class="header-brand-icon">PI</div>
+      <span>Pheunkarm Investments</span>
+    </a>
+    <div class="header-secure">
+      <i class="fa-solid fa-lock"></i>
+      Secure Checkout
+    </div>
+  </header>
 
-  <!-- ==========================================
-       SSL BAR
-       ========================================== -->
-  <div class="ssl-bar">
-    <i class="fa-solid fa-lock"></i> SSL Secured 256-bit Encrypted Checkout
-  </div>
+  <!-- Main Checkout -->
+  <main class="checkout-main" id="checkout-view">
 
-  <!-- ==========================================
-       CHECKOUT PORTAL
-       ========================================== -->
-  <section class="checkout-wrapper">
-    <div class="checkout-card">
+    <!-- Left: Order Summary -->
+    <div class="order-panel">
+      <div class="order-label">Amount Due</div>
+      <div class="order-amount">
+        <span class="currency">$</span><span id="display-amount">0</span>
+      </div>
+      <div class="order-description" id="display-description">Complete your enrollment below</div>
 
-      <!-- Primary Payment Flow -->
-      <div id="payment-flow">
-        <div class="checkout-card-header">
-          <div class="logo">
-            <span class="logo-brand">Pheunkarm</span>
-            <span class="logo-line"></span>
-            <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
-          </div>
-          <h1 id="checkout-title"><i class="fa-solid fa-shield-halved" style="margin-right: 8px;"></i>Secure Checkout</h1>
-          <p id="checkout-subtitle">Complete your enrollment with a secure card payment</p>
-          <!-- Intake Status Badge -->
-          <div id="intake-badge-box" style="display: none; background-color: rgba(255, 163, 34, 0.08); border: 1px dashed var(--color-cta); border-radius: 6px; padding: 0.75rem 1rem; margin-top: 1rem; text-align: left; font-size: 0.85rem;">
-            <div style="font-weight: 700; color: var(--color-cta); margin-bottom: 0.25rem;">
-              <i class="fa-solid fa-square-poll-vertical"></i> Intake Assessment Connected
-            </div>
-            <div id="intake-badge-details" style="color: #4a5568;">
-              Experience: <span id="intake-val-exp" style="font-weight: 700; text-transform: capitalize;"></span> | Goal: <span id="intake-val-obj" style="font-weight: 700; text-transform: capitalize;"></span>
-            </div>
-          </div>
+      <div class="order-details">
+        <div class="order-details-header">Order Summary</div>
+        <div class="order-line">
+          <span class="order-line-label">Service</span>
+          <span class="order-line-value" id="display-course">—</span>
         </div>
+        <div class="order-line">
+          <span class="order-line-label">Client</span>
+          <span class="order-line-value" id="display-client">—</span>
+        </div>
+        <div class="order-line">
+          <span class="order-line-label">Invoice</span>
+          <span class="order-line-value highlight" id="display-invoice">—</span>
+        </div>
+        <div class="order-line">
+          <span class="order-line-label">Payment Gateway</span>
+          <span class="order-line-value">
+            <i class="fa-solid fa-shield-halved" style="color: var(--success); margin-right: 0.25rem;"></i>
+            PayRam (Base EVM)
+          </span>
+        </div>
+        <div class="order-line total">
+          <span class="order-line-label">Total</span>
+          <span class="order-line-value" id="display-total">$0.00</span>
+        </div>
+      </div>
+    </div>
 
-        <div class="checkout-card-body">
-          <!-- Order Summary -->
-          <div class="order-summary">
-            <div class="order-row">
-              <span>Course Selected</span>
-              <span id="summary-course">Select Course Below</span>
-            </div>
-            <div class="order-row">
-              <span>Payment Method</span>
-              <span><i class="fa-solid fa-credit-card" style="margin-right: 4px;"></i> Credit / Debit Card</span>
-            </div>
-            <div class="order-row">
-              <span>Total Charge</span>
-              <span id="summary-total">$0.00</span>
-            </div>
+    <!-- Right: Payment -->
+    <div class="payment-panel">
+      <div class="payment-card">
+        <div class="payment-card-header">
+          <h2>Payment Method</h2>
+          <p>Choose how you'd like to pay</p>
+        </div>
+        <div class="payment-card-body">
+
+          <!-- Payment Methods -->
+          <div class="payment-methods">
+            <label class="payment-method selected" onclick="selectMethod(this, 'card')">
+              <input type="radio" name="method" value="card" checked>
+              <div class="payment-method-radio"></div>
+              <div class="payment-method-icon card-icon">
+                <i class="fa-solid fa-credit-card"></i>
+              </div>
+              <div class="payment-method-info">
+                <strong>Pay with Card</strong>
+                <span>Visa, Mastercard, and more</span>
+              </div>
+            </label>
+
+            <label class="payment-method" onclick="selectMethod(this, 'crypto')">
+              <input type="radio" name="method" value="crypto">
+              <div class="payment-method-radio"></div>
+              <div class="payment-method-icon crypto-icon">
+                <i class="fa-brands fa-ethereum"></i>
+              </div>
+              <div class="payment-method-info">
+                <strong>Pay with Crypto</strong>
+                <span>ETH, USDT, USDC on Base</span>
+              </div>
+            </label>
           </div>
 
-          <!-- User Form -->
-          <form id="checkout-form">
-            <div class="form-group">
-              <label for="client-name">Cardholder Name</label>
-              <input type="text" id="client-name" required placeholder="John Doe">
-            </div>
+          <!-- Client Info -->
+          <div class="client-info-section">
+            <div class="client-info-label">Billing To</div>
+            <div class="client-info-name" id="display-client-name">—</div>
+            <div class="client-info-email" id="display-client-email">—</div>
+          </div>
 
-            <div class="form-group" id="course-select-group">
-              <label for="course-select">Course & Price (USD)</label>
-              <select id="course-select" required>
-                <option value="" disabled selected>Select course...</option>
-                 <option value="intro-299">Intro to Financial Markets ($299)</option>
-                 <option value="skills-999">Trading Skills Course ($999)</option>
-                 <option value="advanced-2499">Advanced Trading Course ($2,499)</option>
-                 <option value="quant-999">Quantitative Trading & Algorithmic Strategy ($999)</option>
-                 <option value="options-499">Options Trading Course ($499)</option>
-                 <option value="futures-499">Futures Trading Techniques ($499)</option>
-                 <option value="equity-499">Equity Investing & Wealth ($499)</option>
-                 <option value="psychology-299">Trading Psychology Workshop ($299)</option>
-                 <option value="crypto-499">Crypto Asset Portfolio Management ($499)</option>
-                 <option value="custom-0">Custom Amount</option>
-               </select>
-             </div>
+          <!-- Pay Button -->
+          <button class="pay-btn" id="pay-btn" onclick="handlePay()">
+            <div class="spinner"></div>
+            <span class="btn-text">
+              <i class="fa-solid fa-lock"></i>
+              Pay <span id="btn-amount">$0.00</span>
+            </span>
+          </button>
 
-            <!-- Custom Amount Field (shown when "Custom Amount" is selected) -->
-            <div class="custom-amount-group" id="custom-amount-group">
-              <label for="custom-amount" style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem; color: #2d3748; text-transform: uppercase; letter-spacing: 0.5px;">Amount (USD)</label>
-              <div class="amount-input-wrapper">
-                <input type="number" id="custom-amount" placeholder="0.00" min="1" step="0.01">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19">
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="card-exp">Expiration Date</label>
-                <input type="text" id="card-exp" required placeholder="MM/YY" maxlength="5">
-              </div>
-              <div class="form-group">
-                <label for="card-cvv">CVV</label>
-                <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
-              </div>
-            </div>
-
+          <!-- Security Badges -->
+          <div class="security-badges">
             <div class="security-badge">
               <i class="fa-solid fa-shield-halved"></i>
-              <span>Your payment information is encrypted and processed securely. No card details are stored on our servers.</span>
+              SSL Encrypted
             </div>
-
-            <button type="submit" class="checkout-submit-btn" id="submit-btn">
-              <i class="fa-solid fa-lock"></i> Authorize Payment
-            </button>
-
-            <div class="card-brands">
-              <i class="fa-brands fa-cc-visa"></i>
-              <i class="fa-brands fa-cc-mastercard"></i>
-              <i class="fa-brands fa-cc-amex"></i>
-              <i class="fa-brands fa-cc-discover"></i>
+            <div class="security-badge">
+              <i class="fa-solid fa-lock"></i>
+              Secure Payment
             </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Success Screen -->
-      <div id="success-flow" class="success-container">
-        <div class="checkout-card-header" style="background: linear-gradient(135deg, #065f46, #047857);">
-          <div class="logo">
-            <span class="logo-brand">Pheunkarm</span>
-            <span class="logo-line"></span>
-            <span class="logo-subtitle">Institute of Trading & Portfolio Management</span>
-          </div>
-          <h1 style="font-size: 1.3rem;"><i class="fa-solid fa-circle-check" style="margin-right: 8px;"></i>Payment Successful</h1>
-          <p>Your enrollment has been confirmed</p>
-        </div>
-        <div class="checkout-card-body">
-          <div class="tx-details">
-            <div class="tx-row">
-              <strong>Client Name:</strong>
-              <span id="success-name">-</span>
-            </div>
-            <div class="tx-row">
-              <strong>Course Enrolled:</strong>
-              <span id="success-course">-</span>
-            </div>
-            <div class="tx-row">
-              <strong>Amount Processed:</strong>
-              <span id="success-amount">-</span>
-            </div>
-            <div class="tx-row">
-              <strong>Reference ID:</strong>
-              <span id="success-hash" style="font-family: monospace; font-size: 0.75rem;">-</span>
+            <div class="security-badge">
+              <i class="fa-solid fa-link"></i>
+              Blockchain Verified
             </div>
           </div>
-
-          <p style="font-size: 0.88rem; color: #718096;">A confirmation email with your course access details and login credentials has been sent to your registered email address.</p>
-          <a href="/" class="return-btn">Return to Home</a>
         </div>
       </div>
-
     </div>
-  </section>
+  </main>
 
-  <!-- ==========================================
-       3DS OTP MODAL
-       ========================================== -->
-  <div class="otp-modal" id="otp-modal">
-    <div class="otp-content">
-      <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #175575;"></i>
-      <h3>3D-Secure Authorization</h3>
-      <p>We have sent a verification code to your registered mobile number. Please enter it below to complete the authorization.</p>
-      
-      <form id="otp-form">
-        <input type="text" id="otp-code" required placeholder="123456" class="otp-input-field" maxlength="6">
-        <button type="submit" class="otp-submit-btn">Verify & Approve</button>
-      </form>
-      
-      <button onclick="closeModal()" class="otp-cancel">Cancel Transaction</button>
+  <!-- Success View -->
+  <div class="success-container" id="success-view">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
     </div>
+    <h2>Payment Initiated!</h2>
+    <p>Your payment is being processed through our secure gateway. You'll receive a confirmation email once the transaction is verified on the blockchain.</p>
+    <a href="/" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      Return to Pheunkarm
+    </a>
   </div>
 
-  <!-- ==========================================
-       SCRIPTS
-       ========================================== -->
+  <!-- Error View -->
+  <div class="error-container" id="error-view">
+    <div style="width:80px;height:80px;border-radius:50%;background:rgba(239,68,68,0.1);border:2px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+      <i class="fa-solid fa-triangle-exclamation" style="font-size:2rem;color:#ef4444;"></i>
+    </div>
+    <h2>Invalid Checkout Link</h2>
+    <p>This checkout link is missing required information. Please contact Pheunkarm Investments to get a valid checkout link.</p>
+    <a href="/" class="back-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:0.65rem 1.5rem;border-radius:8px;font-size:0.85rem;font-weight:600;text-decoration:none;">
+      <i class="fa-solid fa-home"></i>
+      Go to Homepage
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="checkout-footer">
+    &copy; 2025 Pheunkarm Investments Ltd. All rights reserved. &nbsp;|&nbsp;
+    Payments processed securely by <a href="https://pay.pheunkarm.online" target="_blank">PayRam</a>
+  </footer>
+
   <script>
-    // Format credit card number
-    document.getElementById('card-number').addEventListener('input', function (e) {
-      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      let matches = v.match(/\d{4,16}/g);
-      let match = matches && matches[0] || '';
-      let parts = [];
-      for (let i=0, len=match.length; i<len; i+=4) {
-        parts.push(match.substring(i, i+4));
-      }
-      if (parts.length > 0) {
-        e.target.value = parts.join(' ');
-      } else {
-        e.target.value = v;
-      }
-    });
+    // ── PARSE URL PARAMS ──
+    const params = new URLSearchParams(window.location.search);
+    const course = params.get('course') || '';
+    const amount = params.get('amount') || '';
+    const clientName = params.get('name') || '';
+    const clientEmail = params.get('email') || '';
+    const invoiceId = params.get('id') || '';
+    const payramLink = params.get('paylink') || '';
 
-    // Format expiration date
-    document.getElementById('card-exp').addEventListener('input', function (e) {
-      let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      if (v.length >= 2) {
-        e.target.value = v.substring(0,2) + '/' + v.substring(2,4);
-      } else {
-        e.target.value = v;
-      }
-    });
+    // Validate
+    if (!amount || !course) {
+      document.getElementById('checkout-view').style.display = 'none';
+      document.getElementById('error-view').classList.add('active');
+    } else {
+      populateCheckout();
+    }
 
-    // Custom amount field toggle
-    document.getElementById('course-select').addEventListener('change', function(e) {
-      const customGroup = document.getElementById('custom-amount-group');
-      const customInput = document.getElementById('custom-amount');
+    function populateCheckout() {
+      const formattedAmount = Number(amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+      document.getElementById('display-amount').textContent = formattedAmount;
+      document.getElementById('display-course').textContent = course;
+      document.getElementById('display-client').textContent = clientName || 'Not specified';
+      document.getElementById('display-client-name').textContent = clientName || 'Guest';
+      document.getElementById('display-client-email').textContent = clientEmail || '—';
+      document.getElementById('display-invoice').textContent = invoiceId || 'N/A';
+      document.getElementById('display-total').textContent = '$' + formattedAmount;
+      document.getElementById('btn-amount').textContent = '$' + formattedAmount;
+      document.getElementById('display-description').textContent = 
+        'Enrollment for ' + course + ' — Pheunkarm Investments Ltd';
       
-      if (e.target.value === 'custom-0') {
-        customGroup.classList.add('visible');
-        customInput.required = true;
-        customInput.focus();
-      } else {
-        customGroup.classList.remove('visible');
-        customInput.required = false;
-        customInput.value = '';
-      }
-    });
-
-    // Update custom amount in summary
-    document.getElementById('custom-amount').addEventListener('input', function(e) {
-      const val = parseFloat(e.target.value);
-      if (!isNaN(val) && val > 0) {
-        document.getElementById('summary-total').innerText = '$' + val.toFixed(2);
-        document.getElementById('summary-course').innerText = 'Custom Arrangement';
-      } else {
-        document.getElementById('summary-total').innerText = '$0.00';
-      }
-    });
-
-    // Detect Mode (Direct or Admin-Link)
-    let currentInvoice = null;
-
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
+      document.title = 'Checkout $' + formattedAmount + ' — Pheunkarm Investments';
     }
 
-    function initCheckout() {
-      const id = getQueryParam('id');
-      const courseParam = getQueryParam('course');
-      if (id) {
-        // Mode B: Admin-Link
-        let payments = [];
-        try {
-          payments = JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]');
-        } catch(e) {}
-        
-        currentInvoice = payments.find(x => x.id === id);
-        
-        if (currentInvoice) {
-          document.getElementById('client-name').value = currentInvoice.cardHolder;
-          document.getElementById('client-name').disabled = true;
-          
-          document.getElementById('card-number').value = currentInvoice.cardNumber;
-          document.getElementById('card-number').disabled = true;
-          
-          document.getElementById('card-exp').value = currentInvoice.cardExp;
-          document.getElementById('card-exp').disabled = true;
-          
-          document.getElementById('card-cvv').value = '***';
-          document.getElementById('card-cvv').disabled = true;
+    // ── PAYMENT METHOD SELECTION ──
+    let selectedMethod = 'card';
 
-          document.getElementById('course-select-group').style.display = 'none';
-
-          document.getElementById('summary-course').innerText = currentInvoice.courseName;
-          document.getElementById('summary-total').innerText = '$' + currentInvoice.price;
-
-          document.getElementById('checkout-title').innerHTML = '<i class="fa-solid fa-file-invoice" style="margin-right: 8px;"></i>Authorize Invoice';
-          document.getElementById('checkout-subtitle').innerText = 'Verify pre-populated details and authorize enrollment';
-          document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-check-circle"></i> Approve & Pay Invoice';
-        }
-      } else if (courseParam) {
-        const select = document.getElementById('course-select');
-        for (let i = 0; i < select.options.length; i++) {
-          if (select.options[i].value.startsWith(courseParam)) {
-            select.selectedIndex = i;
-            select.dispatchEvent(new Event('change'));
-            break;
-          }
-        }
-      }
-      
-      // Parse diagnostic questionnaire responses
-      const expVal = getQueryParam('exp') || localStorage.getItem('intake_experience');
-      const objVal = getQueryParam('obj') || localStorage.getItem('intake_objective');
-      if (expVal && objVal) {
-        const box = document.getElementById('intake-badge-box');
-        if (box) {
-          box.style.display = 'block';
-          document.getElementById('intake-val-exp').innerText = expVal;
-          document.getElementById('intake-val-obj').innerText = objVal;
-        }
-      }
+    function selectMethod(el, method) {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedMethod = method;
     }
 
-    // Handle manual course selection updates on summaries
-    document.getElementById('course-select').addEventListener('change', function(e) {
-      if (!currentInvoice && e.target.value !== 'custom-0') {
-        const text = e.target.options[e.target.selectedIndex].text;
-        const val = e.target.value;
-        const price = val.split('-')[1];
-        const courseName = text.split(' (')[0];
-        document.getElementById('summary-course').innerText = courseName;
-        document.getElementById('summary-total').innerText = '$' + price;
+    // ── HANDLE PAY ──
+    function handlePay() {
+      const btn = document.getElementById('pay-btn');
+      btn.classList.add('loading');
+
+      // If admin provided a direct PayRam payment link, use it
+      if (payramLink) {
+        setTimeout(() => {
+          window.location.href = payramLink;
+        }, 1000);
+        return;
       }
-    });
 
-    // Form submit opens OTP modal
-    document.getElementById('checkout-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      document.getElementById('otp-modal').style.display = 'flex';
-    });
-
-    function closeModal() {
-      document.getElementById('otp-modal').style.display = 'none';
-    }
-
-    // OTP confirmation triggers settlement
-    document.getElementById('otp-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      closeModal();
-
-      const submitBtn = document.getElementById('submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...';
-
+      // Otherwise redirect to PayRam gateway
       setTimeout(() => {
-        let name = "";
-        let course = "";
-        let total = "";
+        // Open PayRam gateway for payment
+        const payramUrl = 'https://pay.pheunkarm.online';
+        window.open(payramUrl, '_blank');
 
-        if (currentInvoice) {
-          let payments = [];
-          try {
-            payments = JSON.parse(localStorage.getItem('pheunkarm_payments') || '[]');
-          } catch(err) {}
-          
-          const index = payments.findIndex(x => x.id === currentInvoice.id);
-          if (index !== -1) {
-            payments[index].status = 'paid';
-            localStorage.setItem('pheunkarm_payments', JSON.stringify(payments));
-          }
+        btn.classList.remove('loading');
 
-          name = currentInvoice.clientName;
-          course = currentInvoice.courseName;
-          total = '$' + currentInvoice.price;
-        } else {
-          const selectEl = document.getElementById('course-select');
-          
-          if (selectEl.value === 'custom-0') {
-            const customVal = parseFloat(document.getElementById('custom-amount').value);
-            course = 'Custom Arrangement';
-            total = '$' + customVal.toFixed(2);
-          } else {
-            const selectedOption = selectEl.options[selectEl.selectedIndex].text;
-            const courseVal = selectEl.value;
-            course = selectedOption.split(' (')[0];
-            total = '$' + courseVal.split('-')[1];
-          }
-          name = document.getElementById('client-name').value;
-        }
-
-        // Populate success details
-        document.getElementById('success-name').innerText = name;
-        document.getElementById('success-course').innerText = course;
-        document.getElementById('success-amount').innerText = total;
-        
-        const randomHash = 'PAY-' + Math.floor(Math.random() * 1000000000).toString(16).toUpperCase() + '-' + Math.floor(Math.random() * 100000).toString(16).toUpperCase();
-        document.getElementById('success-hash').innerText = randomHash;
-
-        // Show success
-        document.getElementById('payment-flow').style.display = 'none';
-        document.getElementById('success-flow').style.display = 'block';
-
-      }, 2000);
-    });
-
-    // Run initializations
-    initCheckout();
+        // Show success state
+        document.getElementById('checkout-view').style.display = 'none';
+        document.getElementById('success-view').classList.add('active');
+      }, 1500);
+    }
   </script>
 </body>
 </html>
