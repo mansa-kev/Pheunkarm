@@ -723,22 +723,45 @@
   </footer>
 
   <script>
+    // ── COURSE PRICE MAP ──
+    // This allows checkout to work when a course page links with just ?course=options
+    const COURSE_PRICES = {
+      'intro':      { name: 'Intro to Financial Markets', price: 299 },
+      'skills':     { name: 'Trading Skills Course', price: 999 },
+      'advanced':   { name: 'Advanced Trading Course', price: 2499 },
+      'quant':      { name: 'Quantitative Trading & Algorithmic Strategy', price: 999 },
+      'options':    { name: 'Options Trading Course', price: 499 },
+      'futures':    { name: 'Futures Trading Techniques', price: 499 },
+      'equity':     { name: 'Equity Investing & Wealth', price: 499 },
+      'psychology': { name: 'Trading Psychology Workshop', price: 299 },
+      'crypto':     { name: 'Crypto Asset Portfolio Management', price: 499 },
+    };
+
     // ── PARSE URL PARAMS ──
     const params = new URLSearchParams(window.location.search);
-    const course = params.get('course') || '';
-    const amount = params.get('amount') || '';
+    const courseParam = params.get('course') || '';
     const clientName = params.get('name') || '';
     const clientEmail = params.get('email') || '';
     const invoiceId = params.get('id') || '';
     const payramLink = params.get('paylink') || '';
-
     const isSuccess = params.get('success') === 'true';
+
+    // Resolve course name and amount — use URL amount if provided, else look up from map
+    let amount = params.get('amount') || '';
+    let courseName = courseParam;
+
+    if (!amount && courseParam && COURSE_PRICES[courseParam]) {
+      amount = String(COURSE_PRICES[courseParam].price);
+      courseName = COURSE_PRICES[courseParam].name;
+    } else if (amount && courseParam && COURSE_PRICES[courseParam]) {
+      courseName = COURSE_PRICES[courseParam].name;
+    }
 
     // Validate
     if (isSuccess) {
       document.getElementById('checkout-view').style.display = 'none';
       document.getElementById('success-view').classList.add('active');
-    } else if (!amount || !course) {
+    } else if (!amount || !courseParam) {
       document.getElementById('checkout-view').style.display = 'none';
       document.getElementById('error-view').classList.add('active');
     } else {
@@ -749,7 +772,7 @@
       const formattedAmount = Number(amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 
       document.getElementById('display-amount').textContent = formattedAmount;
-      document.getElementById('display-course').textContent = course;
+      document.getElementById('display-course').textContent = courseName;
       document.getElementById('display-client').textContent = clientName || 'Not specified';
       document.getElementById('display-client-name').textContent = clientName || 'Guest';
       document.getElementById('display-client-email').textContent = clientEmail || '—';
@@ -757,7 +780,7 @@
       document.getElementById('display-total').textContent = '$' + formattedAmount;
       document.getElementById('btn-amount').textContent = '$' + formattedAmount;
       document.getElementById('display-description').textContent = 
-        'Enrollment for ' + course + ' — Pheunkarm Investments Ltd';
+        'Enrollment for ' + courseName + ' — Pheunkarm Investments Ltd';
       
       document.title = 'Checkout $' + formattedAmount + ' — Pheunkarm Investments';
     }
@@ -792,12 +815,13 @@
 
       // Card method (Whop)
       try {
-        const response = await fetch('http://localhost:3000/api/checkout', {
+        const response = await fetch('http://localhost:3000/api/checkout/create', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
-             planId: course || 'premium_course',
-             redirectUrl: window.location.origin + '/checkout/index.html?success=true'
+             productId: courseParam || 'premium_course',
+             successUrl: window.location.origin + '/checkout/index.html?success=true',
+             cancelUrl: window.location.href
           })
         });
         
@@ -806,7 +830,7 @@
           // Redirect to the styled Whop checkout
           window.location.href = data.session.url;
         } else {
-          throw new Error('Invalid backend response');
+          throw new Error(data.error || 'Invalid backend response');
         }
       } catch (err) {
         console.error('Whop checkout error:', err);

@@ -1410,17 +1410,51 @@
     }
 
     async function generateWhopChargeLink() {
+      // Prompt admin for which product to charge
+      const courseOptions = [
+        'intro - Intro to Financial Markets ($299)',
+        'skills - Trading Skills Course ($999)',
+        'advanced - Advanced Trading Course ($2,499)',
+        'quant - Quantitative Trading ($999)',
+        'options - Options Trading ($499)',
+        'futures - Futures Trading ($499)',
+        'equity - Equity Investing ($499)',
+        'psychology - Trading Psychology ($299)',
+        'crypto - Crypto Portfolio ($499)',
+      ];
+      
+      const selection = prompt(
+        'Select a product to charge (type the code):\n\n' + courseOptions.join('\n') + '\n\nOr type "custom" for a custom amount.',
+        'options'
+      );
+      
+      if (!selection) return;
+
       showToast('Generating secure Whop checkout link...');
       
       try {
-        // In a fully integrated version, this queries the backend. 
-        // For the frontend UI demo, we simulate opening the portal:
-        setTimeout(() => {
-          window.open('https://whop.com/checkout/YOUR_PLAN_ID', '_blank');
-          addLog('Admin initiated a manual Whop charge', 'blue');
-        }, 800);
+        const response = await fetch('http://localhost:3000/api/checkout/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            productId: selection.split(' ')[0].trim(),
+            successUrl: window.location.origin + '/checkout/index.html?success=true',
+            cancelUrl: window.location.origin + '/admin/index.html'
+          })
+        });
+        
+        const data = await response.json();
+        if (data.success && data.session && data.session.url) {
+          window.open(data.session.url, '_blank');
+          addLog('Admin generated Whop charge link for product: ' + selection, 'blue');
+          showToast('Whop checkout opened in new tab!');
+        } else {
+          throw new Error(data.error || 'Backend error');
+        }
       } catch(err) {
-        alert('Failed to generate Whop link');
+        console.error('Charge card error:', err);
+        showToast('⚠️ Could not generate link. Is the Whop backend running on port 3000?');
+        addLog('Failed to generate Whop charge link: ' + err.message, 'red');
       }
     }
 
