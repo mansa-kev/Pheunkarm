@@ -1421,11 +1421,14 @@
         'equity - Equity Investing ($499)',
         'psychology - Trading Psychology ($299)',
         'crypto - Crypto Portfolio ($499)',
+        '--- TEST ---',
+        'test-2 - Test Payment ($2)',
+        'test-5 - Test Payment ($5)',
       ];
       
       const selection = prompt(
         'Select a product to charge (type the code):\n\n' + courseOptions.join('\n') + '\n\nOr type "custom" for a custom amount.',
-        'options'
+        'test-2'
       );
       
       if (!selection) return;
@@ -1434,7 +1437,7 @@
       
       try {
         // NOTE: Change this to your deployed backend URL (e.g. https://api.pheunkarm.online)
-        const BACKEND_URL = 'https://pay.pheunkarm.online';
+        const BACKEND_URL = 'https://whop.pheunkarm.online';
 
         const response = await fetch(`${BACKEND_URL}/api/checkout/create`, {
           method: 'POST',

@@ -34,7 +34,9 @@ export class PaymentService {
         "eur-200": "plan_Lumm5C82okevQ",
         "eur-300": "plan_tFvZAzOIoHk9d",
         "eur-500": "plan_bHFODuyP2RzfA",
-        "custom": "plan_jr9hWRgOPCJnM"
+        "custom": "plan_jr9hWRgOPCJnM",
+        "test-2": "plan_7G6x8fgzT8mfU",
+        "test-5": "plan_KmsN4SUkoG9rH"
       };
 
       const actualPlanId = PLAN_MAPPING[productId] || PLAN_MAPPING['custom'];

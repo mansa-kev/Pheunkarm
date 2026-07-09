@@ -740,7 +740,10 @@
       'eur-200':    { name: 'Intermediate Charting & Patterns', price: 200, currency: 'EUR', symbol: '€' },
       'eur-300':    { name: 'Risk Management & Sizing', price: 300, currency: 'EUR', symbol: '€' },
       'eur-500':    { name: 'Professional Mentorship Program', price: 500, currency: 'EUR', symbol: '€' },
-      'custom':     { name: 'Custom Trading Service', price: 0, currency: 'USD', symbol: '$' } // For admin custom
+      'custom':     { name: 'Custom Trading Service', price: 0, currency: 'USD', symbol: '$' },
+      // Test Plans
+      'test-2':     { name: 'Test Payment ($2)', price: 2, currency: 'USD', symbol: '$' },
+      'test-5':     { name: 'Test Payment ($5)', price: 5, currency: 'USD', symbol: '$' }
     };
 
     // ── PARSE URL PARAMS ──
@@ -857,7 +860,7 @@
       // Card method (Whop)
       try {
         // NOTE: Change this to your deployed backend URL (e.g. https://api.pheunkarm.online)
-        const BACKEND_URL = 'https://pay.pheunkarm.online'; 
+        const BACKEND_URL = 'https://whop.pheunkarm.online'; 
         
         const response = await fetch(`${BACKEND_URL}/api/checkout/create`, {
           method: 'POST',
