@@ -732,8 +732,13 @@
     const invoiceId = params.get('id') || '';
     const payramLink = params.get('paylink') || '';
 
+    const isSuccess = params.get('success') === 'true';
+
     // Validate
-    if (!amount || !course) {
+    if (isSuccess) {
+      document.getElementById('checkout-view').style.display = 'none';
+      document.getElementById('success-view').classList.add('active');
+    } else if (!amount || !course) {
       document.getElementById('checkout-view').style.display = 'none';
       document.getElementById('error-view').classList.add('active');
     } else {
@@ -767,30 +772,47 @@
     }
 
     // ── HANDLE PAY ──
-    function handlePay() {
+    async function handlePay() {
       const btn = document.getElementById('pay-btn');
       btn.classList.add('loading');
 
-      // If admin provided a direct PayRam payment link, use it
-      if (payramLink) {
+      if (selectedMethod === 'crypto') {
+        if (payramLink) {
+          setTimeout(() => window.location.href = payramLink, 1000);
+          return;
+        }
         setTimeout(() => {
-          window.location.href = payramLink;
-        }, 1000);
+          window.open('https://pay.pheunkarm.online', '_blank');
+          btn.classList.remove('loading');
+          document.getElementById('checkout-view').style.display = 'none';
+          document.getElementById('success-view').classList.add('active');
+        }, 1500);
         return;
       }
 
-      // Otherwise redirect to PayRam gateway
-      setTimeout(() => {
-        // Open PayRam gateway for payment
-        const payramUrl = 'https://pay.pheunkarm.online';
-        window.open(payramUrl, '_blank');
-
+      // Card method (Whop)
+      try {
+        const response = await fetch('http://localhost:3000/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+             planId: course || 'premium_course',
+             redirectUrl: window.location.origin + '/checkout/index.html?success=true'
+          })
+        });
+        
+        const data = await response.json();
+        if (data.success && data.session && data.session.url) {
+          // Redirect to the styled Whop checkout
+          window.location.href = data.session.url;
+        } else {
+          throw new Error('Invalid backend response');
+        }
+      } catch (err) {
+        console.error('Whop checkout error:', err);
         btn.classList.remove('loading');
-
-        // Show success state
-        document.getElementById('checkout-view').style.display = 'none';
-        document.getElementById('success-view').classList.add('active');
-      }, 1500);
+        alert("There was an issue connecting to the secure card processor. Please try again or use crypto.");
+      }
     }
   </script>
 </body>

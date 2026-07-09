@@ -197,32 +197,35 @@
 
     .topbar-right { display: flex; align-items: center; gap: 0.75rem; }
 
-    .topbar-btn {
-      display: flex; align-items: center; gap: 0.5rem;
+    .gateway-toggle {
+      display: flex;
+      background: #e8ecf1;
+      border-radius: 10px;
+      padding: 0.25rem;
+      gap: 0.25rem;
+    }
+
+    .toggle-btn {
+      display: flex; align-items: center; gap: 0.4rem;
       padding: 0.45rem 1rem;
       border-radius: 8px;
       font-size: 0.8rem; font-weight: 600;
       cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-    }
-
-    .btn-support {
-      background: var(--info-bg);
-      color: var(--info);
-      border: 1px solid rgba(59, 130, 246, 0.15);
-    }
-
-    .btn-support:hover { background: rgba(59, 130, 246, 0.15); }
-
-    .btn-payram {
-      background: var(--accent-gradient);
-      color: var(--sidebar-bg);
       border: none;
-      font-weight: 700;
+      background: transparent;
+      color: var(--text-mid);
+      transition: var(--transition);
     }
 
-    .btn-payram:hover { opacity: 0.9; transform: translateY(-1px); }
+    .toggle-btn:hover {
+      color: var(--text-dark);
+    }
+
+    .toggle-btn.active {
+      background: var(--bg-card);
+      color: var(--text-dark);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
 
     /* ── PAGE CONTENT ── */
     .page-content { padding: 1.75rem 2rem; flex: 1; }
@@ -729,9 +732,14 @@
         </div>
       </div>
       <div class="topbar-right">
-        <a href="https://pay.pheunkarm.online" target="_blank" class="topbar-btn btn-payram">
-          <i class="fa-solid fa-bolt"></i> PayRam Gateway
-        </a>
+        <div class="gateway-toggle">
+          <button class="toggle-btn active" id="btn-whop" onclick="switchGateway('whop')">
+            <i class="fa-solid fa-briefcase"></i> Whop
+          </button>
+          <button class="toggle-btn" id="btn-payram" onclick="switchGateway('payram')">
+            <i class="fa-solid fa-bolt"></i> PayRam
+          </button>
+        </div>
       </div>
     </div>
 
@@ -770,7 +778,14 @@
       </div>
 
       <!-- ═══ VIEW: DASHBOARD ═══ -->
-      <div class="view active" id="view-dashboard">
+      <div class="view active" id="view-dashboard" style="position: relative;">
+        <!-- PayRam Overlay (hidden by default) -->
+        <div id="payram-overlay" style="display: none; position: absolute; inset: -1.75rem -2rem; background: rgba(244,246,249,0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 10; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+           <div style="width:64px;height:64px;background:var(--warning-bg);color:var(--warning);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.75rem;margin-bottom:1.25rem;"><i class="fa-solid fa-clock"></i></div>
+           <h2 style="font-size:1.5rem;font-weight:800;color:var(--text-dark);margin-bottom:0.5rem;">PayRam is Coming Soon</h2>
+           <p style="color:var(--text-mid);max-width:350px;font-size:0.9rem;line-height:1.5;">We are currently migrating our backend systems. Please use the Whop gateway for all current transactions.</p>
+        </div>
+
         <div class="content-grid">
           <!-- Quick Actions -->
           <div class="card">
@@ -782,8 +797,8 @@
                 <button class="btn btn-primary" onclick="switchView('create')">
                   <i class="fa-solid fa-plus"></i> Create New Invoice
                 </button>
-                <a href="https://pay.pheunkarm.online/create-payment-link" target="_blank" class="btn btn-open" style="text-align:center;">
-                  <i class="fa-solid fa-link"></i> Generate PayRam Link
+                <a href="#" onclick="generateWhopChargeLink(); return false;" class="btn btn-open" style="text-align:center;">
+                  <i class="fa-solid fa-credit-card"></i> Charge Card (Whop)
                 </a>
                 <a href="https://pay.pheunkarm.online" target="_blank" class="btn btn-outline" style="text-align:center;">
                   <i class="fa-solid fa-chart-pie"></i> View PayRam Dashboard
@@ -1374,6 +1389,39 @@
       const div = document.createElement('div');
       div.textContent = str || '';
       return div.innerHTML;
+    }
+
+    // ── GATEWAY TOGGLE ──
+    let activeGateway = 'whop';
+
+    function switchGateway(gateway) {
+      if (activeGateway === gateway) return;
+      activeGateway = gateway;
+      
+      document.getElementById('btn-whop').classList.toggle('active', gateway === 'whop');
+      document.getElementById('btn-payram').classList.toggle('active', gateway === 'payram');
+      
+      const overlay = document.getElementById('payram-overlay');
+      if (gateway === 'payram') {
+        overlay.style.display = 'flex';
+      } else {
+        overlay.style.display = 'none';
+      }
+    }
+
+    async function generateWhopChargeLink() {
+      showToast('Generating secure Whop checkout link...');
+      
+      try {
+        // In a fully integrated version, this queries the backend. 
+        // For the frontend UI demo, we simulate opening the portal:
+        setTimeout(() => {
+          window.open('https://whop.com/checkout/YOUR_PLAN_ID', '_blank');
+          addLog('Admin initiated a manual Whop charge', 'blue');
+        }, 800);
+      } catch(err) {
+        alert('Failed to generate Whop link');
+      }
     }
 
     // ── INIT ──
